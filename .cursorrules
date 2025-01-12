@@ -1,0 +1,13 @@
+I develop on a Linux machine and use a bash terminal.
+
+Keep code files under 250 lines. If a file is over 250 lines, split it into multiple files based on functionality.
+
+Be methodical when solving problems and review any relevant code and data structures. Do not hallucinate. Do not create new files without first checking if a file with the same functionality already exists.
+
+Before making changes, remember the project structure and tech stack in the README. Before implementing new features, remember the technical specification and the product requirements document.
+
+Always update the Changelog.md under [Unreleased] when making changes.
+
+When asked to Commit Stage Changes, always check the Changelog to see if the changes in stagedfiles are represented in the Changelog before committing.
+
+When Releasing: review the [Unreleased] changes, move changes to a new version section with date. Commit with “Release: Version X”, and create a git tag.
