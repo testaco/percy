@@ -10,9 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial project structure and documentation
 - README with project overview, folder structure, and usage instructions
 - Script to convert DOCX question pools to JSON format (`extract_pool.py`)
+- Script to generate randomized tests (`generate_test.py`) that selects one question from each group
 - Virtual environment setup instructions
 - Requirements.txt with python-docx dependency
 
 ### Changed
 - Made --input and --output parameters required in extract_pool.py
 - Updated README with detailed usage instructions for extract_pool.py
+- Modified generate_test.py to require explicit question pool file input
+- Enhanced test output to include source question pool information

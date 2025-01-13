@@ -100,11 +100,19 @@ Additional options:
 
 ### Generate a Test
 
-This script randomly selects questions from the pool and saves the test in the `/tests` folder.
+This script randomly selects one question from each group in the question pool and saves the test in the `/tests` folder.
 
 ```bash
-python scripts/generate_test.py --license-class technician
+python scripts/generate_test.py --pool-file <json_file>
 ```
+
+Example:
+```bash
+python scripts/generate_test.py --pool-file data/technician-2022-2026.json
+```
+
+Additional options:
+- `--output-dir`: Directory to save the generated test (default: tests)
 
 ### Evaluate a Model on a Specific Test
 
