@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-01-13
+
 ### Added
 - Added support for General class question pool (2023-2027)
 - Added support for General class image G7-1.png in evaluation script
