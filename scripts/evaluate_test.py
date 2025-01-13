@@ -65,10 +65,34 @@ def load_test(test_file: str) -> List[Question]:
         # Check license class from test file name
         test_path = Path(test_file)
         is_general = "general" in test_path.stem.lower()
+        is_extra = "extra" in test_path.stem.lower()
         
-        if is_general and any(x in question_lower for x in ["figure g7", "figure g-7", "figure g7-1", "figure g-7-1"]):
+        # Handle Extra class figures
+        if is_extra:
+            # Page 1 figures (E5-1, E6-1, E6-2, E6-3)
+            if any(x in question_lower for x in ["figure e5-1", "figure e5", "figure e-5", 
+                                               "figure e6-1", "figure e-6-1",
+                                               "figure e6-2", "figure e-6-2",
+                                               "figure e6-3", "figure e-6-3"]):
+                q['has_image'] = True
+                q['image_path'] = "extra-2024-2028-diagrams-page1.jpg"
+            # Page 2 figures (E7-1, E7-2, E7-3, E9-1)
+            elif any(x in question_lower for x in ["figure e7-1", "figure e-7-1",
+                                                 "figure e7-2", "figure e-7-2",
+                                                 "figure e7-3", "figure e-7-3",
+                                                 "figure e9-1", "figure e-9-1"]):
+                q['has_image'] = True
+                q['image_path'] = "extra-2024-2028-diagrams-page2.jpg"
+            # Page 3 figures (E9-2, E9-3)
+            elif any(x in question_lower for x in ["figure e9-2", "figure e-9-2",
+                                                 "figure e9-3", "figure e-9-3"]):
+                q['has_image'] = True
+                q['image_path'] = "extra-2024-2028-diagrams-page3.jpg"
+        # Handle General class figures
+        elif is_general and any(x in question_lower for x in ["figure g7", "figure g-7", "figure g7-1", "figure g-7-1"]):
             q['has_image'] = True
             q['image_path'] = "G7-1.png"
+        # Handle Technician class figures
         elif any(x in question_lower for x in ["figure t1", "figure t-1"]):
             q['has_image'] = True
             q['image_path'] = "T1.jpg"
