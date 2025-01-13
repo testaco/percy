@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-01-13
+
 ### Added
 - Added support for Extra class question pool (2024-2028)
 - Added support for Extra class diagrams (pages 1-3) in evaluation script
