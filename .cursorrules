@@ -1,4 +1,4 @@
-I develop on a Linux machine and use a bash terminal.
+I develop on a Linux machine and use a bash terminal.  I use a virtual environment which must be activated before running any scripts.
 
 Keep code files under 250 lines. If a file is over 250 lines, split it into multiple files based on functionality.
 

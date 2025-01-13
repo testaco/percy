@@ -176,11 +176,26 @@ def main():
     # Extract questions
     questions = extract_question_pool(args.input, debug=args.debug)
     
+    # Determine license class and version from filename
+    input_path = Path(args.input)
+    filename = input_path.stem.lower()
+    license_class = "technician"
+    version = "2022-2026"
+    
+    if "general" in filename:
+        license_class = "general"
+        if "2023-2027" in filename:
+            version = "2023-2027"
+    elif "extra" in filename:
+        license_class = "extra"
+        if "2024-2028" in filename:
+            version = "2024-2028"
+    
     # Write to JSON file
     with open(args.output, 'w', encoding='utf-8') as f:
         json.dump({
-            "license_class": "technician",
-            "version": "2022-2026",
+            "license_class": license_class,
+            "version": version,
             "questions": questions
         }, f, indent=2, ensure_ascii=False)
     

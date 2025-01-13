@@ -50,7 +50,9 @@ def save_test(test_questions, pool_data, output_dir):
         "questions": test_questions
     }
     
-    output_file = output_dir / f"{test_id}.json"
+    # Include license class and version in filename
+    filename = f"{pool_data['license_class']}-{pool_data['version']}-{test_id}.json"
+    output_file = output_dir / filename
     with open(output_file, 'w') as f:
         json.dump(test_data, f, indent=2)
     

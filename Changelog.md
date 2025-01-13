@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added support for General class question pool (2023-2027)
+
+### Changed
+- Updated test filenames to include license class and version (e.g., general-2023-2027-test_20250113_130333.json)
+- Modified extract_pool.py to automatically detect license class and version from filename
+
 ## [1.0.0] - 2025-01-13
 
 ### Added
