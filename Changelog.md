@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for General class question pool (2023-2027)
+- Added support for General class image G7-1.png in evaluation script
 
 ### Changed
 - Updated test filenames to include license class and version (e.g., general-2023-2027-test_20250113_130333.json)
 - Modified extract_pool.py to automatically detect license class and version from filename
+- Enhanced evaluate_test.py to handle both JPG and PNG image formats
+- Improved figure reference detection in evaluate_test.py to handle variations (e.g., "Figure G7-1", "Figure G-7")
 
 ## [1.0.0] - 2025-01-13
 

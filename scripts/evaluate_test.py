@@ -61,7 +61,15 @@ def load_test(test_file: str) -> List[Question]:
     for q in test_data['questions']:
         # Check for figure references in the question text (both with and without hyphen)
         question_lower = q['question'].lower()
-        if any(x in question_lower for x in ["figure t1", "figure t-1"]):
+        
+        # Check license class from test file name
+        test_path = Path(test_file)
+        is_general = "general" in test_path.stem.lower()
+        
+        if is_general and any(x in question_lower for x in ["figure g7", "figure g-7", "figure g7-1", "figure g-7-1"]):
+            q['has_image'] = True
+            q['image_path'] = "G7-1.png"
+        elif any(x in question_lower for x in ["figure t1", "figure t-1"]):
             q['has_image'] = True
             q['image_path'] = "T1.jpg"
         elif any(x in question_lower for x in ["figure t2", "figure t-2"]):
@@ -106,6 +114,9 @@ def create_question_prompt(question: Question) -> tuple[str, Dict]:
         # Create base64 image data
         image_data = encode_image_to_base64(image_path)
         
+        # Determine image content type from file extension
+        image_type = "jpeg" if question.image_path.lower().endswith(".jpg") else "png"
+        
         # Format the content as a list of text and image parts
         content = [
             {"type": "text", "text": base_prompt.format(
@@ -118,7 +129,7 @@ def create_question_prompt(question: Question) -> tuple[str, Dict]:
             {
                 "type": "image_url",
                 "image_url": {
-                    "url": f"data:image/jpeg;base64,{image_data}"
+                    "url": f"data:image/{image_type};base64,{image_data}"
                 }
             }
         ]
