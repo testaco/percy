@@ -64,21 +64,39 @@ The project follows these steps:
    cd percy
    ```
 
-2. **Set Up the Environment**  
-   Install the required dependencies using Python's package manager:
+2. **Create and Activate Virtual Environment**
    ```bash
-   pip install -r requirements.txt
+   python -m venv venv
+   source venv/bin/activate  # On Linux/Mac
+   # or
+   .\venv\Scripts\activate  # On Windows
    ```
 
-3. **Run Initial Setup**  
-   Extract and process the question pools:
+3. **Install Dependencies**  
    ```bash
-   python scripts/extract_pool.py
+   pip install -r requirements.txt
    ```
 
 ---
 
 ## Usage
+
+### Convert Question Pool to JSON
+
+The `extract_pool.py` script converts a DOCX question pool file into a structured JSON format. Both input and output paths are required.
+
+```bash
+python scripts/extract_pool.py --input <docx_file> --output <json_file>
+```
+
+Example:
+```bash
+python scripts/extract_pool.py --input data/technician-2022-2026.docx --output data/technician-2022-2026.json
+```
+
+Additional options:
+- `--test`: Run test to verify first question format
+- `--debug`: Enable debug output
 
 ### Generate a Test
 
@@ -99,9 +117,6 @@ python scripts/evaluate_test.py --model gpt4o-mini --test-file tests/test_001.js
 ### Analyze Results
 
 This script processes the output from the model evaluation and determines whether the model passed or failed the exam based on the specific rules for that license class.
-
-
-#### Usage
 
 Run the script with the result file and license class as inputs:
 
