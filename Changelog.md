@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added dependencies: langchain, langchain-openai, python-dotenv, pydantic, pillow
 - Added multimodal support for image-based questions (T1.jpg, T2.jpg, T3.jpg)
 - Added langchain-community for image handling
+- Added analysis script (`analyze_results.py`) to determine pass/fail status based on license class criteria
 
 ### Changed
 - Made --input and --output parameters required in extract_pool.py
@@ -24,3 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modified generate_test.py to require explicit question pool file input
 - Enhanced test output to include source question pool information
 - Updated evaluate_test.py to use GPT-4 Vision for image-based questions
+- Updated analysis script to handle different test lengths for each license class (35 questions for Technician/General, 50 for Extra)

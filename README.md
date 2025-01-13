@@ -12,16 +12,17 @@ The project follows these steps:
    Implement a system to extract and structure the NCVEC question pools for all license classes.
 
 2. **Randomized Test Generation**  
-   Randomly generate tests according to NCVEC exam rules, ensuring balanced question selection by category.
+   Randomly generate tests according to NCVEC exam rules:
+   - Technician: 35 questions
+   - General: 35 questions
+   - Extra: 50 questions
+   Each test ensures balanced question selection by category.
 
 3. **Question-Answering System**  
    Build a system that presents the questions (including those with diagrams) to different LLMs and retrieves their answers.
 
-4. **Automated Scoring and Result Logging**  
-   Evaluate the LLMs' answers, score the tests, and log the results for analysis.
-
-5. **Result Analysis**  
-   Determine whether the LLM passed or failed the test based on official pass/fail criteria for each license class.
+4. **Result Analysis**  
+   Determine whether the LLM passed or failed the test based on official pass/fail criteria (74% required to pass) for each license class.
 
 ---
 
@@ -124,15 +125,19 @@ python scripts/evaluate_test.py --model gpt4o-mini --test-file tests/test_001.js
 
 ### Analyze Results
 
-This script processes the output from the model evaluation and determines whether the model passed or failed the exam based on the specific rules for that license class.
+This script processes the output from the model evaluation and determines whether the model passed or failed the exam based on the specific rules for that license class (74% required to pass).
 
-Run the script with the result file and license class as inputs:
+Run the script with the result file:
 
 ```bash
-python scripts/analyze_results.py --result-file outputs/gpt4-mini_test_001_results.json --license-class technician
+python scripts/analyze_results.py --result-file outputs/gpt4-mini_test_001_results.json
 ```
 
-The script will output a message indicating whether the model passed or failed the test.
+The script will output:
+- License class of the test
+- Score achieved
+- Required passing score (74%)
+- Whether the model passed or failed
 
 ---
 
