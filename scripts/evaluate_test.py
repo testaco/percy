@@ -27,6 +27,23 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
+class ChatOpenRouter(ChatOpenAI):
+    openai_api_base: str
+    openai_api_key: str
+    model_name: str
+
+    def __init__(self,
+                 model_name: str,
+                 openai_api_key: Optional[str] = None,
+                 openai_api_base: str = "https://openrouter.ai/api/v1",
+                 **kwargs):
+        openai_api_key = openai_api_key or os.getenv('OPENROUTER_API_KEY')
+        super().__init__(openai_api_base=openai_api_base,
+                         openai_api_key=openai_api_key,
+                         model_name=model_name, **kwargs)
+
+
 class Answer(BaseModel):
     """Represents an answer choice."""
     option: str
@@ -44,6 +61,7 @@ class Question(BaseModel):
 
 class TestResult(BaseModel):
     """Represents the results of a single test evaluation."""
+    provider: str
     test_id: str
     model_name: str
     timestamp: str
@@ -187,6 +205,12 @@ def initialize_llm(model_name: str, provider: str, temperature: float):
     elif provider == "ollama":
         # Placeholder for Ollama integration
         raise NotImplementedError("Ollama provider is not yet implemented.")
+    elif provider == "openrouter":
+        llm = ChatOpenRouter(
+            model_name=model_name,
+            temperature=temperature,
+            max_tokens=1024
+        )
     else:
         raise ValueError(f"Unsupported provider: {provider}")
     return llm
@@ -274,6 +298,7 @@ def evaluate_test(
     duration = (end_time - start_time).total_seconds()
     
     return TestResult(
+        provider=provider,
         test_id=Path(test_file).stem,
         model_name=model_name,
         timestamp=start_time.isoformat(),
@@ -286,9 +311,14 @@ def evaluate_test(
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
     """Save test results to a JSON file."""
+    # Sanitize 'provider' and 'model_name' to replace slashes with hyphens
+    safe_provider = result.provider.replace("/", "-").replace("\\", "-")
+    safe_model_name = result.model_name.replace("/", "-").replace("\\", "-")
+
     os.makedirs(output_dir, exist_ok=True)
     
-    output_file = Path(output_dir) / f"{result.model_name}_{result.test_id}_results.json"
+    # Update the output filename to include 'provider' and use sanitized names
+    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}_results.json"
     with open(output_file, 'w') as f:
         json.dump(result.model_dump(), f, indent=2)
     
@@ -303,7 +333,7 @@ def main():
     parser.add_argument(
         "--provider",
         default="openai",
-        choices=["openai", "anthropic", "ollama"],
+        choices=["openai", "anthropic", "ollama", "openrouter"],
         help="LLM provider to use (default: openai)"
     )
     
