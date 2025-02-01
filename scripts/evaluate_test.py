@@ -15,7 +15,8 @@ from typing import Dict, List, Optional
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-from langchain_openai import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI, ChatAnthropic
+from langchain.schema import HumanMessage
 from pydantic import BaseModel
 from PIL import Image
 
@@ -169,10 +170,32 @@ def create_question_prompt(question: Question) -> tuple[str, Dict]:
             "choice_d": choices['D']
         }
 
+def initialize_llm(model_name: str, provider: str, temperature: float):
+    """Initialize and return the LLM based on the provider."""
+    if provider == "openai":
+        llm = ChatOpenAI(
+            model_name=model_name,
+            temperature=temperature,
+            max_tokens=1024
+        )
+    elif provider == "anthropic":
+        llm = ChatAnthropic(
+            model=model_name,
+            temperature=temperature,
+            max_tokens_to_sample=1024
+        )
+    elif provider == "ollama":
+        # Placeholder for Ollama integration
+        raise NotImplementedError("Ollama provider is not yet implemented.")
+    else:
+        raise ValueError(f"Unsupported provider: {provider}")
+    return llm
+
 def evaluate_test(
     test_file: str,
     model_name: str = "chatgpt-4o-latest",
-    temperature: float = 0.0
+    temperature: float = 0.0,
+    provider: str = "openai"
 ) -> TestResult:
     """Evaluate an LLM's performance on a test."""
     start_time = datetime.now()
@@ -180,12 +203,8 @@ def evaluate_test(
     # Load the test
     questions = load_test(test_file)
     
-    # Initialize the LLM through LangChain
-    llm = ChatOpenAI(
-        model_name=model_name,
-        temperature=temperature,
-        max_tokens=1024
-    )
+    # Initialize the LLM
+    llm = initialize_llm(model_name, provider, temperature)
     
     # Process each question
     results = []
@@ -198,17 +217,41 @@ def evaluate_test(
         if question.has_image:
             # For image-based questions, use the content directly
             from langchain_core.messages import HumanMessage
-            response = llm.invoke([HumanMessage(content=inputs["content"])])
-            model_answer = response.content.strip().upper()
+            if provider == "anthropic":
+                # Prepare the prompt as a single string
+                content_parts = []
+                for part in inputs["content"]:
+                    if part["type"] == "text":
+                        content_parts.append(part["text"])
+                    elif part["type"] == "image_url":
+                        # Anthropic models cannot process images; mention that an image is present
+                        content_parts.append("[Image associated with the question]")
+                content = "\n".join(content_parts)
+                response = llm([HumanMessage(content=content)])
+                model_answer = response.content.strip().upper()
+            else:
+                # Default handling (e.g., OpenAI)
+                response = llm.invoke([HumanMessage(content=inputs["content"])])
+                model_answer = response.content.strip().upper()
         else:
-            # For text-only questions, use the regular chain
-            prompt = PromptTemplate(
-                input_variables=list(inputs.keys()),
-                template=prompt_template
-            )
-            chain = LLMChain(llm=llm, prompt=prompt)
-            response = chain.invoke(inputs)
-            model_answer = response['text'].strip().upper()
+            # For text-only questions
+            if provider == "anthropic":
+                # Anthropic models may not support LLMChain; construct prompt manually
+                prompt_text = PromptTemplate(
+                    input_variables=list(inputs.keys()),
+                    template=prompt_template
+                ).format(**inputs)
+                response = llm([HumanMessage(content=prompt_text)])
+                model_answer = response.content.strip().upper()
+            else:
+                # Default handling with LLMChain
+                prompt = PromptTemplate(
+                    input_variables=list(inputs.keys()),
+                    template=prompt_template
+                )
+                chain = LLMChain(llm=llm, prompt=prompt)
+                response = chain.invoke(inputs)
+                model_answer = response['text'].strip().upper()
         
         # Record the result
         is_correct = model_answer == question.correct_answer
@@ -257,11 +300,22 @@ def main():
     parser.add_argument("--model", default="chatgpt-4o-latest", help="Name of the LLM to use")
     parser.add_argument("--temperature", type=float, default=0.0, help="Temperature for the LLM")
     parser.add_argument("--output-dir", default="outputs", help="Directory to save results")
+    parser.add_argument(
+        "--provider",
+        default="openai",
+        choices=["openai", "anthropic", "ollama"],
+        help="LLM provider to use (default: openai)"
+    )
     
     args = parser.parse_args()
     
     try:
-        result = evaluate_test(args.test_file, args.model, args.temperature)
+        result = evaluate_test(
+            args.test_file,
+            args.model,
+            args.temperature,
+            args.provider
+        )
         save_results(result, args.output_dir)
         
         logger.info(f"\nTest Results for {args.model}:")
