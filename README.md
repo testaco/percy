@@ -207,6 +207,46 @@ The script will output:
 - Required passing score (74%)
 - Whether the model passed or failed
 
+### Generate a Handbook Using LLMs
+
+The `generate_handbook.py` script creates an educational handbook by generating comprehensive content for specified sub-element groups using a Large Language Model (LLM).
+
+```bash
+python scripts/generate_handbook.py --patterns <patterns> --provider <provider_name> --model-name <model_name> --temperature <temperature>
+```
+
+**Parameters:**
+
+- `--patterns`: List of glob patterns to filter groups (e.g., `"*1*"`, `"G2A"`). This determines which question groups will be used to generate content.
+- `--provider`: LLM provider to use (`openai` or `anthropic`). Default is `openai`.
+- `--model-name`: Name of the LLM model to use. Defaults to `gpt-4` for OpenAI or the appropriate model for Anthropic.
+- `--temperature`: Sampling temperature for the LLM (default: `0.7`).
+
+**Examples:**
+
+- **Using OpenAI GPT-4 to generate content for all sub-element groups containing '1':**
+
+  ```bash
+  python scripts/generate_handbook.py --patterns "*1*" --provider openai --model-name "gpt-4" --temperature 0.7
+  ```
+
+- **Using Anthropic's Claude-v1 to generate content for group G2A:**
+
+  ```bash
+  python scripts/generate_handbook.py --patterns "G2A" --provider anthropic --model-name "claude-v1" --temperature 0.7
+  ```
+
+**Output:**
+
+The generated content will be saved as markdown files in the `handbook` directory, one file per sub-element group (e.g., `handbook/T1A.md`).
+
+**Notes:**
+
+- Ensure you have the necessary API keys and environment variables set for the chosen LLM provider.
+  - For **OpenAI**, set `OPENAI_API_KEY`.
+  - For **Anthropic**, set `ANTHROPIC_API_KEY`.
+- The generated markdown files can be converted to other formats (e.g., PDF, EPUB) using Pandoc or similar tools.
+
 ---
 
 ## Contribution

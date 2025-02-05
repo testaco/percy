@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added `generate_handbook.py` script to generate a comprehensive amateur radio handbook using LLMs
+- Added support for generating topic-based study guides from question pools
+- Added LLM-based content generation with OpenAI and Anthropic provider support
+- Added markdown output format for generated handbook content
+
+### Changed
+- Updated requirements.txt to include necessary LLM dependencies
+- Enhanced logging configuration for better debugging and monitoring
+
 ## [1.3.0] - 2023-10-05
 
 ### Added
