@@ -7,10 +7,7 @@ import fnmatch
 import logging
 from pathlib import Path
 from typing import List, Dict
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
-from langchain.schema import HumanMessage
-from langchain_community.chat_models import ChatOpenAI, ChatAnthropic
+import openai
 from dotenv import load_dotenv
 
 # Load environment variables and configure logging
@@ -60,7 +57,8 @@ def create_messages(filtered_groups: Dict[str, List[Dict]]) -> Dict[str, str]:
     messages = {}
     for group_id, questions in filtered_groups.items():
         group_name = questions[0].get('group_name', 'Amateur Radio Topics')
-        content = f"{SYSTEM_PROMPT}\n\nTopic: {group_name}\n\n"
+        # Create user content without the system prompt
+        content = f"Topic: {group_name}\n\n"
         # Add a brief overview of the topics covered in the questions
         topics = set(q.get('group_name', '') for q in questions)
         content += f"This section covers: {', '.join(topics)}\n"
@@ -77,33 +75,35 @@ def create_messages(filtered_groups: Dict[str, List[Dict]]) -> Dict[str, str]:
 
 def initialize_llm(model_name: str, provider: str, temperature: float):
     """Initialize the LLM based on the provider."""
-    try:
-        if provider == "openai":
-            return ChatOpenAI(
-                model_name=model_name,
+    if provider == "openai":
+        def openai_llm(messages):
+            openai.api_key = os.getenv("OPENAI_API_KEY")
+            response = openai.ChatCompletion.create(
+                model=model_name,
+                messages=messages,
                 temperature=temperature,
                 max_tokens=2048
             )
-        elif provider == "anthropic":
-            return ChatAnthropic(
-                model=model_name,
-                temperature=temperature,
-                max_tokens_to_sample=2048
-            )
-        else:
-            raise ValueError(f"Unsupported provider: {provider}")
-    except Exception as e:
-        logger.error(f"Failed to initialize LLM: {str(e)}")
-        raise
+            return response.choices[0].message["content"].strip()
+        return openai_llm
+    elif provider == "anthropic":
+        raise NotImplementedError("Anthropic provider is not implemented yet.")
+    else:
+        raise ValueError(f"Unsupported provider: {provider}")
 
 def generate_handbook_content(llm, messages: Dict[str, str]) -> Dict[str, str]:
     """Generate handbook content using the LLM."""
     responses = {}
-    for group_id, message in messages.items():
+    for group_id, user_content in messages.items():
         try:
             logger.info(f"Generating content for group {group_id}")
-            response = llm([HumanMessage(content=message)])
-            responses[group_id] = response.content.strip()
+            # Prepare the message list with system and user messages
+            api_messages = [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_content}
+            ]
+            response_content = llm(api_messages)
+            responses[group_id] = response_content
         except Exception as e:
             logger.error(f"Error generating content for group {group_id}: {str(e)}")
             responses[group_id] = f"Error generating content: {str(e)}"
