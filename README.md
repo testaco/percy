@@ -4,7 +4,7 @@
 
 ## Overview
 
-**Percy** is a project aimed at building an automated system to evaluate the performance of various large language models (LLMs) on the official amateur radio exams (Technician, General, and Extra). The goal is to see which models can pass each level of the exam with a measurable degree of certainty.
+**Percy** is a project aimed at building an automated system to evaluate the performance of various large language models (LLMs) from multiple providers (OpenAI, Anthropic, Ollama, OpenRouter) on the official amateur radio exams (Technician, General, and Extra). The goal is to see which models can pass each level of the exam with a measurable degree of certainty.
 
 The project follows these steps:
 
@@ -73,10 +73,37 @@ The project follows these steps:
    .\venv\Scripts\activate  # On Windows
    ```
 
-3. **Install Dependencies**  
+3. **Install Dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
+
+4. **Set Up API Keys for LLM Providers**
+
+   Depending on which LLM providers you intend to use, set up the necessary API keys as environment variables:
+
+   - **OpenAI:**
+
+     ```bash
+     export OPENAI_API_KEY='your-openai-api-key'
+     ```
+
+   - **Anthropic:**
+
+     ```bash
+     export ANTHROPIC_API_KEY='your-anthropic-api-key'
+     ```
+
+   - **OpenRouter:**
+
+     ```bash
+     export OPENROUTER_API_KEY='your-openrouter-api-key'
+     ```
+
+   - **Ollama:**
+
+     - Ensure Ollama is installed and running locally. Visit [Ollama's documentation](https://ollama.ai/docs/installation) for setup instructions.
 
 ---
 
@@ -117,11 +144,52 @@ Additional options:
 
 ### Evaluate a Model on a Specific Test
 
-This script runs the specified model on a generated test and saves the results in the `/outputs` folder.
+This script runs the specified model from the chosen provider on a generated test and saves the results in the `/outputs` folder.
 
 ```bash
-python scripts/evaluate_test.py --model gpt4o-mini --test-file tests/test_001.json
+python scripts/evaluate_test.py --test-file <test_file> --model <model_name> --provider <provider_name>
 ```
+
+**Parameters:**
+
+- `--test-file`: Path to the test JSON file.
+- `--model`: Name of the LLM model to use.
+- `--provider`: LLM provider to use (`openai`, `anthropic`, `ollama`, or `openrouter`).
+- `--temperature`: (Optional) Temperature setting for the LLM (default: `0.0`).
+
+**Examples:**
+
+- **Using OpenAI GPT-4:**
+
+  ```bash
+  python scripts/evaluate_test.py --test-file tests/technician_test.json --model gpt-4 --provider openai
+  ```
+
+- **Using Anthropic Claude-v1:**
+
+  ```bash
+  python scripts/evaluate_test.py --test-file tests/general_test.json --model claude-v1 --provider anthropic
+  ```
+
+- **Using OpenRouter ChatGPT-4:**
+
+  ```bash
+  python scripts/evaluate_test.py --test-file tests/extra_test.json --model chatgpt-4o-latest --provider openrouter
+  ```
+
+- **Using Ollama Llama2:**
+
+  ```bash
+  python scripts/evaluate_test.py --test-file tests/technician_test.json --model llama2 --provider ollama
+  ```
+
+**Note:**
+
+- Ensure you have the necessary API keys and environment variables set for each provider.
+- For **OpenAI**, set `OPENAI_API_KEY`.
+- For **Anthropic**, set `ANTHROPIC_API_KEY`.
+- For **OpenRouter**, set `OPENROUTER_API_KEY`.
+- **Ollama** is assumed to be running locally and may require additional setup.
 
 ### Analyze Results
 

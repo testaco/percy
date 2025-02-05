@@ -6,6 +6,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-10-05
+
+### Added
+- Support for evaluating non-OpenAI models in `evaluate_test.py`.
+- Integrated `ChatAnthropic` and `ChatOpenRouter` for Anthropic and OpenRouter providers.
+- Added `--provider` argument to select different LLM providers (`openai`, `anthropic`, `ollama`, `openrouter`).
+- Implemented provider-specific logic for initializing and invoking LLMs.
+- Enhanced image handling logic to accommodate limitations of different providers.
+- Updated `README.md` with instructions for setting up API keys for Anthropic, OpenRouter, and Ollama.
+- Added usage examples in `README.md` for evaluating models from different providers.
+- New dependencies in `requirements.txt` to support Anthropic and community integrations:
+  - `langchain-anthropic>=0.0.5`
+  - `langchain-community>=0.0.11`
+  - `anthropic>=0.4.0`
+
+### Changed
+- Refactored `initialize_llm` function to support multiple providers.
+- Updated `evaluate_test.py` to handle provider-specific message formatting and response handling.
+- Modified prompt creation to account for providers that do not support certain features (e.g., Anthropic models and images).
+- Enhanced installation and usage documentation in `README.md` to reflect multi-provider support.
+
+### Fixed
+- Improved error handling when unsupported providers are selected.
+
 ## [1.2.0] - 2025-01-13
 
 ### Added
