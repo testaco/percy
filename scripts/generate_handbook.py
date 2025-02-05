@@ -77,14 +77,14 @@ def initialize_llm(model_name: str, provider: str, temperature: float):
     """Initialize the LLM based on the provider."""
     if provider == "openai":
         def openai_llm(messages):
-            openai.api_key = os.getenv("OPENAI_API_KEY")
-            response = openai.ChatCompletion.create(
+            client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+            response = client.chat.completions.create(
                 model=model_name,
                 messages=messages,
                 temperature=temperature,
                 max_tokens=2048
             )
-            return response.choices[0].message["content"].strip()
+            return response.choices[0].message.content.strip()
         return openai_llm
     elif provider == "anthropic":
         raise NotImplementedError("Anthropic provider is not implemented yet.")
