@@ -65,6 +65,10 @@ The question pool JSON files follow this schema:
 {
   "license_class": string,      // "technician", "general", or "extra"
   "version": string,           // Version/year range of the question pool
+  "group_titles": {            // Mapping of group IDs to their titles
+    "T1A": string,            // e.g., "Purpose and permissible use of the Amateur Radio Service..."
+    "T1B": string            // Additional group titles...
+  },
   "questions": [
     {
       "id": string,           // Question ID (e.g., "T1A01")
@@ -87,6 +91,9 @@ Example:
 {
   "license_class": "technician",
   "version": "2022-2026",
+  "group_titles": {
+    "T1A": "Purpose and permissible use of the Amateur Radio Service; Operator/primary station license grant"
+  },
   "questions": [
     {
       "id": "T1A01",
