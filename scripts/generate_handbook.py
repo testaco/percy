@@ -12,7 +12,10 @@ from dotenv import load_dotenv
 
 # Load environment variables and configure logging
 load_dotenv()
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 def load_system_prompt() -> str:
@@ -107,6 +110,12 @@ def generate_handbook_content(llm, messages: Dict[str, str]) -> Dict[str, str]:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_content}
             ]
+            # Debug log the full messages being sent
+            logger.debug(f"Sending messages to LLM for {group_id}:")
+            for msg in api_messages:
+                logger.debug(f"Role: {msg['role']}")
+                logger.debug(f"Content:\n{msg['content']}\n")
+                
             response_content = llm(api_messages)
             responses[group_id] = response_content
         except Exception as e:
@@ -136,8 +145,16 @@ def main():
                       help='Name of the LLM model to use')
     parser.add_argument('--temperature', type=float, default=0.7,
                       help='Temperature for the LLM')
+    parser.add_argument('--debug', action='store_true',
+                      help='Enable debug logging')
     
     args = parser.parse_args()
+    
+    # Set debug logging if flag is set
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+        # Also set OpenAI debug logging
+        logging.getLogger("openai").setLevel(logging.DEBUG)
     
     try:
         # Load and process questions
