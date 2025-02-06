@@ -63,24 +63,23 @@ The question pool JSON files follow this schema:
 
 ```json
 {
-  "license_class": string,      // "technician", "general", or "extra"
-  "version": string,           // Version/year range of the question pool
-  "group_titles": {            // Mapping of group IDs to their titles
-    "T1A": string,            // e.g., "Purpose and permissible use of the Amateur Radio Service..."
-    "T1B": string            // Additional group titles...
+  "license_class": string,        // "technician", "general", or "extra"
+  "version": string,             // Version/year range of the question pool
+  "group_titles": {              // Mapping of group IDs to their titles
+    string: string               // e.g., "T1A": "Purpose and permissible use..."
   },
   "questions": [
     {
-      "id": string,           // Question ID (e.g., "T1A01")
-      "group": string,        // Sub-element group ID (e.g., "T1A")
-      "question": string,     // The actual question text
+      "id": string,              // Question ID (e.g., "T1A01")
+      "group": string,           // Sub-element group ID (e.g., "T1A")
+      "question": string,        // The actual question text
       "answers": [
         {
-          "option": string,   // Answer option (A, B, C, or D)
-          "text": string     // Text of the answer choice
+          "option": string,      // Answer option (A, B, C, or D)
+          "text": string         // Text of the answer choice
         }
       ],
-      "correct_answer": string // The correct answer option (A, B, C, or D)
+      "correct_answer": string   // The correct answer option (A, B, C, or D)
     }
   ]
 }
