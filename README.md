@@ -57,6 +57,67 @@ The project follows these steps:
 
 ---
 
+## Question Pool JSON Schema
+
+The question pool JSON files follow this schema:
+
+```json
+{
+  "license_class": string,      // "technician", "general", or "extra"
+  "version": string,           // Version/year range of the question pool
+  "questions": [
+    {
+      "id": string,           // Question ID (e.g., "T1A01")
+      "group": string,        // Sub-element group ID (e.g., "T1A")
+      "question": string,     // The actual question text
+      "answers": [
+        {
+          "option": string,   // Answer option (A, B, C, or D)
+          "text": string     // Text of the answer choice
+        }
+      ],
+      "correct_answer": string // The correct answer option (A, B, C, or D)
+    }
+  ]
+}
+```
+
+Example:
+```json
+{
+  "license_class": "technician",
+  "version": "2022-2026",
+  "questions": [
+    {
+      "id": "T1A01",
+      "group": "T1A",
+      "question": "Which of the following is part of the Basis and Purpose of the Amateur Radio Service?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Providing personal radio communications for as many citizens as possible"
+        },
+        {
+          "option": "B", 
+          "text": "Providing communications for international non-profit organizations"
+        },
+        {
+          "option": "C",
+          "text": "Advancing skills in the technical and communication phases of the radio art"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    }
+  ]
+}
+```
+
+---
+
 ## Installation Guide
 
 1. **Clone the Repository**  
