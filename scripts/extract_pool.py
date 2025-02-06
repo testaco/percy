@@ -10,6 +10,7 @@ def extract_question_pool(docx_path, debug=False):
     """Extract questions from the DOCX file and return structured data."""
     doc = Document(docx_path)
     questions = []
+    group_titles = {}  # Add this to store group titles
     current_question = None
     current_group = None
     in_question_pool = False
@@ -18,7 +19,7 @@ def extract_question_pool(docx_path, debug=False):
     # Regular expressions for parsing
     question_id_pattern = re.compile(r'^([TG|E]\d[A-Z])\d{2}\s*\(([A-D])\)')
     answer_pattern = re.compile(r'^([A-D])\.\s*(.+)$')
-    section_pattern = re.compile(r'^[TG|E]\d[A-D]\s*[-–]\s*.*$')
+    section_pattern = re.compile(r'^([TG|E]\d[A-Z])\s*[-–]\s*(.*)$')  # Updated to capture group ID and title
     
     for para in doc.paragraphs:
         text = para.text.strip()
@@ -37,8 +38,14 @@ def extract_question_pool(docx_path, debug=False):
         if not in_question_pool:
             continue
             
-        # Skip section headers
-        if section_pattern.match(text):
+        # Capture section headers and titles
+        section_match = section_pattern.match(text)
+        if section_match:
+            group_id = section_match.group(1)
+            group_title = section_match.group(2).strip()
+            group_titles[group_id] = group_title
+            if debug:
+                print(f"Found group title: {group_id} - {group_title}")
             continue
             
         # Check if this is a new question
@@ -100,7 +107,7 @@ def extract_question_pool(docx_path, debug=False):
             print(f"Adding final question: {json.dumps(current_question, indent=2)}")
         questions.append(current_question)
     
-    return questions
+    return questions, group_titles
 
 def test_first_question():
     """Test function to verify the first question matches expected format."""
@@ -117,7 +124,7 @@ def test_first_question():
         "correct_answer": "C"
     }
     
-    questions = extract_question_pool('data/technician-2022-2026.docx', debug=True)
+    questions, group_titles = extract_question_pool('data/technician-2022-2026.docx', debug=True)
     if not questions:
         print("Error: No questions extracted")
         return False
@@ -173,8 +180,8 @@ def main():
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
-    # Extract questions
-    questions = extract_question_pool(args.input, debug=args.debug)
+    # Extract questions and group titles
+    questions, group_titles = extract_question_pool(args.input, debug=args.debug)
     
     # Determine license class and version from filename
     input_path = Path(args.input)
@@ -196,6 +203,7 @@ def main():
         json.dump({
             "license_class": license_class,
             "version": version,
+            "group_titles": group_titles,  # Add this
             "questions": questions
         }, f, indent=2, ensure_ascii=False)
     
