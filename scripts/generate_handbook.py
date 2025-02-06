@@ -31,8 +31,11 @@ def load_question_pools() -> List[Dict]:
     for json_file in json_files:
         with open(json_file, 'r') as f:
             pool = json.load(f)
+            group_titles = pool.get('group_titles', {})
             for q in pool['questions']:
                 q['license_class'] = pool['license_class']
+                # Add the group title to each question
+                q['group_title'] = group_titles.get(q['group'], '')
                 questions.append(q)
     return questions
 
@@ -59,12 +62,11 @@ def create_messages(filtered_groups: Dict[str, List[Dict]]) -> Dict[str, str]:
     """Create messages for each group to send to the LLM."""
     messages = {}
     for group_id, questions in filtered_groups.items():
-        group_name = questions[0].get('group_name', 'Amateur Radio Topics')
+        # Get the group title from the first question's pool data
+        group_title = questions[0].get('group_title', 'Amateur Radio Topics')
+        
         # Create user content without the system prompt
-        content = f"Topic: {group_name}\n\n"
-        # Add a brief overview of the topics covered in the questions
-        topics = set(q.get('group_name', '') for q in questions)
-        content += f"This section covers: {', '.join(topics)}\n"
+        content = f"Group: {group_id} - {group_title}\n\n"
         
         # Add each question and its answers
         for q in questions:
