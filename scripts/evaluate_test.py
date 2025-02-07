@@ -166,11 +166,13 @@ def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[s
         # Format the content as a list of text and image parts
         content = [
             {"type": "text", "text": base_prompt.format(
+                cot_instruction=cot_instruction,
                 question_text=question.question,
                 choice_a=choices['A'],
                 choice_b=choices['B'],
                 choice_c=choices['C'],
-                choice_d=choices['D']
+                choice_d=choices['D'],
+                response_instruction=response_instruction
             )},
             {
                 "type": "image_url",
@@ -184,11 +186,13 @@ def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[s
         return "", {"content": content}
     else:
         return base_prompt, {
+            "cot_instruction": cot_instruction,
             "question_text": question.question,
             "choice_a": choices['A'],
             "choice_b": choices['B'],
             "choice_c": choices['C'],
-            "choice_d": choices['D']
+            "choice_d": choices['D'],
+            "response_instruction": response_instruction
         }
 
 def extract_final_answer(response: str) -> str:
@@ -264,7 +268,7 @@ def evaluate_test(
     
     for question in questions:
         # Create prompt and inputs based on question type
-        prompt_template, inputs = create_question_prompt(question)
+        prompt_template, inputs = create_question_prompt(question, use_cot=use_cot)
         
         if question.has_image:
             # For image-based questions, use the content directly
