@@ -196,27 +196,53 @@ def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[s
         }
 
 def extract_final_answer(response: str) -> str:
-    """Extract the final answer letter from a Chain of Thought response."""
-    # Look for the final answer in common formats
+    """Extract the final answer letter from a Chain of Thought response.
+    
+    Args:
+        response: The full response from the LLM
+        
+    Returns:
+        A single letter (A, B, C, or D) representing the final answer
+        
+    Raises:
+        ValueError: If no valid answer letter can be found
+    """
+    if not response:
+        raise ValueError("No valid answer found in response")
+    
     response = response.strip().upper()
+    valid_answers = set(['A', 'B', 'C', 'D'])
     
-    # Check for "Therefore, my answer is: X" format
+    # First try to find "Therefore, my answer is: X" pattern
     if "THEREFORE, MY ANSWER IS:" in response:
-        answer_part = response.split("THEREFORE, MY ANSWER IS:")[-1]
-    else:
-        # Use the last line as fallback
-        answer_part = response.split('\n')[-1]
+        answer_part = response.split("THEREFORE, MY ANSWER IS:")[-1].strip()
+        # Extract first valid letter after the pattern
+        for char in answer_part:
+            if char in valid_answers:
+                return char
     
-    # Extract single letter answer
-    for char in answer_part:
-        if char in ['A', 'B', 'C', 'D']:
+    # If not found, try the last line
+    lines = response.split('\n')
+    for line in reversed(lines):
+        # Look for valid letters in the line
+        for char in line:
+            if char in valid_answers:
+                return char
+    
+    # If still not found, look for "answer is X" pattern
+    if "ANSWER IS" in response:
+        answer_part = response.split("ANSWER IS")[-1].strip()
+        for char in answer_part:
+            if char in valid_answers:
+                return char
+    
+    # Last resort: look for any valid letter in the last 50 characters
+    # (avoiding picking up letters from the question/explanation)
+    last_part = response[-50:]
+    for char in reversed(last_part):
+        if char in valid_answers:
             return char
-            
-    # If no valid answer found, return the first letter found in the entire response
-    for char in response:
-        if char in ['A', 'B', 'C', 'D']:
-            return char
-            
+    
     raise ValueError("No valid answer found in response")
 
 def initialize_llm(model_name: str, provider: str, temperature: float):

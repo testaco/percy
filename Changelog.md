@@ -7,12 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added comprehensive tests for answer extraction in Chain of Thought responses
+- Added Chain of Thought (CoT) reasoning capability with `--cot` flag
+- Added CoT usage tracking in test results
 - Added `generate_handbook.py` script to generate a comprehensive amateur radio handbook using LLMs
 - Added support for generating topic-based study guides from question pools
 - Added LLM-based content generation with OpenAI and Anthropic provider support
 - Added markdown output format for generated handbook content
 
 ### Changed
+- Improved answer extraction logic to better handle various response formats
+- Enhanced error handling for answer extraction
+- Updated documentation with CoT usage examples
 - Updated requirements.txt to include necessary LLM dependencies
 - Enhanced logging configuration for better debugging and monitoring
 
