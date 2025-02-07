@@ -70,6 +70,7 @@ class TestResult(BaseModel):
     correct_answers: int
     score_percentage: float
     duration_seconds: float
+    used_cot: bool
 
 def load_test(test_file: str) -> List[Question]:
     """Load test questions from a JSON file."""
@@ -130,14 +131,13 @@ def encode_image_to_base64(image_path: str) -> str:
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-def create_question_prompt(question: Question) -> tuple[str, Dict]:
+def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[str, Dict]:
     """Create a prompt for the LLM based on the question."""
     # Convert answers list to choices dict
     choices = {answer.option: answer.text for answer in question.answers}
     
     base_prompt = """You are taking an amateur radio license exam. Please answer the following multiple choice question.
-    Only respond with the letter (A, B, C, or D) of your chosen answer. Do not explain your reasoning.
-
+    {cot_instruction}
     Question: {question_text}
 
     Choices:
@@ -146,7 +146,10 @@ def create_question_prompt(question: Question) -> tuple[str, Dict]:
     C: {choice_c}
     D: {choice_d}
 
-    Your answer (just the letter):"""
+    {response_instruction}"""
+
+    cot_instruction = """Think through this step-by-step, explaining your reasoning before giving your final answer.""" if use_cot else ""
+    response_instruction = """Explain your reasoning step by step, then end with 'Therefore, my answer is: [A/B/C/D]'""" if use_cot else "Your answer (just the letter):"
     
     if question.has_image and question.image_path:
         # Load and process the image
@@ -188,6 +191,30 @@ def create_question_prompt(question: Question) -> tuple[str, Dict]:
             "choice_d": choices['D']
         }
 
+def extract_final_answer(response: str) -> str:
+    """Extract the final answer letter from a Chain of Thought response."""
+    # Look for the final answer in common formats
+    response = response.strip().upper()
+    
+    # Check for "Therefore, my answer is: X" format
+    if "THEREFORE, MY ANSWER IS:" in response:
+        answer_part = response.split("THEREFORE, MY ANSWER IS:")[-1]
+    else:
+        # Use the last line as fallback
+        answer_part = response.split('\n')[-1]
+    
+    # Extract single letter answer
+    for char in answer_part:
+        if char in ['A', 'B', 'C', 'D']:
+            return char
+            
+    # If no valid answer found, return the first letter found in the entire response
+    for char in response:
+        if char in ['A', 'B', 'C', 'D']:
+            return char
+            
+    raise ValueError("No valid answer found in response")
+
 def initialize_llm(model_name: str, provider: str, temperature: float):
     """Initialize and return the LLM based on the provider."""
     if provider == "openai":
@@ -219,7 +246,8 @@ def evaluate_test(
     test_file: str,
     model_name: str = "chatgpt-4o-latest",
     temperature: float = 0.0,
-    provider: str = "openai"
+    provider: str = "openai",
+    use_cot: bool = False
 ) -> TestResult:
     """Evaluate an LLM's performance on a test."""
     start_time = datetime.now()
@@ -336,6 +364,11 @@ def main():
         choices=["openai", "anthropic", "ollama", "openrouter"],
         help="LLM provider to use (default: openai)"
     )
+    parser.add_argument(
+        "--cot",
+        action="store_true",
+        help="Enable Chain of Thought reasoning"
+    )
     
     args = parser.parse_args()
     
@@ -344,7 +377,8 @@ def main():
             args.test_file,
             args.model,
             args.temperature,
-            args.provider
+            args.provider,
+            use_cot=args.cot
         )
         save_results(result, args.output_dir)
         

@@ -223,6 +223,13 @@ python scripts/evaluate_test.py --test-file <test_file> --model <model_name> --p
 - `--model`: Name of the LLM model to use.
 - `--provider`: LLM provider to use (`openai`, `anthropic`, `ollama`, or `openrouter`).
 - `--temperature`: (Optional) Temperature setting for the LLM (default: `0.0`).
+- `--cot`: (Optional) Enable Chain of Thought reasoning mode.
+
+**Example with Chain of Thought:**
+
+```bash
+python scripts/evaluate_test.py --test-file tests/technician_test.json --model gpt-4 --provider openai --cot
+```
 
 **Examples:**
 
