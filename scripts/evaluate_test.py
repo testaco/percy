@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from scripts.handbook_indexer import HandbookIndex
+from handbook_indexer import HandbookIndex
 
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
