@@ -64,11 +64,20 @@ class HandbookIndex:
             self.is_built = True
             return
 
+        # Check if handbook directory exists and contains files
+        handbook_path = Path(handbook_dir)
+        if not handbook_path.exists():
+            raise FileNotFoundError(f"Handbook directory '{handbook_dir}' does not exist")
+            
+        md_files = list(handbook_path.glob("*.md"))
+        if not md_files:
+            raise ValueError(f"No markdown files found in '{handbook_dir}'")
+
         # Process handbook files
         self.texts = []
         vectors = []
         
-        for file_path in tqdm(list(Path(handbook_dir).glob("*.md"))):
+        for file_path in tqdm(md_files):
             with open(file_path) as f:
                 content = f.read()
                 
