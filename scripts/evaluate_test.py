@@ -364,7 +364,8 @@ def evaluate_test(
         total_questions=len(questions),
         correct_answers=correct_count,
         score_percentage=(correct_count / len(questions)) * 100,
-        duration_seconds=duration
+        duration_seconds=duration,
+        used_cot=use_cot
     )
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
@@ -375,8 +376,9 @@ def save_results(result: TestResult, output_dir: str = "outputs"):
 
     os.makedirs(output_dir, exist_ok=True)
     
-    # Update the output filename to include 'provider' and use sanitized names
-    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}_results.json"
+    # Update the output filename to include 'provider', model name, and CoT status
+    cot_suffix = "_cot" if result.used_cot else ""
+    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{cot_suffix}_results.json"
     with open(output_file, 'w') as f:
         json.dump(result.model_dump(), f, indent=2)
     
