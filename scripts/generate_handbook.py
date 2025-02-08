@@ -229,6 +229,24 @@ def main():
         client = openai.OpenAI()
         try:
             batch_job = client.batches.retrieve(batch_id)
+            logger.info(f"Status: {batch_job.status}")
+            logger.info(f"Failed reason: {batch_job.failed_reason if hasattr(batch_job, 'failed_reason') else 'None'}")
+            logger.info(f"Error code: {batch_job.error if hasattr(batch_job, 'error') else 'None'}")
+
+            # Check for failed requests
+            if hasattr(batch_job, 'failed_requests_count') and batch_job.failed_requests_count > 0:
+                logger.info(f"Number of failed requests: {batch_job.failed_requests_count}")
+                
+                # Get the failed requests file content if available
+                if hasattr(batch_job, 'failed_file_id') and batch_job.failed_file_id:
+                    failed_content = client.files.content(batch_job.failed_file_id).content
+                    logger.info("\nFailed requests details:")
+                    for line in failed_content.decode().splitlines():
+                        failed_request = json.loads(line)
+                        logger.info(f"Request ID: {failed_request['custom_id']}")
+                        logger.info(f"Error: {failed_request.get('error', 'Unknown error')}")
+                        logger.info("---")
+
             if batch_job.status == 'completed':
                 logger.info("Processing completed batch results")
                 process_batch_results(batch_job.output_file_id)
