@@ -281,7 +281,9 @@ The script will output:
 - Required passing score (74%)
 - Whether the model passed or failed
 
-### Generate a Handbook Using LLMs
+### Generate and Index Handbook Content
+
+#### Generate Content Using LLMs
 
 The `generate_handbook.py` script creates an educational handbook by generating comprehensive content for specified sub-element groups using a Large Language Model (LLM).
 
@@ -320,6 +322,27 @@ The generated content will be saved as markdown files in the `handbook` director
   - For **OpenAI**, set `OPENAI_API_KEY`.
   - For **Anthropic**, set `ANTHROPIC_API_KEY`.
 - The generated markdown files can be converted to other formats (e.g., PDF, EPUB) using Pandoc or similar tools.
+
+#### Index Handbook Content for RAG
+
+The `handbook_indexer.py` script creates a FAISS vector store index of the handbook content for use in RAG (Retrieval Augmented Generation) pipelines.
+
+```bash
+# Build the index (creates cache/handbook_index_*.npz)
+python scripts/handbook_indexer.py
+
+# Force rebuild index
+python scripts/handbook_indexer.py --force
+
+# Test search functionality
+python scripts/handbook_indexer.py --query "What is impedance matching?"
+```
+
+**Features:**
+- Uses FAISS for efficient similarity search
+- Caches computed embeddings to avoid redundant processing
+- Splits content into chunks for fine-grained retrieval
+- Supports semantic search queries
 
 ---
 
