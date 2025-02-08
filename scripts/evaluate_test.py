@@ -12,6 +12,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from scripts.handbook_indexer import HandbookIndex
+
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -71,6 +73,7 @@ class TestResult(BaseModel):
     score_percentage: float
     duration_seconds: float
     used_cot: bool
+    used_rag: bool
 
 def load_test(test_file: str) -> List[Question]:
     """Load test questions from a JSON file."""
@@ -131,13 +134,14 @@ def encode_image_to_base64(image_path: str) -> str:
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[str, Dict]:
+def create_question_prompt(question: Question, use_cot: bool = False, rag_context: Optional[List[str]] = None) -> tuple[str, Dict]:
     """Create a prompt for the LLM based on the question."""
     # Convert answers list to choices dict
     choices = {answer.option: answer.text for answer in question.answers}
     
     base_prompt = """You are taking an amateur radio license exam. Please answer the following multiple choice question.
     {cot_instruction}
+    {rag_context}
     Question: {question_text}
 
     Choices:
@@ -150,6 +154,11 @@ def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[s
 
     cot_instruction = """Think through this step-by-step, explaining your reasoning before giving your final answer.""" if use_cot else ""
     response_instruction = """Explain your reasoning step by step, then end with 'Therefore, my answer is: [A/B/C/D]'""" if use_cot else "Your answer (just the letter):"
+    
+    # Format RAG context if provided
+    rag_text = ""
+    if rag_context:
+        rag_text = "Relevant context:\n" + "\n".join(f"- {ctx}" for ctx in rag_context) + "\n"
     
     if question.has_image and question.image_path:
         # Load and process the image
@@ -187,6 +196,7 @@ def create_question_prompt(question: Question, use_cot: bool = False) -> tuple[s
     else:
         return base_prompt, {
             "cot_instruction": cot_instruction,
+            "rag_context": rag_text,
             "question_text": question.question,
             "choice_a": choices['A'],
             "choice_b": choices['B'],
@@ -277,13 +287,20 @@ def evaluate_test(
     model_name: str = "chatgpt-4o-latest",
     temperature: float = 0.0,
     provider: str = "openai",
-    use_cot: bool = False
+    use_cot: bool = False,
+    use_rag: bool = False
 ) -> TestResult:
     """Evaluate an LLM's performance on a test."""
     start_time = datetime.now()
     
     # Load the test
     questions = load_test(test_file)
+    
+    # Initialize RAG if enabled
+    handbook_index = None
+    if use_rag:
+        handbook_index = HandbookIndex()
+        handbook_index.build("handbook")
     
     # Initialize the LLM
     llm = initialize_llm(model_name, provider, temperature)
@@ -293,8 +310,17 @@ def evaluate_test(
     correct_count = 0
     
     for question in questions:
+        # Get RAG context if enabled
+        rag_context = None
+        if use_rag:
+            rag_context = handbook_index.search(question.question)
+        
         # Create prompt and inputs based on question type
-        prompt_template, inputs = create_question_prompt(question, use_cot=use_cot)
+        prompt_template, inputs = create_question_prompt(
+            question, 
+            use_cot=use_cot,
+            rag_context=rag_context
+        )
         
         if question.has_image:
             # For image-based questions, use the content directly
@@ -346,7 +372,8 @@ def evaluate_test(
             "correct_answer": question.correct_answer,
             "is_correct": is_correct,
             "has_image": question.has_image,
-            "image_path": question.image_path if question.has_image else None
+            "image_path": question.image_path if question.has_image else None,
+            "rag_context": rag_context if use_rag else None
         })
         
         logger.info(f"Question {question.id}: Model answered {model_answer}, Correct: {is_correct}")
@@ -365,7 +392,8 @@ def evaluate_test(
         correct_answers=correct_count,
         score_percentage=(correct_count / len(questions)) * 100,
         duration_seconds=duration,
-        used_cot=use_cot
+        used_cot=use_cot,
+        used_rag=use_rag
     )
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
@@ -376,9 +404,10 @@ def save_results(result: TestResult, output_dir: str = "outputs"):
 
     os.makedirs(output_dir, exist_ok=True)
     
-    # Update the output filename to include 'provider', model name, and CoT status
+    # Update the output filename to include 'provider', model name, CoT and RAG status
     cot_suffix = "_cot" if result.used_cot else ""
-    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{cot_suffix}_results.json"
+    rag_suffix = "_rag" if result.used_rag else ""
+    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{cot_suffix}{rag_suffix}_results.json"
     with open(output_file, 'w') as f:
         json.dump(result.model_dump(), f, indent=2)
     
@@ -401,6 +430,11 @@ def main():
         action="store_true",
         help="Enable Chain of Thought reasoning"
     )
+    parser.add_argument(
+        "--rag",
+        action="store_true",
+        help="Enable Retrieval Augmented Generation using handbook content"
+    )
     
     args = parser.parse_args()
     
@@ -410,7 +444,8 @@ def main():
             args.model,
             args.temperature,
             args.provider,
-            use_cot=args.cot
+            use_cot=args.cot,
+            use_rag=args.rag
         )
         save_results(result, args.output_dir)
         
