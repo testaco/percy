@@ -251,9 +251,14 @@ def main():
                 logger.info("Processing completed batch results")
                 process_batch_results(batch_job.output_file_id)
                 clear_batch_lock()
+            elif batch_job.status in ['failed', 'cancelled']:
+                logger.error(f"Batch job {batch_id} {batch_job.status}")
+                clear_batch_lock()
             else:
                 logger.info(f"Batch job {batch_id} is still {batch_job.status}")
-                return
+            
+            # Exit after handling the existing batch job
+            return
         except Exception as e:
             logger.error(f"Error checking batch status: {str(e)}")
             clear_batch_lock()
