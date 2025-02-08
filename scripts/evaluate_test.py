@@ -336,7 +336,7 @@ def evaluate_test(
                 model_answer = response['text'].strip().upper()
         
         # Record the result
-        is_correct = model_answer == question.correct_answer
+        is_correct = extract_final_answer(model_answer) == question.correct_answer
         if is_correct:
             correct_count += 1
             
