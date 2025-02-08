@@ -5,10 +5,75 @@ import json
 import os
 import fnmatch
 import logging
+import time
 from pathlib import Path
 from typing import List, Dict
 import openai
 from dotenv import load_dotenv
+
+def check_batch_lock() -> tuple[bool, str]:
+    """Check if there's a batch job running and return its ID."""
+    lock_file = Path('handbook/batch.lock')
+    if lock_file.exists():
+        return True, lock_file.read_text().strip()
+    return False, ""
+
+def save_batch_id(batch_id: str):
+    """Save batch job ID to lock file."""
+    lock_file = Path('handbook/batch.lock')
+    lock_file.parent.mkdir(exist_ok=True)
+    lock_file.write_text(batch_id)
+
+def clear_batch_lock():
+    """Remove the batch lock file."""
+    lock_file = Path('handbook/batch.lock')
+    if lock_file.exists():
+        lock_file.unlink()
+
+def create_batch_tasks(filtered_groups: Dict[str, List[Dict]], messages: Dict[str, str]) -> str:
+    """Create batch tasks file and return its path."""
+    tasks = []
+    for group_id, user_content in messages.items():
+        task = {
+            "custom_id": group_id,
+            "method": "POST",
+            "url": "/v1/chat/completions",
+            "body": {
+                "model": "gpt-4",
+                "temperature": 0.7,
+                "messages": [
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": user_content}
+                ]
+            }
+        }
+        tasks.append(task)
+
+    # Create batch file
+    os.makedirs('handbook/batch', exist_ok=True)
+    file_name = f"handbook/batch/tasks_{int(time.time())}.jsonl"
+    with open(file_name, 'w') as file:
+        for task in tasks:
+            file.write(json.dumps(task) + '\n')
+    
+    return file_name
+
+def process_batch_results(result_file_id: str):
+    """Process results from a completed batch job."""
+    client = openai.OpenAI()
+    result = client.files.content(result_file_id).content
+    
+    # Process each line of results
+    for line in result.decode().splitlines():
+        result_obj = json.loads(line)
+        group_id = result_obj['custom_id']
+        content = result_obj['response']['body']['choices'][0]['message']['content']
+        
+        # Save to markdown file
+        filename = f'handbook/{group_id}.md'
+        with open(filename, 'w') as f:
+            f.write(f"# {group_id} Study Guide\n\n{content}")
+        logger.info(f"Saved content to {filename}")
 
 # Load environment variables and configure logging
 load_dotenv()
@@ -147,6 +212,8 @@ def main():
                       help='Temperature for the LLM')
     parser.add_argument('--debug', action='store_true',
                       help='Enable debug logging')
+    parser.add_argument('--batch', action='store_true',
+                      help='Use batch processing mode')
     
     args = parser.parse_args()
     
@@ -156,6 +223,24 @@ def main():
         # Also set OpenAI debug logging
         logging.getLogger("openai").setLevel(logging.DEBUG)
     
+    # Check for existing batch job
+    is_running, batch_id = check_batch_lock()
+    if is_running:
+        client = openai.OpenAI()
+        try:
+            batch_job = client.batches.retrieve(batch_id)
+            if batch_job.status == 'completed':
+                logger.info("Processing completed batch results")
+                process_batch_results(batch_job.output_file_id)
+                clear_batch_lock()
+            else:
+                logger.info(f"Batch job {batch_id} is still {batch_job.status}")
+                return
+        except Exception as e:
+            logger.error(f"Error checking batch status: {str(e)}")
+            clear_batch_lock()
+            return
+
     try:
         # Load and process questions
         questions = load_question_pools()
@@ -167,20 +252,41 @@ def main():
             logger.warning("No groups matched the provided patterns")
             return
         
-        # Initialize LLM
-        llm = initialize_llm(args.model_name, args.provider, args.temperature)
-        
-        # Create messages and generate content
+        # Create messages
         messages = create_messages(filtered_groups)
-        responses = generate_handbook_content(llm, messages)
         
-        # Save to markdown files
-        save_handbook_content(responses)
-        
-        logger.info("Handbook content generated successfully")
-        
+        if args.batch:
+            # Create and submit batch job
+            batch_file_path = create_batch_tasks(filtered_groups, messages)
+            client = openai.OpenAI()
+            
+            # Upload file
+            batch_file = client.files.create(
+                file=open(batch_file_path, "rb"),
+                purpose="batch"
+            )
+            
+            # Create batch job
+            batch_job = client.batches.create(
+                input_file_id=batch_file.id,
+                endpoint="/v1/chat/completions",
+                completion_window="24h"
+            )
+            
+            # Save batch ID
+            save_batch_id(batch_job.id)
+            logger.info(f"Submitted batch job {batch_job.id}")
+            
+        else:
+            # Use existing synchronous processing
+            llm = initialize_llm(args.model_name, args.provider, args.temperature)
+            responses = generate_handbook_content(llm, messages)
+            save_handbook_content(responses)
+            
     except Exception as e:
         logger.error(f"Error generating handbook: {str(e)}")
+        if args.batch:
+            clear_batch_lock()
         raise
 
 if __name__ == '__main__':
