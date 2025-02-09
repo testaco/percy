@@ -22,8 +22,7 @@ def main():
     print(f"\nQuestion counts by group in {Path(pool_file).stem}:")
     print("-" * 40)
     for group, count in counts.items():
-        group_title = group_titles[group]
-        print(f"{group}: {count} questions - {group_title}")
+        print(f"{group}: {count} questions")
         
 if __name__ == "__main__":
     main()
