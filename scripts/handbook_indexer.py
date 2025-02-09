@@ -81,10 +81,15 @@ class HandbookIndex:
             with open(file_path) as f:
                 content = f.read()
                 
-            # Split into chunks (simple paragraph splitting for now)
-            chunks = [c.strip() for c in content.split('\n\n') if c.strip()]
+            # Split into chunks and filter out header lines
+            chunks = []
+            for chunk in content.split('\n\n'):
+                lines = [line.strip() for line in chunk.splitlines() 
+                        if line.strip() and not line.strip().startswith('#')]
+                if lines:  # Only keep chunks that have non-header content
+                    chunks.append('\n'.join(lines))
             
-            # Encode chunks
+            # Encode filtered chunks
             chunk_vectors = self.encoder.encode(chunks)
             
             vectors.append(chunk_vectors)
