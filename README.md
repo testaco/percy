@@ -344,6 +344,27 @@ python scripts/handbook_indexer.py --query "What is impedance matching?"
 - Splits content into chunks for fine-grained retrieval
 - Supports semantic search queries
 
+### Generate PDF Handbook
+
+The `publish_handbook.py` script converts the markdown handbook content into a formatted PDF document, organizing content by chapters.
+
+```bash
+python scripts/publish_handbook.py
+```
+
+**Requirements:**
+- Pandoc must be installed on your system
+- PDFtk must be installed on your system
+
+**Output:**
+- Individual chapter PDFs in `handbook/chapters/`
+- Complete handbook at `handbook/handbook.pdf`
+
+The script:
+1. Generates individual chapter PDFs from markdown files
+2. Applies consistent formatting using pandoc
+3. Combines all chapters into a single handbook.pdf
+
 ---
 
 ## Contribution

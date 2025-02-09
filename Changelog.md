@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added publish_handbook.py script to generate PDF handbook from markdown files
+- Added automatic chapter organization and PDF compilation
+- Added support for consistent PDF formatting using pandoc
 - Added handbook_indexer.py script for RAG pipeline with FAISS vector search
 - Added caching system for handbook embeddings to improve performance
 - Added comprehensive tests for answer extraction in Chain of Thought responses
