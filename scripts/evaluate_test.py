@@ -19,7 +19,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI, ChatAnthropic
 from langchain.schema import HumanMessage
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from PIL import Image
 
 # Load environment variables
@@ -74,6 +74,7 @@ class TestResult(BaseModel):
     duration_seconds: float
     used_cot: bool
     used_rag: bool
+    token_usage: Dict[str, int] = Field(default_factory=dict)
 
 def load_test(test_file: str) -> List[Question]:
     """Load test questions from a JSON file."""
@@ -297,6 +298,11 @@ def evaluate_test(
     # Load the test
     questions = load_test(test_file)
     
+    # Initialize token tracking
+    total_prompt_tokens = 0
+    total_completion_tokens = 0
+    total_tokens = 0
+    
     # Initialize RAG if enabled
     handbook_index = None
     if use_rag:
@@ -338,6 +344,12 @@ def evaluate_test(
                 content = "\n".join(content_parts)
                 response = llm([HumanMessage(content=content)])
                 model_answer = response.content.strip().upper()
+                
+                # Track token usage if available
+                if hasattr(response, 'usage_metadata'):
+                    total_prompt_tokens += response.usage_metadata.get('input_tokens', 0)
+                    total_completion_tokens += response.usage_metadata.get('output_tokens', 0)
+                    total_tokens += response.usage_metadata.get('total_tokens', 0)
             else:
                 # Default handling (e.g., OpenAI)
                 response = llm.invoke([HumanMessage(content=inputs["content"])])
@@ -361,13 +373,19 @@ def evaluate_test(
                 chain = LLMChain(llm=llm, prompt=prompt)
                 response = chain.invoke(inputs)
                 model_answer = response['text'].strip().upper()
+                
+                # Track token usage from the response
+                if hasattr(response['text'], 'usage_metadata'):
+                    total_prompt_tokens += response['text'].usage_metadata.get('input_tokens', 0)
+                    total_completion_tokens += response['text'].usage_metadata.get('output_tokens', 0)
+                    total_tokens += response['text'].usage_metadata.get('total_tokens', 0)
         
         # Record the result
         is_correct = extract_final_answer(model_answer) == question.correct_answer
         if is_correct:
             correct_count += 1
             
-        results.append({
+        result_dict = {
             "question_id": question.id,
             "model_answer": model_answer,
             "correct_answer": question.correct_answer,
@@ -375,7 +393,13 @@ def evaluate_test(
             "has_image": question.has_image,
             "image_path": question.image_path if question.has_image else None,
             "rag_context": rag_context if use_rag else None
-        })
+        }
+        
+        # Add token usage if available
+        if hasattr(response, 'usage_metadata'):
+            result_dict["token_usage"] = response.usage_metadata
+            
+        results.append(result_dict)
         
         logger.info(f"Question {question.id}: Model answered {model_answer}, Correct: {is_correct}")
     
@@ -394,7 +418,12 @@ def evaluate_test(
         score_percentage=(correct_count / len(questions)) * 100,
         duration_seconds=duration,
         used_cot=use_cot,
-        used_rag=use_rag
+        used_rag=use_rag,
+        token_usage={
+            "prompt_tokens": total_prompt_tokens,
+            "completion_tokens": total_completion_tokens,
+            "total_tokens": total_tokens
+        }
     )
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
