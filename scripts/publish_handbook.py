@@ -5,18 +5,19 @@ import subprocess
 from pathlib import Path
 
 def ensure_output_dirs():
-    """Ensure handbook and temp directories exist"""
-    Path("handbook/chapters").mkdir(parents=True, exist_ok=True)
+    """Ensure handbook directories exist"""
+    Path("handbook/md").mkdir(parents=True, exist_ok=True)
+    Path("handbook/pdf/chapters").mkdir(parents=True, exist_ok=True)
     Path("handbook/temp").mkdir(parents=True, exist_ok=True)
 
 def generate_chapter_pdf(chapter_num: int, patterns: list[str]) -> str:
     """Generate PDF for a specific chapter from markdown files"""
-    output_file = f"handbook/chapters/chapter{chapter_num}.pdf"
+    output_file = f"handbook/pdf/chapters/chapter{chapter_num}.pdf"
     
     # Collect all markdown files matching the patterns for this chapter
     md_files = []
     for pattern in patterns:
-        md_files.extend(sorted(glob.glob(f"handbook/{pattern}*.md")))
+        md_files.extend(sorted(glob.glob(f"handbook/md/{pattern}*.md")))
     
     if not md_files:
         print(f"No markdown files found for chapter {chapter_num}")
@@ -78,7 +79,7 @@ def main():
     
     # Combine all chapters into final handbook
     if chapter_pdfs:
-        combine_pdfs(chapter_pdfs, "handbook/handbook.pdf")
+        combine_pdfs(chapter_pdfs, "handbook/pdf/handbook.pdf")
 
 if __name__ == "__main__":
     main()

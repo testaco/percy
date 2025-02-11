@@ -69,7 +69,7 @@ class HandbookIndex:
         if not handbook_path.exists():
             raise FileNotFoundError(f"Handbook directory '{handbook_dir}' does not exist")
             
-        md_files = list(handbook_path.glob("*.md"))
+        md_files = list((handbook_path / "md").glob("*.md"))
         if not md_files:
             raise ValueError(f"No markdown files found in '{handbook_dir}'")
 

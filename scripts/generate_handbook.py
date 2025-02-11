@@ -190,10 +190,10 @@ def generate_handbook_content(llm, messages: Dict[str, str]) -> Dict[str, str]:
 
 def save_handbook_content(responses: Dict[str, str]):
     """Save the generated content to markdown files."""
-    os.makedirs('handbook', exist_ok=True)
+    os.makedirs('handbook/md', exist_ok=True)
     for group_id, content in responses.items():
         try:
-            filename = f'handbook/{group_id}.md'
+            filename = f'handbook/md/{group_id}.md'
             with open(filename, 'w') as f:
                 f.write(f"{content}")
             logger.info(f"Saved content to {filename}")
