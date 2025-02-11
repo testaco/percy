@@ -16,17 +16,16 @@ def generate_chapter_pdf(chapter_num: int, patterns: list[str]) -> str:
     # Collect all markdown files matching the patterns for this chapter
     md_files = []
     for pattern in patterns:
-        md_files.extend(glob.glob(f"handbook/{pattern}*.md"))
+        md_files.extend(sorted(glob.glob(f"handbook/{pattern}*.md")))
     
     if not md_files:
         print(f"No markdown files found for chapter {chapter_num}")
         return None
     
-    md_files.sort()  # Ensure consistent ordering
-    
     # Build pandoc command
     cmd = [
         "pandoc",
+        "--pdf-engine=xelatex",
         "-V", "geometry:top=2cm, bottom=1.5cm, left=2cm, right=2cm",
         *md_files,
         "-o", output_file
@@ -58,16 +57,16 @@ def main():
     
     # Define chapter patterns
     chapters = [
-        (1, ["T1", "G1", "E1"]),
-        (2, ["T2", "G2", "E2"]),
-        (3, ["T3", "G3", "E3"]),
-        (4, ["T4", "G4", "E4"]),
-        (5, ["T5", "G5", "E5"]),
-        (6, ["T6", "G6", "E6"]),
-        (7, ["T7", "G7", "E7"]),
-        (8, ["T8", "G8", "E8"]),
-        (9, ["T9", "G9", "E9"]),
-        (10, ["T0", "G0", "E0"]),  # Handle T0, G0, E0 as chapter 10
+        (1, "T1A T1B G1A E1A T1C T1D G1B E1B E1F T1E G1E E1C T1F G1C G1D E1E E1D".split()),
+        (2, "T2A T2B T2C G2A G2B G2C G2D G2E E2A E2B E2C E2D E2E".split()),
+        (3, "T3A T3B T3C G3A G3B G3C E3A E3B E3C".split()),
+        (4, "T4A T4B G4A G4B G4C G4D G4E E4A E4B E4C E4D E4E".split()),
+        (5, "T5A T5B T5C T5D G5A G5B G5C E5A E5B E5C E5D".split()),
+        (6, "T6A T6B T6C T6D G6A G6B E6A E6B E6C E6D E6E E6F".split()),
+        (7, "T7A T7B T7C T7D G7A G7B G7C E7A E7B E7C E7D E7E E7F E7G E7H".split()),
+        (8, "T8A T8B T8C T8D G8A G8B G8C E8A E8B E8C E8D".split()),
+        (9, "T9A T9B G9A G9B G9C G9D E9A E9B E9C E9D E9E E9F E9G E9H".split()),
+        (10, "T0A T0B T0C G0A G0B E0A".split()),  # Handle T0, G0, E0 as chapter 10
     ]
     
     # Generate chapter PDFs

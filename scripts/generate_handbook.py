@@ -72,7 +72,7 @@ def process_batch_results(result_file_id: str):
         # Save to markdown file
         filename = f'handbook/{group_id}.md'
         with open(filename, 'w') as f:
-            f.write(f"# {group_id} Study Guide\n\n{content}")
+            f.write(f"{content}")
         logger.info(f"Saved content to {filename}")
 
 # Load environment variables and configure logging
@@ -195,7 +195,7 @@ def save_handbook_content(responses: Dict[str, str]):
         try:
             filename = f'handbook/{group_id}.md'
             with open(filename, 'w') as f:
-                f.write(f"# {group_id} Study Guide\n\n{content}")
+                f.write(f"{content}")
             logger.info(f"Saved content to {filename}")
         except Exception as e:
             logger.error(f"Error saving content for group {group_id}: {str(e)}")
