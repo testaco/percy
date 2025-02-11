@@ -3,5 +3,9 @@ __pycache__/
 *.pyc
 tests/
 outputs/
+cache/
+handbook/batch/
+handbook/md/
+handbook/pdf/
 .env
 .aider*

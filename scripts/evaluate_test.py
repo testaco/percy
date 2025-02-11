@@ -176,6 +176,7 @@ def create_question_prompt(question: Question, use_cot: bool = False, rag_contex
         content = [
             {"type": "text", "text": base_prompt.format(
                 cot_instruction=cot_instruction,
+                rag_context=rag_text,
                 question_text=question.question,
                 choice_a=choices['A'],
                 choice_b=choices['B'],
