@@ -17,9 +17,10 @@ from handbook_indexer import HandbookIndex
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-from langchain_community.chat_models import ChatOpenAI, ChatAnthropic
-from langchain.schema import HumanMessage
-from pydantic import BaseModel, Field
+from langchain_community.chat_models import ChatAnthropic
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from pydantic import BaseModel, Field, SecretStr
 from PIL import Image
 
 # Load environment variables
@@ -32,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 class ChatOpenRouter(ChatOpenAI):
     openai_api_base: str
-    openai_api_key: str
+    openai_api_key: SecretStr
     model_name: str
 
     def __init__(self,
@@ -331,7 +332,6 @@ def evaluate_test(
 
         # Prepare the message content
         if question.has_image:
-            from langchain_core.messages import HumanMessage
             if provider == "anthropic":
                 # Anthropic can't handle images, convert to text description
                 content_parts = []
@@ -345,40 +345,22 @@ def evaluate_test(
                 message_content = inputs["content"]
             
             # Use direct message for image questions
-            response = llm([HumanMessage(content=message_content)])
+            response = llm.invoke([HumanMessage(content=message_content)])
             model_answer = response.content
         else:
             # Text-only questions
-            if provider == "anthropic":
-                # Direct message for Anthropic
-                prompt_text = PromptTemplate(
-                    input_variables=list(inputs.keys()),
-                    template=prompt_template
-                ).format(**inputs)
-                response = llm([HumanMessage(content=prompt_text)])
-                model_answer = response.content
-            else:
-                # Use LLMChain for other providers
-                prompt = PromptTemplate(
-                    input_variables=list(inputs.keys()),
-                    template=prompt_template
-                )
-                chain = LLMChain(llm=llm, prompt=prompt)
-                response = chain.invoke(inputs)
-                model_answer = response['text']
+            prompt_text = PromptTemplate(
+                input_variables=list(inputs.keys()),
+                template=prompt_template
+            ).format(**inputs)
+            response = llm.invoke([HumanMessage(content=prompt_text)])
+            model_answer = response.content
 
         # Standardize answer format
         model_answer = model_answer.strip().upper()
         
         # Track token usage
-        if hasattr(response, 'usage_metadata'):
-            usage = response.usage_metadata
-        elif hasattr(response, 'usage'):
-            usage = response.usage
-        elif isinstance(response, dict) and 'usage' in response:
-            usage = response['usage']
-        else:
-            usage = {}
+        usage = response.usage_metadata
             
         total_prompt_tokens += usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0)
         total_completion_tokens += usage.get('output_tokens', 0) or usage.get('completion_tokens', 0)
