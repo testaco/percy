@@ -328,57 +328,61 @@ def evaluate_test(
             use_cot=use_cot,
             rag_context=rag_context
         )
-        
+
+        # Prepare the message content
         if question.has_image:
-            # For image-based questions, use the content directly
             from langchain_core.messages import HumanMessage
             if provider == "anthropic":
-                # Prepare the prompt as a single string
+                # Anthropic can't handle images, convert to text description
                 content_parts = []
                 for part in inputs["content"]:
                     if part["type"] == "text":
                         content_parts.append(part["text"])
                     elif part["type"] == "image_url":
-                        # Anthropic models cannot process images; mention that an image is present
                         content_parts.append("[Image associated with the question]")
-                content = "\n".join(content_parts)
-                response = llm([HumanMessage(content=content)])
-                model_answer = response.content.strip().upper()
-                
-                # Track token usage if available
-                if hasattr(response, 'usage_metadata'):
-                    total_prompt_tokens += response.usage_metadata.get('input_tokens', 0)
-                    total_completion_tokens += response.usage_metadata.get('output_tokens', 0)
-                    total_tokens += response.usage_metadata.get('total_tokens', 0)
+                message_content = "\n".join(content_parts)
             else:
-                # Default handling (e.g., OpenAI)
-                response = llm.invoke([HumanMessage(content=inputs["content"])])
-                model_answer = response.content.strip().upper()
+                message_content = inputs["content"]
+            
+            # Use direct message for image questions
+            response = llm([HumanMessage(content=message_content)])
+            model_answer = response.content
         else:
-            # For text-only questions
+            # Text-only questions
             if provider == "anthropic":
-                # Anthropic models may not support LLMChain; construct prompt manually
+                # Direct message for Anthropic
                 prompt_text = PromptTemplate(
                     input_variables=list(inputs.keys()),
                     template=prompt_template
                 ).format(**inputs)
                 response = llm([HumanMessage(content=prompt_text)])
-                model_answer = response.content.strip().upper()
+                model_answer = response.content
             else:
-                # Default handling with LLMChain
+                # Use LLMChain for other providers
                 prompt = PromptTemplate(
                     input_variables=list(inputs.keys()),
                     template=prompt_template
                 )
                 chain = LLMChain(llm=llm, prompt=prompt)
                 response = chain.invoke(inputs)
-                model_answer = response['text'].strip().upper()
-                
-                # Track token usage from the response
-                if hasattr(response['text'], 'usage_metadata'):
-                    total_prompt_tokens += response['text'].usage_metadata.get('input_tokens', 0)
-                    total_completion_tokens += response['text'].usage_metadata.get('output_tokens', 0)
-                    total_tokens += response['text'].usage_metadata.get('total_tokens', 0)
+                model_answer = response['text']
+
+        # Standardize answer format
+        model_answer = model_answer.strip().upper()
+        
+        # Track token usage
+        if hasattr(response, 'usage_metadata'):
+            usage = response.usage_metadata
+        elif hasattr(response, 'usage'):
+            usage = response.usage
+        elif isinstance(response, dict) and 'usage' in response:
+            usage = response['usage']
+        else:
+            usage = {}
+            
+        total_prompt_tokens += usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0)
+        total_completion_tokens += usage.get('output_tokens', 0) or usage.get('completion_tokens', 0)
+        total_tokens += usage.get('total_tokens', 0) or (total_prompt_tokens + total_completion_tokens)
         
         # Record the result
         is_correct = extract_final_answer(model_answer) == question.correct_answer
@@ -392,12 +396,9 @@ def evaluate_test(
             "is_correct": is_correct,
             "has_image": question.has_image,
             "image_path": question.image_path if question.has_image else None,
-            "rag_context": rag_context if use_rag else None
+            "rag_context": rag_context if use_rag else None,
+            "token_usage": usage
         }
-        
-        # Add token usage if available
-        if hasattr(response, 'usage_metadata'):
-            result_dict["token_usage"] = response.usage_metadata
             
         results.append(result_dict)
         
