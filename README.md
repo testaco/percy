@@ -265,6 +265,56 @@ python scripts/evaluate_test.py --test-file tests/technician_test.json --model g
 - For **OpenRouter**, set `OPENROUTER_API_KEY`.
 - **Ollama** is assumed to be running locally and may require additional setup.
 
+### Batch Evaluation
+
+The batch evaluation system allows running multiple tests with different configurations using a YAML configuration file:
+
+```bash
+python scripts/batch_evaluate.py --config batch_config.yaml
+```
+
+**Configuration File Format:**
+
+The configuration file should be in YAML format with the following structure:
+
+```yaml
+# Example batch_config.yaml
+batch_name: "initial_evaluation_run"  # Unique identifier for this batch
+
+parameters:
+  model_providers:  # Valid model-provider pairs
+    - model: "gpt-4"
+      provider: "openai"
+    - model: "gpt-3.5-turbo"
+      provider: "openai"
+    - model: "claude-v1"
+      provider: "anthropic"
+    - model: "claude-2"
+      provider: "anthropic"
+    - model: "llama2"
+      provider: "ollama"
+  temperature:
+    - 0.0
+    - 0.7
+  use_cot:
+    - true
+    - false
+  use_rag:
+    - true
+    - false
+
+test_patterns:
+  - "tests/technician_*.json"
+  - "tests/general_*.json"
+```
+
+The script will:
+1. Use the specified batch name for organizing results
+2. Generate combinations using only valid model-provider pairs
+3. Run each combination on all matching test files
+4. Save progress continuously to allow resuming interrupted runs
+5. Store results in `outputs/batch_runs/`
+
 ### Analyze Results
 
 This script processes the output from the model evaluation and determines whether the model passed or failed the exam based on the specific rules for that license class (74% required to pass).
