@@ -12,6 +12,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from openai import BadRequestError
+
 from handbook_indexer import HandbookIndex
 
 from dotenv import load_dotenv
@@ -346,10 +348,11 @@ def evaluate_test(
             
             # Use direct message for image questions
             try:
-              response = llm.invoke([HumanMessage(content=message_content)])
-              model_answer = response.content
-            except openai.BadRequestError:
-              model_answer = "Model cannot handle images"
+                response = llm.invoke([HumanMessage(content=message_content)])
+                model_answer = response.content
+            except (BadRequestError, Exception) as e:
+                logger.warning(f"Error processing image: {str(e)}")
+                model_answer = "Model cannot handle images"
         else:
             # Text-only questions
             prompt_text = PromptTemplate(
