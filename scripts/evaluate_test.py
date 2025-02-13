@@ -77,6 +77,7 @@ class TestResult(BaseModel):
     duration_seconds: float
     used_cot: bool
     used_rag: bool
+    temperature: float
     token_usage: Dict[str, int] = Field(default_factory=dict)
 
 def load_test(test_file: str) -> List[Question]:
@@ -408,6 +409,7 @@ def evaluate_test(
         duration_seconds=duration,
         used_cot=use_cot,
         used_rag=use_rag,
+        temperature=temperature,
         token_usage={
             "prompt_tokens": total_prompt_tokens,
             "completion_tokens": total_completion_tokens,
