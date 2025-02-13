@@ -420,10 +420,11 @@ def save_results(result: TestResult, output_dir: str = "outputs"):
 
     os.makedirs(output_dir, exist_ok=True)
     
-    # Update the output filename to include 'provider', model name, CoT and RAG status
+    # Update the output filename to include 'provider', model name, temperature, CoT and RAG status
     cot_suffix = "_cot" if result.used_cot else ""
     rag_suffix = "_rag" if result.used_rag else ""
-    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{cot_suffix}{rag_suffix}_results.json"
+    temp_suffix = f"_t{result.temperature:.1f}".replace(".", "p")  # Convert 0.7 to _t0p7
+    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{temp_suffix}{cot_suffix}{rag_suffix}_results.json"
     with open(output_file, 'w') as f:
         json.dump(result.model_dump(), f, indent=2)
     
