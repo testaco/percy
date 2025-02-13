@@ -345,8 +345,11 @@ def evaluate_test(
                 message_content = inputs["content"]
             
             # Use direct message for image questions
-            response = llm.invoke([HumanMessage(content=message_content)])
-            model_answer = response.content
+            try:
+              response = llm.invoke([HumanMessage(content=message_content)])
+              model_answer = response.content
+            except openai.BadRequestError:
+              model_answer = "Model cannot handle images"
         else:
             # Text-only questions
             prompt_text = PromptTemplate(
