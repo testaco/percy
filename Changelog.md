@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2025-02-16
+
 ### Added
 - Added publish_handbook.py script to generate PDF handbook from markdown files
 - Added automatic chapter organization and PDF compilation
