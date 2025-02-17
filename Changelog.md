@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for generating topic-based study guides from question pools
 - Added LLM-based content generation with OpenAI and Anthropic provider support
 - Added markdown output format for generated handbook content
+- Added batch_evaluate.py script for running multiple model evaluations
+- Added YAML configuration support for batch evaluation parameters
+- Added progress tracking and resume capability for batch runs
 
 ### Changed
 - Improved answer extraction logic to better handle various response formats
