@@ -87,10 +87,10 @@ class BatchEvaluation:
         print(f"Total configurations: {len(combinations)}")
         print(f"Total test files: {len(test_files)}")
         print(f"Total runs needed: {total_runs}")
-        print(f"Runs completed: {completed}")
         
         for combo in combinations:
             for test_file in test_files:
+                print(f"Runs completed: {completed}")
                 run_config = {
                     "test_file": test_file,
                     **combo
