@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added leaderboard nextjs app with shadcn
+- Added data aggregation script with file watching capability 
+- Added automatic leaderboard.json generation from test results
 
 ## [1.4.0] - 2024-02-16
 
