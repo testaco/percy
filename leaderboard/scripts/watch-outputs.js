@@ -3,8 +3,8 @@ const fs = require('fs').promises;
 const path = require('path');
 
 // Config
-const OUTPUTS_DIR = '../../outputs';
-const DATA_DIR = '../data';
+const OUTPUTS_DIR = '../outputs';
+const DATA_DIR = 'data';
 const LEADERBOARD_FILE = path.join(DATA_DIR, 'leaderboard.json');
 
 // Ensure directory exists
