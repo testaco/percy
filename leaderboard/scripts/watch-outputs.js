@@ -34,7 +34,7 @@ async function aggregateResults(files) {
   
   for (const file of files) {
     const result = await loadJson(file);
-    if (result) {
+    if (result && result.summary && result.summary.score !== undefined) {
       results.push({
         model: result.model,
         provider: result.provider,
@@ -47,6 +47,8 @@ async function aggregateResults(files) {
         use_rag: result.use_rag,
         temperature: result.temperature
       });
+    } else {
+      console.warn(`Skipping invalid result file: ${file} - missing required fields`);
     }
   }
 
