@@ -30,27 +30,54 @@ async function loadJson(filepath) {
 
 // Aggregate test results into leaderboard data
 async function aggregateResults(files) {
-  const results = [];
+  // Group results by model
+  const modelResults = {};
   
   for (const file of files) {
     const result = await loadJson(file);
     if (result && result.score_percentage !== undefined) {
-      results.push({
-        model: result.model_name,
-        provider: result.provider,
-        //license_class: result.license_class,
+      const modelKey = result.model_name;
+      
+      if (!modelResults[modelKey]) {
+        modelResults[modelKey] = {
+          model: result.model_name,
+          provider: result.provider,
+          tests: [],
+          avg_score: 0,
+          best_score: 0,
+          total_tests: 0,
+          used_cot: result.used_cot,
+          used_rag: result.used_rag,
+          temperature: result.temperature,
+          last_tested: result.timestamp
+        };
+      }
+
+      // Add test result
+      modelResults[modelKey].tests.push({
         test_id: result.test_id,
         score: result.score_percentage,
-        //passed: result.summary.passed,
-        timestamp: result.timestamp,
-        used_cot: result.used_cot,
-        used_rag: result.used_rag,
-        temperature: result.temperature
+        timestamp: result.timestamp
       });
+
+      // Update metrics
+      const tests = modelResults[modelKey].tests;
+      modelResults[modelKey].total_tests = tests.length;
+      modelResults[modelKey].avg_score = tests.reduce((sum, t) => sum + t.score, 0) / tests.length;
+      modelResults[modelKey].best_score = Math.max(...tests.map(t => t.score));
+      
+      // Update last tested timestamp if newer
+      if (result.timestamp > modelResults[modelKey].last_tested) {
+        modelResults[modelKey].last_tested = result.timestamp;
+      }
     } else {
       console.warn(`Skipping invalid result file: ${file} - missing required fields`);
     }
   }
+
+  // Convert to array and sort by average score
+  const results = Object.values(modelResults)
+    .sort((a, b) => b.avg_score - a.avg_score);
 
   return {
     last_updated: new Date().toISOString(),
