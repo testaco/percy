@@ -34,17 +34,17 @@ async function aggregateResults(files) {
   
   for (const file of files) {
     const result = await loadJson(file);
-    if (result && result.summary && result.summary.score !== undefined) {
+    if (result && result.score_percentage !== undefined) {
       results.push({
-        model: result.model,
+        model: result.model_name,
         provider: result.provider,
-        license_class: result.license_class,
+        //license_class: result.license_class,
         test_id: result.test_id,
-        score: result.summary.score,
-        passed: result.summary.passed,
+        score: result.score_percentage,
+        //passed: result.summary.passed,
         timestamp: result.timestamp,
-        use_cot: result.use_cot,
-        use_rag: result.use_rag,
+        used_cot: result.used_cot,
+        used_rag: result.used_rag,
         temperature: result.temperature
       });
     } else {
@@ -107,13 +107,13 @@ async function init() {
     });
 
     // Watch for changes
-    watcher
+    /* watcher
       .on('add', handleChange)
       .on('change', handleChange)
       .on('unlink', handleChange)
       .on('error', error => {
         console.error('Watcher error:', error);
-      });
+      }); */
 
     // Do initial aggregation
     await handleChange();
