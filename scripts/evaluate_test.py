@@ -79,6 +79,8 @@ class TestResult(BaseModel):
     used_rag: bool
     temperature: float
     token_usage: Dict[str, int] = Field(default_factory=dict)
+    pool_name: str  # e.g. "technician", "general", "extra" 
+    pool_id: str    # e.g. "technician-2022-2026"
 
 def load_test(test_file: str) -> List[Question]:
     """Load test questions from a JSON file."""
@@ -288,6 +290,31 @@ def initialize_llm(model_name: str, provider: str, temperature: float):
         raise ValueError(f"Unsupported provider: {provider}")
     return llm
 
+def get_pool_info(test_file: str) -> tuple[str, str]:
+    """Extract pool name and ID from test file path."""
+    file_name = Path(test_file).stem.lower()
+    
+    if "technician" in file_name:
+        pool_name = "technician"
+    elif "general" in file_name:
+        pool_name = "general"
+    elif "extra" in file_name:
+        pool_name = "extra"
+    else:
+        pool_name = "unknown"
+        
+    # Extract full pool ID (e.g. technician-2022-2026)
+    if any(year in file_name for year in ["2022-2026", "2023-2027", "2024-2028"]):
+        pool_id = next(id for id in [
+            "technician-2022-2026",
+            "general-2023-2027",
+            "extra-2024-2028"
+        ] if id.split("-")[0] == pool_name)
+    else:
+        pool_id = f"{pool_name}-unknown"
+        
+    return pool_name, pool_id
+
 def evaluate_test(
     test_file: str,
     model_name: str = "chatgpt-4o-latest",
@@ -397,6 +424,9 @@ def evaluate_test(
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds()
     
+    # Get pool information
+    pool_name, pool_id = get_pool_info(test_file)
+    
     return TestResult(
         provider=provider,
         test_id=Path(test_file).stem,
@@ -414,7 +444,9 @@ def evaluate_test(
             "prompt_tokens": total_prompt_tokens,
             "completion_tokens": total_completion_tokens,
             "total_tokens": total_tokens
-        }
+        },
+        pool_name=pool_name,
+        pool_id=pool_id
     )
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
