@@ -112,68 +112,58 @@ Example question pool JSON that follows the schema:
 
 ## Test Result JSON Schema
 
-Test result files follow this schema:
+The test result JSON files follow a strict schema defined in `schema/test-result.schema.json`. This schema enforces:
 
+- Required fields like provider, model name, test ID, etc.
+- Timestamp format and validation
+- Question result structure including token usage
+- Token usage tracking at both question and test level
+- Support for RAG context tracking
+- Support for image handling in questions
+
+Example test result that follows the schema:
 ```json
 {
-  "test_id": string,            // Unique identifier for the test
-  "license_class": string,      // "technician", "general", or "extra"
-  "model": string,              // Name of the LLM model used
-  "provider": string,           // Provider of the LLM (openai, anthropic, etc.)
-  "temperature": float,         // Temperature setting used
-  "use_cot": boolean,          // Whether Chain of Thought was used
-  "use_rag": boolean,          // Whether RAG was used
-  "timestamp": string,          // ISO format timestamp of the evaluation
-  "results": [
-    {
-      "question_id": string,    // Question ID (e.g., "T1A01")
-      "group": string,          // Sub-element group ID (e.g., "T1A")
-      "model_answer": string,   // The answer option chosen by the model (A, B, C, or D)
-      "correct_answer": string, // The correct answer option
-      "is_correct": boolean,    // Whether the model's answer was correct
-      "response": string,       // Full response from the model
-      "duration": float        // Time taken to answer in seconds
-    }
-  ],
-  "summary": {
-    "total_questions": integer, // Total number of questions
-    "correct_answers": integer, // Number of correct answers
-    "score": float,            // Score as percentage
-    "passed": boolean,         // Whether the score meets passing criteria
-    "total_duration": float    // Total time taken in seconds
-  }
-}
-```
-
-Example:
-```json
-{
-  "test_id": "tech_001",
-  "license_class": "technician",
-  "model": "gpt-4",
   "provider": "openai",
-  "temperature": 0.0,
-  "use_cot": true,
-  "use_rag": false,
+  "test_id": "tech_001",
+  "model_name": "gpt-4",
   "timestamp": "2024-01-20T15:30:45Z",
-  "results": [
+  "questions": [
     {
       "question_id": "T1A01",
-      "group": "T1A",
       "model_answer": "C",
-      "correct_answer": "C",
+      "correct_answer": "C", 
       "is_correct": true,
-      "response": "Let me think about this step by step...",
-      "duration": 2.5
+      "has_image": false,
+      "token_usage": {
+        "input_tokens": 245,
+        "output_tokens": 89,
+        "total_tokens": 334,
+        "input_token_details": {
+          "audio": 0,
+          "cache_read": 0
+        },
+        "output_token_details": {
+          "audio": 0,
+          "reasoning": 89
+        }
+      }
     }
   ],
-  "summary": {
-    "total_questions": 35,
-    "correct_answers": 30,
-    "score": 85.71,
-    "passed": true,
-    "total_duration": 87.5
-  }
+  "total_questions": 35,
+  "correct_answers": 30,
+  "score_percentage": 85.71,
+  "duration_seconds": 87.5,
+  "used_cot": true,
+  "used_rag": false,
+  "temperature": 0.0,
+  "token_usage": {
+    "prompt_tokens": 8575,
+    "completion_tokens": 3115,
+    "total_tokens": 11690
+  },
+  "pool_name": "technician-2022-2026",
+  "pool_id": "T"
 }
 ```
 
