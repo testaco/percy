@@ -59,53 +59,41 @@ The project follows these steps:
 
 ## Question Pool JSON Schema
 
-The question pool JSON files follow this schema:
+The question pool JSON files follow a strict schema defined in `schema/question-pool.schema.json`. This schema enforces:
 
-```json
-{
-  "license_class": string,        // "technician", "general", or "extra"
-  "version": string,             // Version/year range of the question pool
-  "group_titles": {              // Mapping of group IDs to their titles
-    string: string               // e.g., "T1A": "Purpose and permissible use..."
-  },
-  "questions": [
-    {
-      "id": string,              // Question ID (e.g., "T1A01")
-      "group": string,           // Sub-element group ID (e.g., "T1A")
-      "question": string,        // The actual question text
-      "answers": [
-        {
-          "option": string,      // Answer option (A, B, C, or D)
-          "text": string         // Text of the answer choice
-        }
-      ],
-      "correct_answer": string   // The correct answer option (A, B, C, or D)
-    }
-  ]
-}
-```
+- Valid license class values ("technician", "general", "extra")
+- Version format (YYYY-YYYY)
+- Question ID patterns (e.g., T1A01 for Technician)
+- Group ID patterns (e.g., T1A)
+- Required fields and data types
+- Answer option constraints (A, B, C, D)
+- Exactly 4 answer choices per question
 
-Example:
+The schema ensures consistency and validates the structure of all question pool JSON files.
+
+Example question pool JSON that follows the schema:
 ```json
 {
   "license_class": "technician",
   "version": "2022-2026",
   "group_titles": {
-    "T1A": "Purpose and permissible use of the Amateur Radio Service; Operator/primary station license grant"
+    "T1A": "Purpose and permissible use of the Amateur Radio Service",
+    "T1B": "Authorized frequencies; Frequency allocations",
+    "T1C": "Operator licensing"
   },
   "questions": [
     {
       "id": "T1A01",
       "group": "T1A",
-      "question": "Which of the following is part of the Basis and Purpose of the Amateur Radio Service?",
+      "question": "Which of the following is a purpose of the Amateur Radio Service as stated in the FCC rules and regulations?",
       "answers": [
         {
           "option": "A",
           "text": "Providing personal radio communications for as many citizens as possible"
         },
         {
-          "option": "B", 
-          "text": "Providing communications for international non-profit organizations"
+          "option": "B",
+          "text": "Providing communications during international emergencies only"
         },
         {
           "option": "C",
@@ -113,7 +101,7 @@ Example:
         },
         {
           "option": "D",
-          "text": "All these choices are correct"
+          "text": "All of these choices are correct"
         }
       ],
       "correct_answer": "C"
