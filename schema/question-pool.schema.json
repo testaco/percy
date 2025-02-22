@@ -5,7 +5,7 @@
   "properties": {
     "license_class": {
       "type": "string",
-      "enum": ["technician"]
+      "enum": ["technician", "general", "extra"]
     },
     "version": {
       "type": "string",
@@ -14,7 +14,7 @@
     "group_titles": {
       "type": "object",
       "patternProperties": {
-        "^T[0-9][A-Z]$": {
+        "^[TGE][0-9][A-Z]$": {
           "type": "string"
         }
       },
@@ -28,11 +28,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^T[0-9][A-Z][0-9]{2}$"
+            "pattern": "^[TGE][0-9][A-Z][0-9]{2}$"
           },
           "group": {
             "type": "string",
-            "pattern": "^T[0-9][A-Z]$"
+            "pattern": "^[TGE][0-9][A-Z]$"
           },
           "question": {
             "type": "string"
