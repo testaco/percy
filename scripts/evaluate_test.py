@@ -360,8 +360,8 @@ def evaluate_test(
         
         # Track token usage
         usage = response.usage.dict()
-        total_prompt_tokens += usage.get('prompt_tokens', 0)
-        total_completion_tokens += usage.get('completion_tokens', 0)
+        total_prompt_tokens += usage.get('input_tokens', usage.get('prompt_tokens', 0))
+        total_completion_tokens += usage.get('output_tokens', usage.get('completion_tokens', 0))
         total_tokens += usage.get('total_tokens', 0)
         
         # Record the result
@@ -377,7 +377,19 @@ def evaluate_test(
             "has_image": question.has_image,
             "image_path": question.image_path if question.has_image else None,
             "rag_context": rag_context if use_rag else None,
-            "token_usage": usage
+            "token_usage": {
+                "input_tokens": usage.get('input_tokens', usage.get('prompt_tokens', 0)),
+                "output_tokens": usage.get('output_tokens', usage.get('completion_tokens', 0)),
+                "total_tokens": usage.get('total_tokens', 0),
+                "input_token_details": {
+                    "audio": 0,
+                    "cache_read": 0
+                },
+                "output_token_details": {
+                    "audio": 0,
+                    "reasoning": usage.get('output_tokens', usage.get('completion_tokens', 0))
+                }
+            }
         }
             
         results.append(result_dict)
@@ -405,9 +417,17 @@ def evaluate_test(
         used_rag=use_rag,
         temperature=temperature,
         token_usage={
-            "prompt_tokens": total_prompt_tokens,
-            "completion_tokens": total_completion_tokens,
-            "total_tokens": total_tokens
+            "input_tokens": total_prompt_tokens,
+            "output_tokens": total_completion_tokens,
+            "total_tokens": total_tokens,
+            "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+            },
+            "output_token_details": {
+                "audio": 0,
+                "reasoning": total_completion_tokens
+            }
         },
         pool_name=pool_name,
         pool_id=pool_id
