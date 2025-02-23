@@ -1,15 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "description": "Schema for the LLM testing leaderboard data",
   "properties": {
     "last_updated": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp of when the leaderboard was last updated"
     },
     "test_results": {
       "type": "array",
+      "description": "Array of individual test results from LLM evaluations",
       "items": {
         "type": "object",
+        "description": "Single test result entry",
         "required": [
           "test_id",
           "timestamp",
@@ -22,48 +26,125 @@
           "costs"
         ],
         "properties": {
-          "test_id": { "type": "string" },
-          "timestamp": { "type": "string", "format": "date-time" },
-          "model_name": { "type": "string" },
-          "provider": { "type": "string" },
-          "license_class": { "type": "string" },
+          "test_id": { 
+            "type": "string",
+            "description": "Unique identifier for the test attempt"
+          },
+          "timestamp": { 
+            "type": "string", 
+            "format": "date-time",
+            "description": "When the test was conducted"
+          },
+          "model_name": { 
+            "type": "string",
+            "description": "Name of the LLM model used"
+          },
+          "provider": { 
+            "type": "string",
+            "description": "Service provider of the LLM (e.g., OpenAI, Anthropic)"
+          },
+          "license_class": { 
+            "type": "string",
+            "description": "Amateur radio license class being tested (Technician, General, Extra)"
+          },
           "parameters": {
             "type": "object",
+            "description": "Model configuration and capabilities",
             "properties": {
-              "temperature": { "type": "number" },
-              "used_cot": { "type": "boolean" },
-              "used_rag": { "type": "boolean" },
-              "context_window": { "type": "integer" },
-              "param_count": { "type": ["number", "null"] }
+              "temperature": { 
+                "type": "number",
+                "description": "Sampling temperature used for generation"
+              },
+              "used_cot": { 
+                "type": "boolean",
+                "description": "Whether Chain-of-Thought reasoning was enabled"
+              },
+              "used_rag": { 
+                "type": "boolean",
+                "description": "Whether Retrieval Augmented Generation was used"
+              },
+              "context_window": { 
+                "type": "integer",
+                "description": "Maximum input context length in tokens"
+              },
+              "param_count": { 
+                "type": ["number", "null"],
+                "description": "Number of parameters in the model (billions)"
+              }
             }
           },
           "results": {
             "type": "object",
+            "description": "Test performance metrics",
             "properties": {
-              "total_questions": { "type": "integer" },
-              "correct_answers": { "type": "integer" },
-              "score_percentage": { "type": "number" },
-              "passed": { "type": "boolean" },
-              "margin_to_pass": { "type": "number" }
+              "total_questions": { 
+                "type": "integer",
+                "description": "Total number of questions in the test"
+              },
+              "correct_answers": { 
+                "type": "integer",
+                "description": "Number of questions answered correctly"
+              },
+              "score_percentage": { 
+                "type": "number",
+                "description": "Percentage of correct answers"
+              },
+              "passed": { 
+                "type": "boolean",
+                "description": "Whether the score met passing threshold"
+              },
+              "margin_to_pass": { 
+                "type": "number",
+                "description": "Difference between score and passing threshold"
+              }
             }
           },
           "performance": {
             "type": "object",
+            "description": "Runtime performance metrics",
             "properties": {
-              "duration_seconds": { "type": "number" },
-              "tokens_per_second": { "type": "number" },
-              "total_tokens": { "type": "integer" },
-              "prompt_tokens": { "type": "integer" },
-              "completion_tokens": { "type": "integer" }
+              "duration_seconds": { 
+                "type": "number",
+                "description": "Total time taken to complete the test"
+              },
+              "tokens_per_second": { 
+                "type": "number",
+                "description": "Average token processing speed"
+              },
+              "total_tokens": { 
+                "type": "integer",
+                "description": "Total tokens used across all questions"
+              },
+              "prompt_tokens": { 
+                "type": "integer",
+                "description": "Tokens used in input prompts"
+              },
+              "completion_tokens": { 
+                "type": "integer",
+                "description": "Tokens generated in responses"
+              }
             }
           },
           "costs": {
             "type": "object",
+            "description": "Cost analysis in USD",
             "properties": {
-              "total_cost": { "type": "number" },
-              "prompt_cost": { "type": "number" },
-              "completion_cost": { "type": "number" },
-              "cost_per_question": { "type": "number" }
+              "total_cost": { 
+                "type": "number",
+                "description": "Total cost for the entire test"
+              },
+              "prompt_cost": { 
+                "type": "number",
+                "description": "Cost of input tokens"
+              },
+              "completion_cost": { 
+                "type": "number",
+                "description": "Cost of output tokens"
+              },
+              "cost_per_question": { 
+                "type": "number",
+                "description": "Average cost per question"
+              }
             }
           }
         }
