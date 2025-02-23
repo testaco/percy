@@ -12,3 +12,4 @@ handbook/pdf/
 .aider*
 PLAN.md
 data/llmstats.json
+data/board.json
