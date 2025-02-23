@@ -434,19 +434,13 @@ def evaluate_test(
         used_cot=use_cot,
         used_rag=use_rag,
         temperature=temperature,
-        token_usage={
-            "input_tokens": total_prompt_tokens,
-            "output_tokens": total_completion_tokens,
-            "total_tokens": total_tokens,
-            "input_token_details": {
-                "audio": 0,
-                "cache_read": 0
-            },
-            "output_token_details": {
-                "audio": 0,
-                "reasoning": total_completion_tokens
-            }
-        },
+        token_usage=TokenUsage(
+            prompt_tokens=total_prompt_tokens,
+            completion_tokens=total_completion_tokens,
+            total_tokens=total_tokens,
+            input_token_details=TokenUsageDetails(),
+            output_token_details=OutputTokenDetails(reasoning=total_completion_tokens)
+        ),
         pool_name=pool_name,
         pool_id=pool_id
     )
