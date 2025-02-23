@@ -348,10 +348,7 @@ def evaluate_test(
                 model_answer = "Error processing question"
         else:
             # Text-only questions
-            prompt_text = PromptTemplate(
-                input_variables=list(inputs.keys()),
-                template=prompt_template
-            ).format(**inputs)
+            prompt_text = prompt_template.format(**inputs)
             response = completion(
                 model=model_name,
                 messages=[{"role": "user", "content": prompt_text}],
