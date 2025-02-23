@@ -11,3 +11,4 @@ handbook/pdf/
 .env
 .aider*
 PLAN.md
+data/llmstats.json
