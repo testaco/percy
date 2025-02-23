@@ -412,6 +412,39 @@ The script will output:
 - Required passing score (74%)
 - Whether the model passed or failed
 
+### Extract LLM Metadata
+
+The `extract_llmstats.py` script aggregates metadata about LLM models and their providers from the LLMStats submodule into a single JSON dataset. This data includes model capabilities, context sizes, benchmark scores, and provider-specific information like pricing and throughput.
+
+```bash
+# Update submodule and extract stats
+python scripts/extract_llmstats.py -y
+
+# Skip submodule update and extract stats
+python scripts/extract_llmstats.py -n
+
+# Prompt for submodule update
+python scripts/extract_llmstats.py
+```
+
+The script:
+1. Optionally updates the LLMStats submodule
+2. Extracts model metadata from `LLMStats/models/<creator>/<model_id>/model.json` files
+3. Combines with provider data from `LLMStats/providers/<provider>/provider.json` files
+4. Saves aggregated dataset to `data/llmstats.json`
+
+The output follows the schema defined in `schema/llmstats-schema.json` and includes:
+- Model capabilities (context sizes, multimodal support, etc.)
+- Benchmark scores across various datasets
+- Provider-specific information (pricing, throughput, latency)
+- Links to documentation, papers, and model weights
+
+This metadata is used to:
+- Calculate costs for test evaluations
+- Track model capabilities and limitations
+- Compare performance across benchmarks
+- Reference model documentation and resources
+
 ### Generate and Index Handbook Content
 
 #### Generate Content Using LLMs
