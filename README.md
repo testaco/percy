@@ -531,6 +531,39 @@ The script:
 
 ---
 
+### Generate Leaderboard Data Board
+
+The `generate_board.py` script aggregates test results and LLM metadata into a comprehensive board dataset for the leaderboard application. This data includes test performance, costs, and model capabilities.
+
+```bash
+python scripts/generate_board.py
+```
+
+The script:
+1. Processes all JSON files in the `outputs` directory
+2. Combines test results with LLM metadata from `data/llmstats.json`
+3. Calculates additional metrics like:
+   - Pass/fail status (74% required)
+   - Margin to passing score
+   - Token usage and costs
+   - Performance metrics (tokens/second)
+4. Saves the aggregated board data to `data/board.json`
+
+The output follows the schema defined in `schema/board-schema.json` and includes:
+- Test results with detailed metrics
+- Model parameters and capabilities
+- Performance statistics
+- Cost analysis per test
+- License class information
+
+This board data powers the leaderboard web application's:
+- Overall rankings
+- Performance comparisons
+- Cost analysis
+- Detailed test result views
+
+---
+
 ## Contribution
 
 Feel free to open issues and submit pull requests as the project evolves. The README will be updated over time as we build out the features.
