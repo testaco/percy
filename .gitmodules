@@ -1,0 +1,3 @@
+[submodule "LLMStats"]
+	path = LLMStats
+	url = https://github.com/JonathanChavezTamales/LLMStats.git
