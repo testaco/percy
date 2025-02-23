@@ -52,6 +52,12 @@ The project follows these steps:
 │   ├── gpt4o_test_002_results.json
 │   └── ...
 │
+├── /schema             # JSON schemas for data validation
+│   ├── question-pool.schema.json
+│   ├── test-result.schema.json
+│   ├── llmstats-schema.json
+│   └── board-schema.json      # Schema for aggregated leaderboard data
+│
 └── README.md           # Project documentation
 ```
 
