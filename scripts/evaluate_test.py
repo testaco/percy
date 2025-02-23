@@ -322,7 +322,7 @@ def evaluate_test(
 
         # Prepare the message content
         if question.has_image:
-            if provider == "anthropic":
+            if model_name.split("/")[0] == "anthropic":
                 # Anthropic can't handle images, convert to text description
                 content_parts = []
                 for part in inputs["content"]:
