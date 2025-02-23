@@ -301,21 +301,20 @@ Additional options:
 This script runs the specified model from the chosen provider on a generated test and saves the results in the `/outputs` folder.
 
 ```bash
-python scripts/evaluate_test.py --test-file <test_file> --model <model_name> --provider <provider_name>
+python scripts/evaluate_test.py --test-file <test_file> --model <model_name>
 ```
 
 **Parameters:**
 
 - `--test-file`: Path to the test JSON file.
 - `--model`: Name of the LLM model to use.
-- `--provider`: LLM provider to use (`openai`, `anthropic`, `ollama`, or `openrouter`).
 - `--temperature`: (Optional) Temperature setting for the LLM (default: `0.0`).
 - `--cot`: (Optional) Enable Chain of Thought reasoning mode.
 
 **Example with Chain of Thought:**
 
 ```bash
-python scripts/evaluate_test.py --test-file tests/technician_test.json --model gpt-4 --provider openai --cot
+python scripts/evaluate_test.py --test-file tests/technician_test.json --model openai/gpt-4 --cot
 ```
 
 **Examples:**
@@ -335,22 +334,15 @@ python scripts/evaluate_test.py --test-file tests/technician_test.json --model g
 - **Using OpenRouter ChatGPT-4:**
 
   ```bash
-  python scripts/evaluate_test.py --test-file tests/extra_test.json --model chatgpt-4o-latest --provider openrouter
-  ```
-
-- **Using Ollama Llama2:**
-
-  ```bash
-  python scripts/evaluate_test.py --test-file tests/technician_test.json --model llama2 --provider ollama
+  python scripts/evaluate_test.py --test-file tests/extra_test.json --model openrouter/chatgpt-4o-latest
   ```
 
 **Note:**
 
-- Ensure you have the necessary API keys and environment variables set for each provider.
+- Ensure you have the necessary API keys and environment variables set for each provider.  Follow the docs for litellm for specific providers.
 - For **OpenAI**, set `OPENAI_API_KEY`.
 - For **Anthropic**, set `ANTHROPIC_API_KEY`.
 - For **OpenRouter**, set `OPENROUTER_API_KEY`.
-- **Ollama** is assumed to be running locally and may require additional setup.
 
 ### Batch Evaluation
 
