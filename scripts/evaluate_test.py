@@ -337,29 +337,36 @@ def evaluate_test(
             
             # Use direct message for image questions
             try:
-                response = llm.invoke([HumanMessage(content=message_content)])
-                model_answer = response.content
-            except (BadRequestError, Exception) as e:
-                logger.warning(f"Error processing image: {str(e)}")
-                model_answer = "Model cannot handle images"
+                response = completion(
+                    model=model_name,
+                    messages=[{"role": "user", "content": message_content}],
+                    temperature=temperature
+                )
+                model_answer = response.choices[0].message.content
+            except APIError as e:
+                logger.warning(f"API Error: {str(e)}")
+                model_answer = "Error processing question"
         else:
             # Text-only questions
             prompt_text = PromptTemplate(
                 input_variables=list(inputs.keys()),
                 template=prompt_template
             ).format(**inputs)
-            response = llm.invoke([HumanMessage(content=prompt_text)])
-            model_answer = response.content
+            response = completion(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt_text}],
+                temperature=temperature
+            )
+            model_answer = response.choices[0].message.content
 
         # Standardize answer format
         model_answer = model_answer.strip().upper()
         
         # Track token usage
-        usage = response.usage_metadata
-            
-        total_prompt_tokens += usage.get('input_tokens', 0) or usage.get('prompt_tokens', 0)
-        total_completion_tokens += usage.get('output_tokens', 0) or usage.get('completion_tokens', 0)
-        total_tokens += usage.get('total_tokens', 0) or (total_prompt_tokens + total_completion_tokens)
+        usage = response.usage.dict()
+        total_prompt_tokens += usage.get('prompt_tokens', 0)
+        total_completion_tokens += usage.get('completion_tokens', 0)
+        total_tokens += usage.get('total_tokens', 0)
         
         # Record the result
         is_correct = extract_final_answer(model_answer) == question.correct_answer
