@@ -45,6 +45,24 @@ class Question(BaseModel):
     has_image: bool = False
     image_path: Optional[str] = None
 
+class TokenUsageDetails(BaseModel):
+    """Details about token usage for specific features"""
+    audio: int = 0
+    cache_read: int = 0
+
+class OutputTokenDetails(BaseModel):
+    """Details about output token usage"""
+    audio: int = 0
+    reasoning: int = 0
+
+class TokenUsage(BaseModel):
+    """Complete token usage information"""
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
+    input_token_details: TokenUsageDetails = Field(default_factory=TokenUsageDetails)
+    output_token_details: OutputTokenDetails = Field(default_factory=OutputTokenDetails)
+
 class TestResult(BaseModel):
     """Represents the results of a single test evaluation."""
     provider: str
@@ -59,7 +77,7 @@ class TestResult(BaseModel):
     used_cot: bool
     used_rag: bool
     temperature: float
-    token_usage: Dict[str, int] = Field(default_factory=dict)
+    token_usage: TokenUsage
     pool_name: str  # e.g. "technician", "general", "extra" 
     pool_id: str    # e.g. "technician-2022-2026"
 
