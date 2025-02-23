@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "test_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "test_id",
+          "timestamp",
+          "model_name", 
+          "provider",
+          "license_class",
+          "parameters",
+          "results",
+          "performance",
+          "costs"
+        ],
+        "properties": {
+          "test_id": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "model_name": { "type": "string" },
+          "provider": { "type": "string" },
+          "license_class": { "type": "string" },
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "temperature": { "type": "number" },
+              "used_cot": { "type": "boolean" },
+              "used_rag": { "type": "boolean" },
+              "context_window": { "type": "integer" },
+              "param_count": { "type": ["number", "null"] }
+            }
+          },
+          "results": {
+            "type": "object",
+            "properties": {
+              "total_questions": { "type": "integer" },
+              "correct_answers": { "type": "integer" },
+              "score_percentage": { "type": "number" },
+              "passed": { "type": "boolean" },
+              "margin_to_pass": { "type": "number" }
+            }
+          },
+          "performance": {
+            "type": "object",
+            "properties": {
+              "duration_seconds": { "type": "number" },
+              "tokens_per_second": { "type": "number" },
+              "total_tokens": { "type": "integer" },
+              "prompt_tokens": { "type": "integer" },
+              "completion_tokens": { "type": "integer" }
+            }
+          },
+          "costs": {
+            "type": "object",
+            "properties": {
+              "total_cost": { "type": "number" },
+              "prompt_cost": { "type": "number" },
+              "completion_cost": { "type": "number" },
+              "cost_per_question": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
