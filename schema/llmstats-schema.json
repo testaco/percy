@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Schema for aggregated LLM metadata and provider information",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "canonical_model_id": {
+        "type": ["string", "null"],
+        "description": "ID of the main version of this model"
+      },
+      "fine_tuned_from_model_id": {
+        "type": ["string", "null"],
+        "description": "ID of the base model if fine-tuned"
+      },
+      "name": {
+        "type": "string",
+        "description": "Human-readable name of the model"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description of model capabilities"
+      },
+      "release_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Release date of the model"
+      },
+      "input_context_size": {
+        "type": "integer",
+        "description": "Maximum input tokens"
+      },
+      "output_context_size": {
+        "type": "integer",
+        "description": "Maximum output tokens"
+      },
+      "license": {
+        "type": "string",
+        "description": "Model license"
+      },
+      "multimodal": {
+        "type": "boolean",
+        "description": "Whether model handles multiple modalities"
+      },
+      "web_hydrated": {
+        "type": "boolean",
+        "description": "Whether model has web access"
+      },
+      "knowledge_cutoff": {
+        "type": ["string", "null"],
+        "description": "Training data cutoff date"
+      },
+      "api_ref_link": {
+        "type": "string",
+        "format": "uri",
+        "description": "API documentation link"
+      },
+      "playground_link": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Interactive playground link"
+      },
+      "paper_link": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Research paper link"
+      },
+      "scorecard_blog_link": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Announcement blog link"
+      },
+      "repo_link": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Source code repository link"
+      },
+      "weights_link": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Model weights link"
+      },
+      "param_count": {
+        "type": ["number", "null"],
+        "description": "Number of model parameters"
+      },
+      "training_tokens": {
+        "type": ["number", "null"],
+        "description": "Number of training tokens"
+      },
+      "qualitative_metrics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "dataset_name": {"type": "string"},
+            "score": {"type": "number"},
+            "is_self_reported": {"type": "boolean"},
+            "analysis_method": {"type": "string"},
+            "date_recorded": {"type": "string", "format": "date"},
+            "source_link": {"type": "string", "format": "uri"}
+          },
+          "required": ["dataset_name", "score", "is_self_reported", "analysis_method", "date_recorded", "source_link"]
+        }
+      },
+      "providers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "provider_name": {"type": "string"},
+            "provider_website": {"type": "string", "format": "uri"},
+            "price_per_input_token": {"type": "number"},
+            "price_per_output_token": {"type": "number"},
+            "throughput": {"type": "number"},
+            "latency": {"type": "number"},
+            "updated_at": {"type": "string", "format": "date"}
+          },
+          "required": [
+            "provider_name",
+            "provider_website",
+            "price_per_input_token", 
+            "price_per_output_token",
+            "throughput",
+            "latency",
+            "updated_at"
+          ]
+        }
+      }
+    },
+    "required": [
+      "name",
+      "description", 
+      "release_date",
+      "input_context_size",
+      "output_context_size",
+      "license",
+      "multimodal",
+      "web_hydrated",
+      "api_ref_link",
+      "providers"
+    ]
+  }
+}
