@@ -323,13 +323,13 @@ python scripts/evaluate_test.py --test-file tests/technician_test.json --model g
 - **Using OpenAI GPT-4:**
 
   ```bash
-  python scripts/evaluate_test.py --test-file tests/technician_test.json --model gpt-4 --provider openai
+  python scripts/evaluate_test.py --test-file tests/technician_test.json --model openai/gpt-4
   ```
 
 - **Using Anthropic Claude-v1:**
 
   ```bash
-  python scripts/evaluate_test.py --test-file tests/general_test.json --model claude-v1 --provider anthropic
+  python scripts/evaluate_test.py --test-file tests/general_test.json --model anthropic/claude-3-sonnet
   ```
 
 - **Using OpenRouter ChatGPT-4:**
@@ -370,16 +370,11 @@ batch_name: "initial_evaluation_run"  # Unique identifier for this batch
 
 parameters:
   model_providers:  # Valid model-provider pairs
-    - model: "gpt-4"
-      provider: "openai"
-    - model: "gpt-3.5-turbo"
-      provider: "openai"
-    - model: "claude-v1"
-      provider: "anthropic"
-    - model: "claude-2"
-      provider: "anthropic"
-    - model: "llama2"
-      provider: "ollama"
+    - "openai/gpt-4"
+    - "openai/gpt-3.5-turbo" 
+    - "anthropic/claude-3-sonnet"
+    - "anthropic/claude-2"
+    - "ollama/llama2"
   temperature:
     - 0.0
     - 0.7

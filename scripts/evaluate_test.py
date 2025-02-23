@@ -278,9 +278,8 @@ def get_pool_info(test_file: str) -> tuple[str, str]:
 
 def evaluate_test(
     test_file: str,
-    model_name: str = "chatgpt-4o-latest",
+    model_name: str = "openai/gpt-3.5-turbo",
     temperature: float = 0.0,
-    provider: str = "openai",
     use_cot: bool = False,
     use_rag: bool = False
 ) -> TestResult:
@@ -302,7 +301,7 @@ def evaluate_test(
         handbook_index.build("handbook")
     
     # Initialize the LLM
-    llm = initialize_llm(model_name, provider, temperature)
+    llm = initialize_llm(model_name, temperature)
     
     # Process each question
     results = []
@@ -393,7 +392,7 @@ def evaluate_test(
     pool_name, pool_id = get_pool_info(test_file)
     
     return TestResult(
-        provider=provider,
+        provider=model_name.split("/")[0],  # Extract provider from model name
         test_id=Path(test_file).stem,
         model_name=model_name,
         timestamp=start_time.isoformat(),
@@ -460,7 +459,6 @@ def main():
             args.test_file,
             args.model,
             args.temperature,
-            args.provider,
             use_cot=args.cot,
             use_rag=args.rag
         )
