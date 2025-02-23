@@ -12,16 +12,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from openai import BadRequestError
+from litellm import completion
+from litellm.exceptions import APIError
 
 from handbook_indexer import HandbookIndex
-
 from dotenv import load_dotenv
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
-from langchain_community.chat_models import ChatAnthropic
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage
 from pydantic import BaseModel, Field, SecretStr
 from PIL import Image
 
@@ -33,20 +28,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-class ChatOpenRouter(ChatOpenAI):
-    openai_api_base: str
-    openai_api_key: SecretStr
-    model_name: str
-
-    def __init__(self,
-                 model_name: str,
-                 openai_api_key: Optional[str] = None,
-                 openai_api_base: str = "https://openrouter.ai/api/v1",
-                 **kwargs):
-        openai_api_key = openai_api_key or os.getenv('OPENROUTER_API_KEY')
-        super().__init__(openai_api_base=openai_api_base,
-                         openai_api_key=openai_api_key,
-                         model_name=model_name, **kwargs)
 
 
 class Answer(BaseModel):
@@ -263,32 +244,12 @@ def extract_final_answer(response: str) -> str:
     
     raise ValueError("No valid answer found in response")
 
-def initialize_llm(model_name: str, provider: str, temperature: float):
-    """Initialize and return the LLM based on the provider."""
-    if provider == "openai":
-        llm = ChatOpenAI(
-            model_name=model_name,
-            temperature=temperature,
-            max_tokens=1024
-        )
-    elif provider == "anthropic":
-        llm = ChatAnthropic(
-            model=model_name,
-            temperature=temperature,
-            max_tokens_to_sample=1024
-        )
-    elif provider == "ollama":
-        # Placeholder for Ollama integration
-        raise NotImplementedError("Ollama provider is not yet implemented.")
-    elif provider == "openrouter":
-        llm = ChatOpenRouter(
-            model_name=model_name,
-            temperature=temperature,
-            max_tokens=1024
-        )
-    else:
-        raise ValueError(f"Unsupported provider: {provider}")
-    return llm
+def initialize_llm(model_name: str, temperature: float):
+    """Initialize LiteLLM configuration"""
+    # Validate model format
+    if "/" not in model_name:
+        raise ValueError("Model name must be in format 'provider/model_name'")
+    return None  # No LLM object needed with LiteLLM's completion()
 
 def get_pool_info(test_file: str) -> tuple[str, str]:
     """Extract pool name and ID from test file path."""
@@ -470,15 +431,13 @@ def save_results(result: TestResult, output_dir: str = "outputs"):
 def main():
     parser = argparse.ArgumentParser(description="Evaluate an LLM's performance on an amateur radio exam")
     parser.add_argument("--test-file", required=True, help="Path to the test JSON file")
-    parser.add_argument("--model", default="chatgpt-4o-latest", help="Name of the LLM to use")
+    parser.add_argument(
+        "--model",
+        required=True,
+        help="Model in format 'provider/model_name' (e.g. 'openrouter/google/palm-2-chat-bison')"
+    )
     parser.add_argument("--temperature", type=float, default=0.0, help="Temperature for the LLM")
     parser.add_argument("--output-dir", default="outputs", help="Directory to save results")
-    parser.add_argument(
-        "--provider",
-        default="openai",
-        choices=["openai", "anthropic", "ollama", "openrouter"],
-        help="LLM provider to use (default: openai)"
-    )
     parser.add_argument(
         "--cot",
         action="store_true",
