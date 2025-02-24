@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Initialized Next.js 14 web interface with static export support
+- Added Shadcn UI components and Tailwind CSS setup
+- Added initial project structure for web interface
+- Added data schema validation using Zod
+- Added theme support with next-themes provider
+
 ## [1.4.0] - 2024-02-16
 
 ### Added
