@@ -175,42 +175,6 @@ Example test result that follows the schema:
 
 ---
 
-## Leaderboard Web Application
-
-The project includes a Next.js-based web application for visualizing test results and model performance. The leaderboard app provides:
-
-- Overall leaderboard showing model performance across all tests
-- Detailed evaluation pages for individual test results
-- Filtering by model, provider, license class, and other parameters
-- Performance charts and visualizations
-- Chain of Thought (CoT) reasoning display when available
-
-### Running the Leaderboard App
-
-```bash
-# Navigate to the leaderboard directory
-cd leaderboard
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-The app will be available at http://localhost:3000
-
-### Leaderboard Features
-
-- **Real-time Updates**: Automatically reflects new test results as they're generated
-- **Performance Metrics**: Shows pass rates, average scores, and timing data
-- **Filtering & Search**: Filter results by model, provider, license class, and more
-- **Detailed Views**: Examine individual test attempts and Chain of Thought reasoning
-- **Data Visualization**: Charts showing performance trends and comparisons
-- **Mobile Responsive**: Fully responsive design using shadcn/ui components
-
----
-
 ## Installation Guide
 
 1. **Clone the Repository**  
