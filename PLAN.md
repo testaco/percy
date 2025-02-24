@@ -1,92 +1,73 @@
-# Percy Web Interface Implementation Plan
+# Percy Web Interface Development Plan
 
-## Architecture Overview
-- **Framework**: Next.js 14 (App Router) with Static Exports (`next export`)
-- **UI Components**: Shadcn UI + Radix Primitives + Tailwind CSS
-- **Data Strategy**: Client-side data fetching with SWR + zod for schema validation
-- **Hosting**: Cloudflare Pages (static deployment)
+## Phase 1: Project Setup & Core Infrastructure
+- [ ] Initialize Next.js 14 app with App Router in `/web`
+- [ ] Configure for static export (`output: 'export'`)
+- [ ] Set up Shadcn UI components library
+- [ ] Add TanStack Table + react-hook-form integration
+- [ ] Create TypeScript types from JSON schemas using `json-schema-to-typescript`
 
-## Directory Structure
-```
-web/
-├── app/                 # Next.js app router
-│   ├── (static)/        # Static generated pages
-│   │   ├── handbook/    
-│   │   └── models/     
-│   ├── about/page.tsx   
-│   └── layout.tsx
-├── components/          # Shadcn + custom components
-├── data/                # Symlink to project data files
-├── lib/                 # Data loading utilities
-├── styles/              # Tailwind config + custom CSS
-└── next.config.js       # Static export config
-```
+## Phase 2: Core Pages & Features
+### Homepage (/) 
+- Hero section explaining project goals
+- License class overview cards
+- Quick stats from board.json
 
-## Implementation Phases
+### Handbook Browser (/handbook)
+- Dynamic routing for license classes (/handbook/[class])
+- Markdown content rendering with syntax highlighting
+- Sidebar navigation with group titles
+- Search integration using handbook FAISS index
 
-### 1. Project Setup (Week 1)
-- Initialize Next.js with `create-next-app` in `/web`
-- Configure `next.config.js` for static exports
-- Set up Shadcn UI with theming support
-- Create symlink from `/web/data` to project root data files
-- Add data types from JSON schemas using `zod`
+### LLM Leaderboard (/leaderboard)
+- Filterable/sortable table of board.json data
+- Provider/Model comparison charts
+- Dynamic filtering by:
+  - License class
+  - Model capabilities
+  - Cost ranges
+  - Performance metrics
 
-### 2. Homepage & Core Layout (Week 2)
-- Hero section with project overview
-- Key metrics cards (total tests run, top models)
-- Interactive model comparison chart (visx)
-- Responsive navbar with search
-- Footer with project links
+### Model & Test Exploration
+- Model detail pages (/models/[id]) with:
+  - Capability matrix from llmstats.json
+  - Cost calculator
+  - Historical performance
+- Test result pages (/tests/[id]) showing:
+  - Question-by-question results
+  - RAG context visualization
+  - Token usage breakdowns
+  - Original prompts/responses
 
-### 3. Handbook System (Week 3)
-- Markdown processing pipeline:
-  - Convert handbook markdown to AST (remark)
-  - Generate static pages under `/handbook/[chapter]`
-  - Table of Contents component with collapsible sections
-- Search integration with Fuse.js
-- Diagram rendering for question images
+## Phase 3: Data Loading & Optimization
+- Implement client-side data loading strategy:
+  - Prebuild JSON files to `/web/public/data`
+  - SWR for client-side caching/revalidation
+  - Compression with JSONC format
+- Generate TypeScript types from schemas:
+  - Board data
+  - LLM stats
+  - Test results
+- Optimize static assets:
+  - Convert handbook images to WebP
+  - Lazy load question diagrams
 
-### 4. LLM Leaderboard (Week 4)
-- TanStack Table implementation with:
-  - Dynamic column visibility
-  - Column filtering (react-hook-form)
-  - Server-style pagination
-- Metrics cards summary
-- CSV export functionality
-- Score distribution histogram
+## Phase 4: Deployment Setup
+- Configure next.config.js for static export
+- Add CI/CD pipeline:
+  - Rebuild JSON data files on schema changes
+  - Regenerate TypeScript types
+  - Preprocess handbook markdown
+- Cloudflare Pages deployment setup
+- Edge caching headers for JSON data
 
-### 5. Model & Test Pages (Week 5)
-- Dynamic routes:
-  - `/models/[modelId]` - Model capability matrix
-  - `/providers/[providerId]` - Cost/performance charts
-  - `/tests/[testId]` - Question-by-question analysis
-- Test result viewer components:
-  - Diff viewer for model vs correct answers
-  - Token usage waterfall charts
-  - RAG context inspector
+## Phase 5: Interactive Features
+- Compare mode for model performance
+- Model "shootout" test generator
+- Interactive cost estimator
+- User-submitted test results (CSV import)
 
-## Performance Optimization
-- Data caching strategy:
-  - Client-side cache with SWR (stale-while-revalidate)
-  - Compress JSON data with lz-string
-  - Preload critical pages with `<link rel="preload">`
-- Image optimization:
-  - Convert diagrams to WebP
-  - Implement blur-up placeholders
-
-## Deployment Setup
-```bash
-# Cloudflare Pages config (web/cloudflare.json)
-{
-  "build": {
-    "command": "npm run export",
-    "directory": "out"
-  }
-}
-```
-
-## Post-Launch
-- Add Vercel Analytics for usage tracking
-- Implement automated accessibility testing
-- Create feedback widget for data quality reports
-- Set up CI checks for data schema validation
+Ownership:
+- Web Team (Frontend Engineers x2)
+- Data Team (Backend Engineer x1)
+- DevOps (Cloudflare Config)
