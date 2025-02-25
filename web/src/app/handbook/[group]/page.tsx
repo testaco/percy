@@ -10,11 +10,12 @@ export async function generateStaticParams() {
   return toc.flatMap((chapter) => chapter[2]).map((group) => ({ group }))
 }
 
-export default function GroupPage({ params }: { params: { group: string } }) {
-  const mdPath = path.join(process.cwd(), 'src/handbook/md', `${params.group}.md`)
-  const content = fs.readFileSync(mdPath, 'utf8')
-  const toc: TOC = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'))
-  const title = content.split('\n')[0].replace('# ', '')
+export default async function GroupPage({ params }: { params: Promise<{ group: string }> }) {
+  const { group } = await params;
+  const mdPath = path.join(process.cwd(), 'src/handbook/md', `${group}.md`);
+  const content = fs.readFileSync(mdPath, 'utf8');
+  const toc: TOC = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'));
+  const title = content.split('\n')[0].replace('# ', '');
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
