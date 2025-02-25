@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import os
 import glob
 import subprocess
@@ -56,23 +57,12 @@ def combine_pdfs(chapter_pdfs: list[str], output_file: str):
 def main():
     ensure_output_dirs()
     
-    # Define chapter patterns
-    chapters = [
-        (1, "T1A T1B G1A E1A T1C T1D G1B E1B E1F T1E G1E E1C T1F G1C G1D E1E E1D".split()),
-        (2, "T2A T2B T2C G2A G2B G2C G2D G2E E2A E2B E2C E2D E2E".split()),
-        (3, "T3A T3B T3C G3A G3B G3C E3A E3B E3C".split()),
-        (4, "T4A T4B G4A G4B G4C G4D G4E E4A E4B E4C E4D E4E".split()),
-        (5, "T5A T5B T5C T5D G5A G5B G5C E5A E5B E5C E5D".split()),
-        (6, "T6A T6B T6C T6D G6A G6B E6A E6B E6C E6D E6E E6F".split()),
-        (7, "T7A T7B T7C T7D G7A G7B G7C E7A E7B E7C E7D E7E E7F E7G E7H".split()),
-        (8, "T8A T8B T8C T8D G8A G8B G8C E8A E8B E8C E8D".split()),
-        (9, "T9A T9B G9A G9B G9C G9D E9A E9B E9C E9D E9E E9F E9G E9H".split()),
-        (10, "T0A T0B T0C G0A G0B E0A".split()),  # Handle T0, G0, E0 as chapter 10
-    ]
-    
+    with open("handbook/toc.json", "r") as f:
+      chapters = json.load(f)
+
     # Generate chapter PDFs
     chapter_pdfs = []
-    for chapter_num, patterns in chapters:
+    for chapter_num, chapter_name, patterns in chapters:
         pdf = generate_chapter_pdf(chapter_num, patterns)
         if pdf:
             chapter_pdfs.append(pdf)
