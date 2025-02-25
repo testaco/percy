@@ -14,10 +14,13 @@
 - Quick stats from board.json
 
 ### Handbook Browser (/handbook)
-- Dynamic routing for license classes (/handbook/[class])
-- Markdown content rendering with syntax highlighting
-- Sidebar navigation with group titles
-- Search integration using handbook FAISS index
+- first, remember that we are using nextjs to export static pages for the table of contents and each group.
+- Dynamic routing for groups (/handbook/[group])
+- Markdown content rendering, we have no need for syntax highlighting
+- navigate via shadcn Select component with chapter and group titles
+- the table of contents is available in web/src/handbook/toc.json
+- the url path /handbook/ shows the table of contents with links
+- the individual group markdown files are in web/src/handbook/md, like web/src/handbook/md/T1A.md. the title of the group is located in this markdown file as the first line.
 
 ### LLM Leaderboard (/leaderboard)
 - Filterable/sortable table of board.json data
