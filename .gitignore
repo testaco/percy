@@ -10,6 +10,5 @@ handbook/md/
 handbook/pdf/
 .env
 .aider*
-PLAN.md
 data/llmstats.json
 data/board.json
