@@ -2,17 +2,18 @@ import fs from 'fs'
 import path from 'path'
 import { HandbookNav } from '@/components/handbook/navigation'
 import ReactMarkdown from 'react-markdown'
+import { TOC } from '@/types/handbook'
 
 export async function generateStaticParams() {
   const tocPath = path.join(process.cwd(), 'src/handbook/toc.json')
-  const toc = JSON.parse(fs.readFileSync(tocPath, 'utf8'))
-  return toc.flatMap((chapter: any) => chapter[2]).map((group: string) => ({ group }))
+  const toc: TOC = JSON.parse(fs.readFileSync(tocPath, 'utf8'))
+  return toc.flatMap((chapter) => chapter[2]).map((group) => ({ group }))
 }
 
 export default function GroupPage({ params }: { params: { group: string } }) {
   const mdPath = path.join(process.cwd(), 'src/handbook/md', `${params.group}.md`)
   const content = fs.readFileSync(mdPath, 'utf8')
-  const toc = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'))
+  const toc: TOC = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'))
   const title = content.split('\n')[0].replace('# ', '')
 
   return (
