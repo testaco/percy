@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { CheckIcon, XIcon } from 'lucide-react';
+import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import { LLMStats } from '@/types/llmstats';
 import { BoardData } from '@/types/board';
 
@@ -288,11 +288,13 @@ export default async function ModelPage({ params }: { params: { modelId: string 
                     <TableCell className="text-right">${test.costs.total_cost.toFixed(2)}</TableCell>
                     <TableCell>
                       {test.results.passed ? (
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-green-100 text-green-800 flex items-center gap-1">
+                          <CheckCircledIcon className="h-4 w-4" />
                           Passed
                         </Badge>
                       ) : (
-                        <Badge className="bg-red-100 text-red-800">
+                        <Badge className="bg-red-100 text-red-800 flex items-center gap-1">
+                          <CrossCircledIcon className="h-4 w-4" />
                           Failed
                         </Badge>
                       )}
