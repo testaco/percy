@@ -29,8 +29,9 @@ async function getModelData(modelId: string) {
   }
 }
 
-export default async function ModelPage({ params }: { params: { modelId: string } }) {
-  const data = await getModelData(params.modelId);
+export default async function ModelPage({ params }: { params: Promise<{ modelId: string }> }) {
+  const { modelId } = await params;
+  const data = await getModelData(modelId);
   
   if (!data) {
     notFound();
@@ -305,7 +306,7 @@ export default async function ModelPage({ params }: { params: { modelId: string 
             </Table>
             {modelTests.length > 10 && (
               <div className="mt-4 text-center">
-                <Link href={`/tests?model=${params.modelId}`} className="text-primary hover:underline">
+                <Link href={`/tests?model=${modelId}`} className="text-primary hover:underline">
                   View all {modelTests.length} test runs
                 </Link>
               </div>
