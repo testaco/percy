@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Stats",
   "type": "object",
   "description": "Schema for aggregated LLM metadata and provider information",
   "additionalProperties": {

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "serve out",
     "lint": "next lint",
-    "generate:types": "json2ts ../schema/*.json -o src/types/ -c schema.config.js"
+    "generate:types": "json2ts -i ../schema/board-schema.json -o src/types/board.d.ts && json2ts -i ../schema/llmstats-schema.json -o src/types/llmstats.d.ts"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",

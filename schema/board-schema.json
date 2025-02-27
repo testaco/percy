@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Board Data",
   "type": "object",
   "description": "Schema for the LLM testing leaderboard data",
   "properties": {
@@ -76,6 +77,7 @@
           "results": {
             "type": "object",
             "description": "Test performance metrics",
+            "required": ["total_questions", "correct_answers", "score_percentage", "passed", "margin_to_pass"],
             "properties": {
               "total_questions": { 
                 "type": "integer",
@@ -102,6 +104,7 @@
           "performance": {
             "type": "object",
             "description": "Runtime performance metrics",
+            "required": ["duration_seconds", "tokens_per_second", "total_tokens", "prompt_tokens", "completion_tokens"],
             "properties": {
               "duration_seconds": { 
                 "type": "number",
@@ -128,6 +131,7 @@
           "costs": {
             "type": "object",
             "description": "Cost analysis in USD",
+            "required": ["total_cost", "prompt_cost", "completion_cost", "cost_per_question"],
             "properties": {
               "total_cost": { 
                 "type": "number",
@@ -150,5 +154,6 @@
         }
       }
     }
-  }
+  },
+  "required": ["test_results"]
 }
