@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Question Pool",
   "type": "object",
   "required": ["license_class", "version", "group_titles", "questions"],
   "properties": {

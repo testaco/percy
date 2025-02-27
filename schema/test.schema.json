@@ -11,7 +11,6 @@
     },
     "timestamp": {
       "type": "string",
-      "format": "date-time",
       "description": "ISO 8601 timestamp of test creation"
     },
     "source_pool": {
