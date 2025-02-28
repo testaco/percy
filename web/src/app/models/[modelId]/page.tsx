@@ -273,7 +273,7 @@ export default async function ModelPage({ params }: { params: Promise<{ modelId:
                 {modelTests.slice(0, 10).map((test) => (
                   <TableRow key={test.test_id}>
                     <TableCell>
-                      <Link href={`/tests/${test.test_id}`} className="text-primary hover:underline">
+                      <Link href={`/tests/${test.test_result_id}`} className="text-primary hover:underline">
                         {test.test_id}
                       </Link>
                     </TableCell>

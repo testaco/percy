@@ -22,6 +22,10 @@ export interface BoardData {
      */
     test_id: string;
     /**
+     * Filename of the test result without path or extension
+     */
+    test_result_id: string;
+    /**
      * When the test was conducted
      */
     timestamp: string;
@@ -56,7 +60,7 @@ export interface BoardData {
       /**
        * Maximum input context length in tokens
        */
-      context_window?: number;
+      context_window?: number | null;
       /**
        * Number of parameters in the model (billions)
        */

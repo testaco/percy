@@ -6,7 +6,6 @@
   "properties": {
     "last_updated": {
       "type": "string",
-      "format": "date-time",
       "description": "Timestamp of when the leaderboard was last updated"
     },
     "test_results": {
@@ -38,7 +37,6 @@
           },
           "timestamp": { 
             "type": "string", 
-            "format": "date-time",
             "description": "When the test was conducted"
           },
           "model_name": { 
@@ -70,7 +68,7 @@
                 "description": "Whether Retrieval Augmented Generation was used"
               },
               "context_window": { 
-                "type": "integer",
+                "type": ["integer", "null"],
                 "description": "Maximum input context length in tokens"
               },
               "param_count": { 
