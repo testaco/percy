@@ -17,6 +17,7 @@
         "description": "Single test result entry",
         "required": [
           "test_id",
+          "test_result_id",
           "timestamp",
           "model_name", 
           "provider",
@@ -30,6 +31,10 @@
           "test_id": { 
             "type": "string",
             "description": "Unique identifier for the test attempt"
+          },
+          "test_result_id": { 
+            "type": "string",
+            "description": "Filename of the test result without path or extension"
           },
           "timestamp": { 
             "type": "string", 

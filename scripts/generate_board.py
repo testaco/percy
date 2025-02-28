@@ -59,9 +59,12 @@ class BoardGenerator:
             return "extra"
         return "unknown"
 
-    def _process_test_result(self, result: Dict[str, Any]) -> Dict[str, Any]:
+    def _process_test_result(self, result: Dict[str, Any], file_path: str) -> Dict[str, Any]:
         """Process a single test result into board format"""
         model_name = result["model_name"]
+        
+        # Extract filename without path or extension for test_result_id
+        test_result_id = Path(file_path).stem
         
         # Calculate pass/fail and margin
         passing_score = 74.0  # Required passing percentage
@@ -82,6 +85,7 @@ class BoardGenerator:
 
         return {
             "test_id": result["test_id"],
+            "test_result_id": test_result_id,
             "timestamp": result["timestamp"],
             "model_name": model_name,
             "provider": result["provider"],
@@ -120,7 +124,7 @@ class BoardGenerator:
             try:
                 with open(file_path) as f:
                     result = json.load(f)
-                    processed_result = self._process_test_result(result)
+                    processed_result = self._process_test_result(result, file_path)
                     test_results.append(processed_result)
             except Exception as e:
                 print(f"Error processing {file_path}: {e}")
