@@ -12,6 +12,7 @@ import {
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table"
+import { TestResultQuestionAnswer } from "@/types/test-result"
 import {
   Table,
   TableBody,
@@ -22,15 +23,15 @@ import {
 } from "@/components/ui/table"
 import { useState } from "react"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+interface DataTableProps {
+  columns: ColumnDef<TestResultQuestionAnswer, any>[]
+  data: TestResultQuestionAnswer[]
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
