@@ -14,18 +14,18 @@ async function getCombinedData() {
       organization: model.providers[0]?.provider_name || 'Unknown',
       passes_technician: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.pool_name === 'technician' &&
-        tr.score_percentage >= 74
+        tr.license_class === 'technician' &&
+        tr.results.passed
       ),
       passes_general: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.pool_name === 'general' &&
-        tr.score_percentage >= 74
+        tr.license_class === 'general' &&
+        tr.results.passed
       ),
       passes_extra: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.pool_name === 'extra' &&
-        tr.score_percentage >= 74
+        tr.license_class === 'extra' &&
+        tr.results.passed
       )
     }));
   } catch (error) {
