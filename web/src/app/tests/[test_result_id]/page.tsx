@@ -68,65 +68,73 @@ export default async function TestDetailPage({ params }: {
       
       {questionsWithDetails.map((question) => (
         <dialog key={question.question_id} id={question.question_id} className="modal">
-          <div className="modal-box max-w-4xl">
-            <h3 className="font-bold text-lg mb-4">{question.question}</h3>
+          <div className="modal-box max-w-4xl border-2 border-gray-200 shadow-xl rounded-lg p-6 relative">
+            {/* Add close button at top right */}
+            <form method="dialog" className="absolute right-4 top-4">
+              <button className="btn btn-sm btn-circle btn-ghost text-lg">
+                ×
+              </button>
+            </form>
             
-            {question.has_image && (
-              <div className="relative h-64 mb-4">
-                <Image
-                  src={`/data/question_pools/${testResult.pool_name}/${question.question_id}.jpg`}
-                  alt="Question diagram"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            )}
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              {question.answers?.map((answer) => (
-                <div 
-                  key={answer.option} 
-                  className={`p-3 rounded-md ${
-                    answer.option === question.correct_answer 
-                      ? "bg-green-100 border border-green-300" 
-                      : answer.option === question.model_answer && answer.option !== question.correct_answer
-                      ? "bg-red-100 border border-red-300"
-                      : "bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  <span className="font-medium">{answer.option}:</span> {answer.text}
+            <div className="pt-8"> {/* Add padding to offset close button */}
+              <h3 className="font-bold text-2xl mb-6 text-primary">{question.question}</h3>
+              
+              {question.has_image && (
+                <div className="relative h-64 mb-6 bg-gray-50 rounded-xl overflow-hidden">
+                  <Image
+                    src={`/data/question_pools/${testResult.pool_name}/${question.question_id}.jpg`}
+                    alt="Question diagram"
+                    fill
+                    className="object-contain p-4"
+                  />
                 </div>
-              ))}
-            </div>
-            
-            {question.rag_context && (
-              <div className="prose mb-4 p-4 bg-blue-50 rounded-md">
-                <h4 className="text-blue-800">RAG Context</h4>
-                <ul>
-                  {question.rag_context.map((ctx, i) => (
-                    <li key={i}>{ctx}</li>
-                  ))}
-                </ul>
+              )}
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                {question.answers?.map((answer) => (
+                  <div 
+                    key={answer.option} 
+                    className={`p-3 rounded-md ${
+                      answer.option === question.correct_answer 
+                        ? "bg-green-100 border border-green-300" 
+                        : answer.option === question.model_answer && answer.option !== question.correct_answer
+                        ? "bg-red-100 border border-red-300"
+                        : "bg-gray-50 border border-gray-200"
+                    }`}
+                  >
+                    <span className="font-medium">{answer.option}:</span> {answer.text}
+                  </div>
+                ))}
               </div>
-            )}
-            
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div>
-                <p className="font-semibold">Input Tokens:</p>
-                <p>{question.token_usage.input_tokens}</p>
+              
+              {question.rag_context && (
+                <div className="prose mb-6 p-4 bg-blue-50 rounded-md border border-blue-200">
+                  <h4 className="text-blue-800 font-semibold mb-3">RAG Context</h4>
+                  <ul className="space-y-2">
+                    {question.rag_context.map((ctx, i) => (
+                      <li key={i} className="text-sm text-blue-700">{ctx}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <div className="grid grid-cols-2 gap-4 mt-6 bg-gray-50 p-4 rounded-lg">
+                <div className="space-y-1">
+                  <p className="font-semibold text-gray-600">Input Tokens</p>
+                  <p className="text-lg font-mono">{question.token_usage.input_tokens}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="font-semibold text-gray-600">Output Tokens</p>
+                  <p className="text-lg font-mono">{question.token_usage.output_tokens}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold">Output Tokens:</p>
-                <p>{question.token_usage.output_tokens}</p>
-              </div>
-            </div>
-            
-            <div className="modal-action">
-              <form method="dialog">
-                <button className="btn">Close</button>
-              </form>
             </div>
           </div>
+          
+          {/* Click outside to close */}
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
         </dialog>
       ))}
     </div>
