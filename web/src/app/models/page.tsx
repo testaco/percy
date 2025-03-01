@@ -1,6 +1,5 @@
 import { DataTable } from "./data-table"
 import { columns } from "./columns"
-import { LLMStats } from "@/types/llmstats";
 
 async function getCombinedData() {
   try {
@@ -15,18 +14,18 @@ async function getCombinedData() {
       organization: model.providers[0]?.provider_name || 'Unknown',
       passes_technician: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.test_id === 'technician-2022-2026' &&
-        tr.score_percentage === 100
+        tr.pool_name === 'technician' &&
+        tr.score_percentage >= 74
       ),
       passes_general: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.test_id === 'general-2023-2027' &&
-        tr.score_percentage === 100
+        tr.pool_name === 'general' &&
+        tr.score_percentage >= 74
       ),
       passes_extra: board.test_results.some(tr => 
         tr.model_name === id && 
-        tr.test_id === 'extra-2024-2028' &&
-        tr.score_percentage === 100
+        tr.pool_name === 'extra' &&
+        tr.score_percentage >= 74
       )
     }));
   } catch (error) {
