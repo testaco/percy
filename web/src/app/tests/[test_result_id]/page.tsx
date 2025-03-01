@@ -6,6 +6,17 @@ import { TestResult } from "@/types/test-result"
 import { AmateurRadioTest } from "@/types/test"
 import Image from "next/image"
 
+export async function generateStaticParams() {
+  const evaluationsDir = path.join(process.cwd(), 'public/data/evaluations')
+  const files = await fs.readdir(evaluationsDir)
+  
+  return files
+    .filter(file => file.endsWith('.json'))
+    .map(file => ({
+      test_result_id: file.replace(/\.json$/, '')
+    }))
+}
+
 export default async function TestDetailPage({ params }: { 
   params: Promise<{ test_result_id: string }>
 }) {
