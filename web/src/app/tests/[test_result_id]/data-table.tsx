@@ -24,7 +24,7 @@ import {
 import { useState } from "react"
 
 interface DataTableProps {
-  columns: ColumnDef<TestResultQuestionAnswer, any>[]
+  columns: ColumnDef<TestResultQuestionAnswer, unknown>[]
   data: TestResultQuestionAnswer[]
 }
 
