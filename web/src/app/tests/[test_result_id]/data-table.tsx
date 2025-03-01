@@ -2,11 +2,15 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
   SortingState,
+  VisibilityState,
 } from "@tanstack/react-table"
 import {
   Table,
@@ -28,17 +32,33 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      columnFilters,
+      columnVisibility,
     },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   })
+  
+  // Handle row click to open dialog
+  const handleRowClick = (questionId: string) => {
+    const dialog = document.getElementById(questionId) as HTMLDialogElement
+    if (dialog) {
+      dialog.showModal()
+    }
+  }
 
   return (
     <div className="rounded-md border">
@@ -63,7 +83,7 @@ export function DataTable<TData, TValue>({
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
               className="cursor-pointer hover:bg-gray-50"
-              onClick={() => (document.getElementById(row.id) as HTMLDialogElement)?.showModal()}
+              onClick={() => handleRowClick(row.original.question_id)}
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id}>

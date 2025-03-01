@@ -59,10 +59,12 @@ export default async function TestDetailPage({ params }: {
         </div>
       </div>
       
-      <DataTable 
-        columns={columns} 
-        data={testResult.questions} 
-      />
+      <div className="space-y-4">
+        <DataTable 
+          columns={columns} 
+          data={testResult.questions} 
+        />
+      </div>
       
       {questionsWithDetails.map((question) => (
         <dialog key={question.question_id} id={question.question_id} className="modal">

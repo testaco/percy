@@ -16,9 +16,9 @@ export function Toolbar({ table }: ToolbarProps) {
         <Input
           placeholder="Filter questions..."
           value={(table.getColumn("question_id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
+          onChange={(event) => {
             table.getColumn("question_id")?.setFilterValue(event.target.value)
-          }
+          }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
         
