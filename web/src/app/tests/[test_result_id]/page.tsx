@@ -82,7 +82,7 @@ export default async function TestDetailPage({ params }: {
               {question.has_image && (
                 <div className="relative h-64 mb-6 bg-gray-50 rounded-xl overflow-hidden">
                   <Image
-                    src={`/data/question_pools/${testResult.pool_name}/${question.question_id}.jpg`}
+                    src={`/data/question_pools/${question.image_path}`}
                     alt="Question diagram"
                     fill
                     className="object-contain p-4"
