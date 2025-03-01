@@ -2,20 +2,11 @@
 
 import * as React from "react"
 import { Column } from "@tanstack/react-table"
-import { Check, PlusCircle } from "lucide-react"
+import { PlusCircle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
@@ -82,67 +73,53 @@ export function DataTableFacetedFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
-        <Command>
-          <CommandInput placeholder={title} />
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
-                return (
-                  <CommandItem
-                    key={option.value}
-                    onSelect={() => {
+      <PopoverContent className="w-[200px] p-2" align="start">
+        <div className="space-y-2">
+          <h4 className="text-sm font-medium px-1">{title}</h4>
+          <div className="space-y-1">
+            {options.map((option) => {
+              const isSelected = selectedValues.has(option.value);
+              return (
+                <label 
+                  key={option.value}
+                  className="flex items-center space-x-2 p-1 rounded hover:bg-accent cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => {
+                      const newValues = new Set(selectedValues);
                       if (isSelected) {
-                        selectedValues.delete(option.value)
+                        newValues.delete(option.value);
                       } else {
-                        selectedValues.add(option.value)
+                        newValues.add(option.value);
                       }
-                      const filterValues = Array.from(selectedValues)
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      )
+                      column?.setFilterValue(newValues.size ? Array.from(newValues) : undefined);
                     }}
-                  >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
-                      )}
-                    >
-                      <Check className={cn("h-4 w-4")} />
-                    </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
-            {selectedValues.size > 0 && (
-              <>
-                <CommandSeparator />
-                <CommandGroup>
-                  <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
-                    className="justify-center text-center"
-                  >
-                    Clear filters
-                  </CommandItem>
-                </CommandGroup>
-              </>
-            )}
-          </CommandList>
-        </Command>
+                    className="h-4 w-4 accent-primary"
+                  />
+                  <span className="text-sm">{option.label}</span>
+                  {option.icon && (
+                    <option.icon className="h-4 w-4 text-muted-foreground" />
+                  )}
+                  {facets?.get(option.value) && (
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {facets.get(option.value)}
+                    </span>
+                  )}
+                </label>
+              );
+            })}
+          </div>
+          {selectedValues.size > 0 && (
+            <button
+              onClick={() => column?.setFilterValue(undefined)}
+              className="w-full text-xs text-primary hover:underline text-center pt-1"
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   )
