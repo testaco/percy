@@ -10,32 +10,7 @@ export interface TestResult {
   test_id: string;
   model_name: string;
   timestamp: string;
-  questions: {
-    question_id: string;
-    model_answer: string;
-    correct_answer: string;
-    is_correct: boolean;
-    has_image: boolean;
-    image_path?: string | null;
-    rag_context?: string[] | null;
-    token_usage: {
-      input_tokens: number;
-      output_tokens: number;
-      total_tokens: number;
-      input_token_details: {
-        audio?: number;
-        cache_read?: number;
-        [k: string]: unknown;
-      };
-      output_token_details: {
-        audio?: number;
-        reasoning?: number;
-        [k: string]: unknown;
-      };
-      [k: string]: unknown;
-    };
-    [k: string]: unknown;
-  }[];
+  questions: TestResultQuestionAnswer[];
   total_questions: number;
   correct_answers: number;
   score_percentage: number;
@@ -51,5 +26,31 @@ export interface TestResult {
   };
   pool_name: string;
   pool_id: string;
+  [k: string]: unknown;
+}
+export interface TestResultQuestionAnswer {
+  question_id: string;
+  model_answer: string;
+  correct_answer: string;
+  is_correct: boolean;
+  has_image: boolean;
+  image_path?: string | null;
+  rag_context?: string[] | null;
+  token_usage: {
+    input_tokens: number;
+    output_tokens: number;
+    total_tokens: number;
+    input_token_details: {
+      audio?: number;
+      cache_read?: number;
+      [k: string]: unknown;
+    };
+    output_token_details: {
+      audio?: number;
+      reasoning?: number;
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  };
   [k: string]: unknown;
 }
