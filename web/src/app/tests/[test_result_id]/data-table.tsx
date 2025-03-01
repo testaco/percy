@@ -13,6 +13,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table"
 import { TestResultQuestionAnswer } from "@/types/test-result"
+import { Toolbar } from "./toolbar"
 import {
   Table,
   TableBody,
@@ -62,9 +63,11 @@ export function DataTable({
   }
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
+    <div className="space-y-4">
+      <Toolbar table={table} />
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -93,8 +96,9 @@ export function DataTable({
               ))}
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }
