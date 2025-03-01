@@ -2,6 +2,89 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Test Result",
   "type": "object",
+  "definitions": {
+    "TestResultQuestionAnswer": {
+      "title": "Test Result Question Answer",
+      "type": "object",
+      "required": [
+        "question_id",
+        "model_answer",
+        "correct_answer",
+        "is_correct",
+        "has_image",
+        "token_usage"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string"
+        },
+        "model_answer": {
+          "type": "string"
+        },
+        "correct_answer": {
+          "type": "string"
+        },
+        "is_correct": {
+          "type": "boolean"
+        },
+        "has_image": {
+          "type": "boolean"
+        },
+        "image_path": {
+          "type": ["string", "null"]
+        },
+        "rag_context": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string"
+          }
+        },
+        "token_usage": {
+          "type": "object",
+          "required": [
+            "input_tokens",
+            "output_tokens",
+            "total_tokens",
+            "input_token_details",
+            "output_token_details"
+          ],
+          "properties": {
+            "input_tokens": {
+              "type": "integer"
+            },
+            "output_tokens": {
+              "type": "integer"
+            },
+            "total_tokens": {
+              "type": "integer"
+            },
+            "input_token_details": {
+              "type": "object",
+              "properties": {
+                "audio": {
+                  "type": "integer"
+                },
+                "cache_read": {
+                  "type": "integer"
+                }
+              }
+            },
+            "output_token_details": {
+              "type": "object",
+              "properties": {
+                "audio": {
+                  "type": "integer"
+                },
+                "reasoning": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "required": [
     "provider",
     "test_id",
@@ -35,84 +118,7 @@
     "questions": {
       "type": "array",
       "items": {
-        "type": "object",
-        "required": [
-          "question_id",
-          "model_answer",
-          "correct_answer",
-          "is_correct",
-          "has_image",
-          "token_usage"
-        ],
-        "properties": {
-          "question_id": {
-            "type": "string"
-          },
-          "model_answer": {
-            "type": "string"
-          },
-          "correct_answer": {
-            "type": "string"
-          },
-          "is_correct": {
-            "type": "boolean"
-          },
-          "has_image": {
-            "type": "boolean"
-          },
-          "image_path": {
-            "type": ["string", "null"]
-          },
-          "rag_context": {
-            "type": ["array", "null"],
-            "items": {
-              "type": "string"
-            }
-          },
-          "token_usage": {
-            "type": "object",
-            "required": [
-              "input_tokens",
-              "output_tokens",
-              "total_tokens",
-              "input_token_details",
-              "output_token_details"
-            ],
-            "properties": {
-              "input_tokens": {
-                "type": "integer"
-              },
-              "output_tokens": {
-                "type": "integer"
-              },
-              "total_tokens": {
-                "type": "integer"
-              },
-              "input_token_details": {
-                "type": "object",
-                "properties": {
-                  "audio": {
-                    "type": "integer"
-                  },
-                  "cache_read": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "output_token_details": {
-                "type": "object",
-                "properties": {
-                  "audio": {
-                    "type": "integer"
-                  },
-                  "reasoning": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          }
-        }
+        "$ref": "#/definitions/TestResultQuestionAnswer"
       }
     },
     "total_questions": {
