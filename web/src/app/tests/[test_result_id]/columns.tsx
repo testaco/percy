@@ -17,7 +17,10 @@ export const columns: ColumnDef<TestResultQuestionAnswer>[] = [
     enableSorting: true,
     enableColumnFilter: true,
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      // Return true (show row) if no filters selected
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
     },
   },
   {
@@ -27,7 +30,10 @@ export const columns: ColumnDef<TestResultQuestionAnswer>[] = [
     enableSorting: true,
     enableColumnFilter: true,
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      // Return true (show row) if no filters selected
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
     },
   }
 ]

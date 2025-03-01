@@ -17,7 +17,9 @@ export function Toolbar({ table }: ToolbarProps) {
           placeholder="Filter questions..."
           value={(table.getColumn("question_id")?.getFilterValue() as string) ?? ""}
           onChange={(event) => {
-            table.getColumn("question_id")?.setFilterValue(event.target.value)
+            const value = event.target.value
+            // Set to undefined instead of empty string when no input
+            table.getColumn("question_id")?.setFilterValue(value || undefined)
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
