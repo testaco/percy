@@ -4,13 +4,12 @@ import { DataTable } from "./data-table"
 import { columns } from "./columns"
 import { TestResult } from "@/types/test-result"
 import { AmateurRadioTest } from "@/types/test"
-import { Dialog } from "@/components/ui/dialog"
 import Image from "next/image"
 
 export default async function TestDetailPage({ params }: { 
-  params: { test_result_id: string }
+  params: Promise<{ test_result_id: string }>
 }) {
-  const { test_result_id } = params
+  const { test_result_id } = await params
   
   // Load test result
   const testResultPath = path.join(process.cwd(), 'public/data/evaluations', `${test_result_id}.json`)
