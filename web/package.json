@@ -10,11 +10,16 @@
     "generate:types": "json2ts -i ../schema/board-schema.json -o src/types/board.d.ts && json2ts -i ../schema/llmstats-schema.json -o src/types/llmstats.d.ts && json2ts -i ../schema/question-pool.schema.json -o src/types/question-pool.d.ts && json2ts -i ../schema/test-result.schema.json -o src/types/test-result.d.ts && json2ts -i ../schema/test.schema.json -o src/types/test.d.ts"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-separator": "^1.1.2",
+    "@radix-ui/react-slot": "^1.1.2",
     "@tanstack/react-table": "^8.21.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "json-schema-to-typescript": "^15.0.4",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
