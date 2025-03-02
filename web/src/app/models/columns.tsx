@@ -48,6 +48,11 @@ export const columns: ColumnDef<ModelRow>[] = [
       <DataTableColumnHeader column={column} title="Passes Technician" />
     ),
     cell: ({ row }) => row.getValue("passes_technician") ? "Yes" : "No",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
+    },
   },
   {
     accessorKey: "passes_general",
@@ -55,6 +60,11 @@ export const columns: ColumnDef<ModelRow>[] = [
       <DataTableColumnHeader column={column} title="Passes General" />
     ),
     cell: ({ row }) => row.getValue("passes_general") ? "Yes" : "No",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
+    },
   },
   {
     accessorKey: "passes_extra",
@@ -62,6 +72,11 @@ export const columns: ColumnDef<ModelRow>[] = [
       <DataTableColumnHeader column={column} title="Passes Extra" />
     ),
     cell: ({ row }) => row.getValue("passes_extra") ? "Yes" : "No",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
+    },
   },
   {
     accessorKey: "release_date",
@@ -93,6 +108,11 @@ export const columns: ColumnDef<ModelRow>[] = [
       <DataTableColumnHeader column={column} title="Multimodal" />
     ),
     cell: ({ row }) => row.getValue("multimodal") ? "Yes" : "No",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
+    },
   },
   {
     accessorKey: "web_hydrated",
@@ -100,6 +120,11 @@ export const columns: ColumnDef<ModelRow>[] = [
       <DataTableColumnHeader column={column} title="Web Access" />
     ),
     cell: ({ row }) => row.getValue("web_hydrated") ? "Yes" : "No",
+    filterFn: (row, id, value) => {
+      if (!value || value.length === 0) return true
+      const rowValue = row.getValue(id) ? "true" : "false"
+      return value.includes(rowValue)
+    },
   },
   {
     accessorKey: "license",
