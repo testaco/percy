@@ -3,11 +3,9 @@ import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import Link from "next/link";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import "./globals.css";
