@@ -4,12 +4,13 @@ import { Table } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./faceted-filter"
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options"
+import { ModelRow } from "./columns"
 
-interface ToolbarProps<TData> {
+interface ToolbarProps<TData extends ModelRow> {
   table: Table<TData>
 }
 
-export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
+export function Toolbar<TData extends ModelRow>({ table }: ToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">

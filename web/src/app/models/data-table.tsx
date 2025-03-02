@@ -22,12 +22,14 @@ import {
 import { DataTablePagination } from "@/components/ui/data-table-pagination"
 import { Toolbar } from "./toolbar"
 
-interface DataTableProps<TData, TValue> {
+import { ModelRow } from "./columns"
+
+interface DataTableProps<TData extends ModelRow, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends ModelRow, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
