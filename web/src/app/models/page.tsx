@@ -11,7 +11,7 @@ async function getCombinedData() {
     return Object.entries(llmstats).map(([id, model]) => ({
       id,
       ...model,
-      organization: model.providers[0]?.provider_name || 'Unknown',
+      organization: model.providers[0]?.provider_id || 'Unknown',
       passes_technician: board.test_results.some(tr => 
         tr.model_name === id && 
         tr.license_class === 'technician' &&

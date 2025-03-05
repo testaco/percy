@@ -48,7 +48,6 @@ class BatchEvaluation:
             for model_provider in model_providers:
                 combo = base_dict.copy()
                 combo['model'] = model_provider['model']
-                combo['provider'] = model_provider['provider']
                 combinations.append(combo)
                 
         return combinations
@@ -65,7 +64,6 @@ class BatchEvaluation:
             "scripts/evaluate_test.py",
             "--test-file", test_file,
             "--model", params['model'],
-            "--provider", params['provider'],
             "--temperature", str(params.get('temperature', 0.0))
         ]
         

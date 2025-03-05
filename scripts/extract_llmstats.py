@@ -58,22 +58,24 @@ def extract_metadata(llmstats_dir: Path) -> Dict[str, Any]:
     
     # Traverse all model.json files
     for model_file in models_dir.glob("**/model.json"):
-        creator_name = model_file.parent.parent.name
+        organization_id = model_file.parent.parent.name
         model_id = model_file.parent.name
         model_data = load_json_file(model_file)
         
         if not model_data:
             continue
-            
+
+        model_data['organization_id'] = organization_id
+
         # Initialize providers list for this model
         model_data['providers'] = []
         
         # Add provider information if available
-        for provider_name, provider_data in providers.items():
+        for provider_id, provider_data in providers.items():
             for model_info in provider_data.get('providermodels', []):
                 if model_info['model_id'] == model_id:
                     model_data['providers'].append({
-                        'provider_name': provider_name,
+                        'provider_id': provider_id,
                         'provider_website': provider_data['website'],
                         'price_per_input_token': model_info['price_per_input_token'],
                         'price_per_output_token': model_info['price_per_output_token'],

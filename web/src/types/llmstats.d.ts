@@ -23,6 +23,10 @@ export interface LLMStats {
      */
     name: string;
     /**
+     * The organization that produces this model
+     */
+    organization_id?: string;
+    /**
      * Description of model capabilities
      */
     description: string;
@@ -96,7 +100,7 @@ export interface LLMStats {
       [k: string]: unknown;
     }[];
     providers: {
-      provider_name: string;
+      provider_id: string;
       provider_website: string;
       price_per_input_token: number;
       price_per_output_token: number;

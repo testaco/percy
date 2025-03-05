@@ -228,7 +228,7 @@ export default async function ModelPage({ params }: { params: Promise<{ modelId:
             </TableHeader>
             <TableBody>
               {modelData.providers.map((provider) => (
-                <TableRow key={provider.provider_name}>
+                <TableRow key={provider.provider_id}>
                   <TableCell>
                     <a 
                       href={provider.provider_website} 
@@ -236,7 +236,7 @@ export default async function ModelPage({ params }: { params: Promise<{ modelId:
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      {provider.provider_name}
+                      {provider.provider_id}
                     </a>
                   </TableCell>
                   <TableCell className="text-right">${provider.price_per_input_token.toFixed(6)}/token</TableCell>
