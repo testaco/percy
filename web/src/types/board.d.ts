@@ -30,13 +30,13 @@ export interface BoardData {
      */
     timestamp: string;
     /**
-     * Name of the LLM model used
+     * The LLM model used
      */
-    model_name: string;
+    model_id: string;
     /**
-     * Service provider of the LLM (e.g., OpenAI, Anthropic)
+     * Service provider of the LLM (e.g., openai, anthropic)
      */
-    provider: string;
+    provider_id: string;
     /**
      * Amateur radio license class being tested (Technician, General, Extra)
      */

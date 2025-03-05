@@ -6,9 +6,11 @@
  */
 
 export interface TestResult {
-  provider: string;
+  model: string;
+  provider_id: string;
+  organization_id: string;
+  model_id: string;
   test_id: string;
-  model_name: string;
   timestamp: string;
   questions: TestResultQuestionAnswer[];
   total_questions: number;

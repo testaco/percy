@@ -22,7 +22,7 @@ class BoardGenerator:
             print(f"Warning: {self.llmstats_file} not found")
             return {}
 
-    def _calculate_costs(self, result: Dict[str, Any], model_name: str) -> Dict[str, float]:
+    def _calculate_costs(self, result: Dict[str, Any], model_id: str, provider_id: str) -> Dict[str, float]:
         """Calculate costs based on token usage and provider pricing"""
         costs = {
             "total_cost": 0.0,
@@ -31,10 +31,10 @@ class BoardGenerator:
             "cost_per_question": 0.0
         }
         
-        if model_name in self.llm_stats:
-            model_info = self.llm_stats[model_name]
+        if model_id in self.llm_stats:
+            model_info = self.llm_stats[model_id]
             for provider in model_info.get("providers", []):
-                if provider["provider_name"] == result["provider"]:
+                if provider["provider_id"] == provider_id:
                     prompt_cost = result["token_usage"]["prompt_tokens"] * provider["price_per_input_token"]
                     completion_cost = result["token_usage"]["completion_tokens"] * provider["price_per_output_token"]
                     total_cost = prompt_cost + completion_cost
@@ -61,7 +61,7 @@ class BoardGenerator:
 
     def _process_test_result(self, result: Dict[str, Any], file_path: str) -> Dict[str, Any]:
         """Process a single test result into board format"""
-        model_name = result["model_name"]
+        model_id = result["model_id"]
         
         # Extract filename without path or extension for test_result_id
         test_result_id = Path(file_path).stem
@@ -72,7 +72,7 @@ class BoardGenerator:
         margin_to_pass = result["score_percentage"] - passing_score
 
         # Get model parameters from LLM stats
-        model_info = self.llm_stats.get(model_name, {})
+        model_info = self.llm_stats.get(model_id, {})
         context_window = model_info.get("input_context_size")
         param_count = model_info.get("param_count")
 
@@ -87,8 +87,8 @@ class BoardGenerator:
             "test_id": result["test_id"],
             "test_result_id": test_result_id,
             "timestamp": result["timestamp"],
-            "model_name": model_name,
-            "provider": result["provider"],
+            "model_id": model_id,
+            "provider_id": result["provider_id"],
             "license_class": self._get_license_class(result["test_id"]),
             "parameters": {
                 "temperature": result["temperature"],
@@ -111,7 +111,7 @@ class BoardGenerator:
                 "prompt_tokens": result["token_usage"]["prompt_tokens"],
                 "completion_tokens": result["token_usage"]["completion_tokens"]
             },
-            "costs": self._calculate_costs(result, model_name)
+            "costs": self._calculate_costs(result, model_id, result["provider_id"])
         }
 
     def generate(self):

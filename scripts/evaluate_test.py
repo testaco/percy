@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Evaluate an LLM's performance on an amateur radio exam using LangChain.
+Evaluate an LLM's performance on an amateur radio exam using litellm.
 """
 
 import argparse
@@ -65,9 +65,11 @@ class TokenUsage(BaseModel):
 
 class TestResult(BaseModel):
     """Represents the results of a single test evaluation."""
-    provider: str
     test_id: str
-    model_name: str
+    model: str
+    model_id: str
+    organization_id: str
+    provider_id: str
     timestamp: str
     questions: List[Dict]
     total_questions: int
@@ -262,11 +264,11 @@ def extract_final_answer(response: str) -> str:
     
     raise ValueError("No valid answer found in response")
 
-def initialize_llm(model_name: str, temperature: float):
+def initialize_llm(model: str, temperature: float):
     """Initialize LiteLLM configuration"""
     # Validate model format
-    if "/" not in model_name:
-        raise ValueError("Model name must be in format 'provider/model_name'")
+    if "/" not in model:
+        raise ValueError("Model name must be in format 'provider/model'")
     return None  # No LLM object needed with LiteLLM's completion()
 
 def get_pool_info(test_file: str) -> tuple[str, str]:
@@ -294,9 +296,18 @@ def get_pool_info(test_file: str) -> tuple[str, str]:
         
     return pool_name, pool_id
 
+def _normalize_ids(
+  provider_id: str,
+  organization_id: str,
+  model_id: str
+) -> tuple[str, str]:
+  if provider_id == 'openrouter' and organization_id == 'google' and model_id == 'gemini-flash-1.5-8b':
+    return 'google', 'gemini-1.5-flash-8b'
+  raise NotImplementedError
+
 def evaluate_test(
     test_file: str,
-    model_name: str = "openai/gpt-3.5-turbo",
+    model: str = "openai/gpt-3.5-turbo",
     temperature: float = 0.0,
     use_cot: bool = False,
     use_rag: bool = False
@@ -319,7 +330,7 @@ def evaluate_test(
         handbook_index.build("handbook")
     
     # Initialize the LLM
-    llm = initialize_llm(model_name, temperature)
+    llm = initialize_llm(model, temperature)
     
     # Process each question
     results = []
@@ -340,7 +351,7 @@ def evaluate_test(
 
         # Prepare the message content
         if question.has_image:
-            if model_name.split("/")[0] == "anthropic":
+            if model.split("/")[0] == "anthropic":
                 # Anthropic can't handle images, convert to text description
                 content_parts = []
                 for part in inputs["content"]:
@@ -355,7 +366,7 @@ def evaluate_test(
             # Use direct message for image questions
             try:
                 response = completion(
-                    model=model_name,
+                    model=model,
                     messages=[{"role": "user", "content": message_content}],
                     temperature=temperature
                 )
@@ -367,7 +378,7 @@ def evaluate_test(
             # Text-only questions
             prompt_text = prompt_template.format(**inputs)
             response = completion(
-                model=model_name,
+                model=model,
                 messages=[{"role": "user", "content": prompt_text}],
                 temperature=temperature
             )
@@ -421,10 +432,19 @@ def evaluate_test(
     # Get pool information
     pool_name, pool_id = get_pool_info(test_file)
     
+    provider_id, rest = model.split('/', 1)
+    if '/' in rest:
+      organization_id, model_id = _normalize_ids(provider_id, *rest.split('/'))
+    else:
+      organization_id = provider_id
+      model_id = rest
+    
     return TestResult(
-        provider=model_name.split("/")[0],  # Extract provider from model name
+        provider_id=provider_id,
+        organization_id=organization_id,
+        model_id=model_id,
         test_id=Path(test_file).stem,
-        model_name=model_name,
+        model=model,
         timestamp=start_time.isoformat(),
         questions=results,
         total_questions=len(questions),
@@ -447,9 +467,8 @@ def evaluate_test(
 
 def save_results(result: TestResult, output_dir: str = "outputs"):
     """Save test results to a JSON file."""
-    # Sanitize 'provider' and 'model_name' to replace slashes with hyphens
-    safe_provider = result.provider.replace("/", "-").replace("\\", "-")
-    safe_model_name = result.model_name.replace("/", "-").replace("\\", "-")
+    # Sanitize 'model'
+    safe_model = result.model.replace("/", "-").replace("\\", "-")
 
     os.makedirs(output_dir, exist_ok=True)
     
@@ -457,7 +476,7 @@ def save_results(result: TestResult, output_dir: str = "outputs"):
     cot_suffix = "_cot" if result.used_cot else ""
     rag_suffix = "_rag" if result.used_rag else ""
     temp_suffix = f"_t{result.temperature:.1f}".replace(".", "p")  # Convert 0.7 to _t0p7
-    output_file = Path(output_dir) / f"{safe_provider}_{safe_model_name}_{result.test_id}{temp_suffix}{cot_suffix}{rag_suffix}_results.json"
+    output_file = Path(output_dir) / f"{safe_model}_{result.test_id}{temp_suffix}{cot_suffix}{rag_suffix}_results.json"
     with open(output_file, 'w') as f:
         json.dump(result.model_dump(), f, indent=2)
     

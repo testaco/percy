@@ -45,7 +45,7 @@ export default async function TestDetailPage({ params }: {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg shadow">
           <h2 className="text-lg font-medium mb-2">Model</h2>
-          <p>{testResult.provider}/{testResult.model_name}</p>
+          <p>{testResult.provider_id}/{testResult.organization_id}/{testResult.model_id}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
           <h2 className="text-lg font-medium mb-2">Score</h2>

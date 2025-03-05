@@ -13,17 +13,17 @@ async function getCombinedData() {
       ...model,
       organization: model.providers[0]?.provider_id || 'Unknown',
       passes_technician: board.test_results.some(tr => 
-        tr.model_name === id && 
+        tr.model_id === id && 
         tr.license_class === 'technician' &&
         tr.results.passed
       ),
       passes_general: board.test_results.some(tr => 
-        tr.model_name === id && 
+        tr.model_id === id && 
         tr.license_class === 'general' &&
         tr.results.passed
       ),
       passes_extra: board.test_results.some(tr => 
-        tr.model_name === id && 
+        tr.model_id === id && 
         tr.license_class === 'extra' &&
         tr.results.passed
       )

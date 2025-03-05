@@ -20,7 +20,7 @@ async function getModelData(modelId: string) {
     const modelData = llmstats[modelId];
     if (!modelData) return null;
     
-    const modelTests = board.test_results.filter(t => t.model_name === modelId);
+    const modelTests = board.test_results.filter(t => t.model_id === modelId);
 
     return { modelData, modelTests };
   } catch (error) {
