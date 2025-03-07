@@ -126,8 +126,6 @@
             "provider_website",
             "price_per_input_token", 
             "price_per_output_token",
-            "throughput",
-            "latency",
             "updated_at"
           ]
         }

@@ -104,8 +104,8 @@ export interface LLMStats {
       provider_website: string;
       price_per_input_token: number;
       price_per_output_token: number;
-      throughput: number;
-      latency: number;
+      throughput?: number;
+      latency?: number;
       updated_at: string;
       [k: string]: unknown;
     }[];

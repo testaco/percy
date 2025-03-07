@@ -9,7 +9,6 @@ from typing import Dict, Any, List
 import requests
 from datetime import datetime
 from dotenv import load_dotenv
-from jsonschema import validate, ValidationError
 from normalize_ids import normalize_ids
 
 def update_submodule(force_yes: bool = False) -> bool:
@@ -96,8 +95,8 @@ def get_provider_info(llmstats_dir: Path) -> Dict[str, Dict[str, Any]]:
 
             providermodels.append({
                 "model_id": normalized_id,
-                "price_per_input_token": model["pricing"]["prompt"],
-                "price_per_output_token": model["pricing"]["completion"],
+                "price_per_input_token": float(model["pricing"]["prompt"]),
+                "price_per_output_token": float(model["pricing"]["completion"]),
                 "description": model["description"],
                 "context_window": model.get("context_length", 4096),
                 "updated_at": datetime.now().isoformat()
@@ -146,7 +145,7 @@ def extract_metadata(llmstats_dir: Path) -> Dict[str, Any]:
                         'provider_website': provider_data['website'],
                         'price_per_input_token': model_info['price_per_input_token'],
                         'price_per_output_token': model_info['price_per_output_token'],
-                      # Todo  'throughput': model_info['throughput'],
+                      # todo 'throughput': model_info['throughput'],
                       # todo  'latency': todo model_info['latency'],
                         'updated_at': model_info['updated_at']
                     })
@@ -191,7 +190,7 @@ def main():
         print(f"Schema validation failed: {e.message}", file=sys.stderr)
         sys.exit(1)
     except Exception as e:
-        print(f"Error validating schema: {str(e)}", file=sys.stderr) 
+        print(f"Error validating schema: {str(e)}", file=sys.stderr)
         sys.exit(1)
     
     # Ensure output directory exists
