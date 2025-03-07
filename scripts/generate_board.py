@@ -2,9 +2,11 @@
 
 import json
 import glob
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any
+from jsonschema import validate, ValidationError
 
 class BoardGenerator:
     def __init__(self):
@@ -135,6 +137,19 @@ class BoardGenerator:
             "last_updated": datetime.utcnow().isoformat(),
             "test_results": test_results
         }
+
+        # Validate against schema
+        schema_path = Path(__file__).parent.parent / "schema" / "board-schema.json"
+        try:
+            with open(schema_path) as f:
+                schema = json.load(f)
+            validate(instance=board_data, schema=schema)
+        except ValidationError as e:
+            print(f"Board schema validation failed: {e.message}", file=sys.stderr)
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error validating board schema: {str(e)}", file=sys.stderr)
+            sys.exit(1)
 
         # Save to file
         with open(self.board_file, 'w') as f:

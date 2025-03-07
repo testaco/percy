@@ -9,6 +9,7 @@ from typing import Dict, Any, List
 import requests
 from datetime import datetime
 from dotenv import load_dotenv
+from jsonschema import validate, ValidationError
 from normalize_ids import normalize_ids
 
 def update_submodule(force_yes: bool = False) -> bool:
@@ -179,6 +180,19 @@ def main():
     
     # Extract metadata
     metadata = extract_metadata(llmstats_dir)
+    
+    # Validate against schema
+    schema_path = repo_root / "schema" / "llmstats-schema.json"
+    try:
+        with open(schema_path) as f:
+            schema = json.load(f)
+        validate(instance=metadata, schema=schema)
+    except ValidationError as e:
+        print(f"Schema validation failed: {e.message}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error validating schema: {str(e)}", file=sys.stderr) 
+        sys.exit(1)
     
     # Ensure output directory exists
     output_file.parent.mkdir(parents=True, exist_ok=True)
