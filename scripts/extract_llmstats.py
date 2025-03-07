@@ -145,8 +145,8 @@ def extract_metadata(llmstats_dir: Path) -> Dict[str, Any]:
                         'provider_website': provider_data['website'],
                         'price_per_input_token': model_info['price_per_input_token'],
                         'price_per_output_token': model_info['price_per_output_token'],
-                        'throughput': model_info['throughput'],
-                        'latency': model_info['latency'],
+                      # Todo  'throughput': model_info['throughput'],
+                      # todo  'latency': todo model_info['latency'],
                         'updated_at': model_info['updated_at']
                     })
         
