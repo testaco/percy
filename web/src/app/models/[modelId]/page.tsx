@@ -241,8 +241,12 @@ export default async function ModelPage({ params }: { params: Promise<{ modelId:
                   </TableCell>
                   <TableCell className="text-right">${provider.price_per_input_token.toFixed(6)}/token</TableCell>
                   <TableCell className="text-right">${provider.price_per_output_token.toFixed(6)}/token</TableCell>
-                  <TableCell className="text-right">{provider.throughput.toLocaleString()} tokens/sec</TableCell>
-                  <TableCell className="text-right">{provider.latency.toFixed(2)}ms</TableCell>
+                  <TableCell className="text-right">
+                    {provider.throughput ? `${provider.throughput.toLocaleString()} tokens/sec` : 'N/A'}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {provider.latency ? `${provider.latency.toFixed(2)}ms` : 'N/A'}
+                  </TableCell>
                   <TableCell>{formatDate(provider.updated_at)}</TableCell>
                 </TableRow>
               ))}
