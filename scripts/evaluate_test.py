@@ -16,6 +16,7 @@ from litellm import completion
 from litellm.exceptions import APIError
 
 from handbook_indexer import HandbookIndex
+from normalize_ids import normalize_ids
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, SecretStr
 from PIL import Image
@@ -296,14 +297,6 @@ def get_pool_info(test_file: str) -> tuple[str, str]:
         
     return pool_name, pool_id
 
-def _normalize_ids(
-  provider_id: str,
-  organization_id: str,
-  model_id: str
-) -> tuple[str, str]:
-  if provider_id == 'openrouter' and organization_id == 'google' and model_id == 'gemini-flash-1.5-8b':
-    return 'google', 'gemini-1.5-flash-8b'
-  raise NotImplementedError
 
 def evaluate_test(
     test_file: str,
@@ -434,7 +427,7 @@ def evaluate_test(
     
     provider_id, rest = model.split('/', 1)
     if '/' in rest:
-      organization_id, model_id = _normalize_ids(provider_id, *rest.split('/'))
+      organization_id, model_id = normalize_ids(provider_id, *rest.split('/'))
     else:
       organization_id = provider_id
       model_id = rest
