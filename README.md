@@ -234,10 +234,10 @@ The `extract_pool.py` script converts a DOCX question pool file into a structure
 ```bash
 python scripts/extract_pool.py --input <docx_file> --output <json_file>
 ```
-
+    
 Example:
 ```bash
-python scripts/extract_pool.py --input data/technician-2022-2026.docx --output data/technician-2022-2026.json
+python scripts/extract_pool.py --input data/technician-2022-2026.docx --output question_pools/technician-2022-2026.json
 ```
 
 Additional options:

@@ -92,8 +92,8 @@ def load_system_prompt() -> str:
 SYSTEM_PROMPT = load_system_prompt()
 
 def load_question_pools() -> List[Dict]:
-    """Load questions from all license class JSON files in the data directory."""
-    data_dir = Path('data')
+    """Load questions from all license class JSON files in the question_pools directory."""
+    data_dir = Path('question_pools')
     json_files = data_dir.glob('*.json')
     questions = []
     for json_file in json_files:
