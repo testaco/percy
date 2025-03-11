@@ -262,7 +262,7 @@ Additional options:
 
 ### Evaluate a Model on a Specific Test
 
-This script runs the specified model from the chosen provider on a generated test and saves the results in the `/outputs` folder.
+This script runs the specified model from the chosen provider on a generated test and saves the results in the `/data/evaluations` folder.
 
 ```bash
 python scripts/evaluate_test.py --test-file <test_file> --model <model_name>

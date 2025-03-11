@@ -458,7 +458,7 @@ def evaluate_test(
         pool_id=pool_id
     )
 
-def save_results(result: TestResult, output_dir: str = "outputs"):
+def save_results(result: TestResult, output_dir: str = "data/evaluations"):
     """Save test results to a JSON file."""
     # Sanitize 'model'
     safe_model = result.model.replace("/", "-").replace("\\", "-")
@@ -484,7 +484,7 @@ def main():
         help="Model in format 'provider/model_name' (e.g. 'openrouter/google/palm-2-chat-bison')"
     )
     parser.add_argument("--temperature", type=float, default=0.0, help="Temperature for the LLM")
-    parser.add_argument("--output-dir", default="outputs", help="Directory to save results")
+    parser.add_argument("--output-dir", default="data/evaluations", help="Directory to save results")
     parser.add_argument(
         "--cot",
         action="store_true",
