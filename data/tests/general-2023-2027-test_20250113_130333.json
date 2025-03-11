@@ -1,0 +1,851 @@
+{
+  "test_id": "test_20250113_130333",
+  "timestamp": "2025-01-13T13:03:33.873558",
+  "source_pool": {
+    "license_class": "general",
+    "version": "2023-2027",
+    "file": "general-2023-2027.json"
+  },
+  "questions": [
+    {
+      "id": "G0A10",
+      "group": "G0A",
+      "question": "What should be done if evaluation shows that a neighbor might experience more than the allowable limit of RF exposure from the main lobe of a directional antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Change to a non-polarized antenna with higher gain"
+        },
+        {
+          "option": "B",
+          "text": "Use an antenna with a higher front-to-back ratio"
+        },
+        {
+          "option": "C",
+          "text": "Take precautions to ensure that the antenna cannot be pointed in their direction when they are present"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G0B03",
+      "group": "G0B",
+      "question": "Which size of fuse or circuit breaker would be appropriate to use with a circuit that uses AWG number 14 wiring?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "30 amperes"
+        },
+        {
+          "option": "B",
+          "text": "25 amperes"
+        },
+        {
+          "option": "C",
+          "text": "20 amperes"
+        },
+        {
+          "option": "D",
+          "text": "15 amperes"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G1A09",
+      "group": "G1A",
+      "question": "Which of the following frequencies is within the General class portion of the 15-meter band?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "14250 kHz"
+        },
+        {
+          "option": "B",
+          "text": "18155 kHz"
+        },
+        {
+          "option": "C",
+          "text": "21300 kHz"
+        },
+        {
+          "option": "D",
+          "text": "24900 kHz"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G1B05",
+      "group": "G1B",
+      "question": "Which of the following one-way transmissions are permitted?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Unidentified test transmissions of less than 10 seconds in duration"
+        },
+        {
+          "option": "B",
+          "text": "Transmissions to assist with learning the International Morse code"
+        },
+        {
+          "option": "C",
+          "text": "Regular transmissions offering equipment for sale, if intended for amateur radio use"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "G1C03",
+      "group": "G1C",
+      "question": "What is the maximum bandwidth permitted by FCC rules for amateur radio stations transmitting on USB frequencies in the 60-meter band?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "2.8 kHz"
+        },
+        {
+          "option": "B",
+          "text": "5.6 kHz"
+        },
+        {
+          "option": "C",
+          "text": "1.8 kHz"
+        },
+        {
+          "option": "D",
+          "text": "3 kHz"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G1D04",
+      "group": "G1D",
+      "question": "Who must observe the administration of a Technician class license examination?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "At least three Volunteer Examiners of General class or higher"
+        },
+        {
+          "option": "B",
+          "text": "At least two Volunteer Examiners of General class or higher"
+        },
+        {
+          "option": "C",
+          "text": "At least two Volunteer Examiners of Technician class or higher"
+        },
+        {
+          "option": "D",
+          "text": "At least three Volunteer Examiners of Technician class"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G1E01",
+      "group": "G1E",
+      "question": "Which of the following would disqualify a third party from participating in sending a message via an amateur station?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The third party\u2019s amateur license has been revoked and not reinstated"
+        },
+        {
+          "option": "B",
+          "text": "The third party is not a US citizen"
+        },
+        {
+          "option": "C",
+          "text": "The third party is speaking in a language other than English"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G2A04",
+      "group": "G2A",
+      "question": "Which mode is most commonly used for voice communications on the 17- and 12-meter bands?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Upper sideband"
+        },
+        {
+          "option": "B",
+          "text": "Lower sideband"
+        },
+        {
+          "option": "C",
+          "text": "Suppressed sideband"
+        },
+        {
+          "option": "D",
+          "text": "Double sideband"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G2B01",
+      "group": "G2B",
+      "question": "Which of the following is true concerning access to frequencies?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Nets have priority"
+        },
+        {
+          "option": "B",
+          "text": "QSOs in progress have priority"
+        },
+        {
+          "option": "C",
+          "text": "Except during emergencies, no amateur station has priority access to any frequency"
+        },
+        {
+          "option": "D",
+          "text": "Contest operations should yield to non-contest use of frequencies"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G2C02",
+      "group": "G2C",
+      "question": "What should you do if a CW station sends \u201cQRS?\u201d",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Send slower"
+        },
+        {
+          "option": "B",
+          "text": "Change frequency"
+        },
+        {
+          "option": "C",
+          "text": "Increase your power"
+        },
+        {
+          "option": "D",
+          "text": "Repeat everything twice"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G2D11",
+      "group": "G2D",
+      "question": "Why are signal reports typically exchanged at the beginning of an HF contact?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "To allow each station to operate according to conditions"
+        },
+        {
+          "option": "B",
+          "text": "To be sure the contact will count for award programs"
+        },
+        {
+          "option": "C",
+          "text": "To follow standard radiogram structure"
+        },
+        {
+          "option": "D",
+          "text": "To allow each station to calibrate their frequency display"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G2E01",
+      "group": "G2E",
+      "question": "Which mode is normally used when sending RTTY signals via AFSK with an SSB transmitter?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "USB"
+        },
+        {
+          "option": "B",
+          "text": "DSB"
+        },
+        {
+          "option": "C",
+          "text": "CW"
+        },
+        {
+          "option": "D",
+          "text": "LSB"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G3A06",
+      "group": "G3A",
+      "question": "What is a geomagnetic storm?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A sudden drop in the solar flux index"
+        },
+        {
+          "option": "B",
+          "text": "A thunderstorm that affects radio propagation"
+        },
+        {
+          "option": "C",
+          "text": "Ripples in the geomagnetic force"
+        },
+        {
+          "option": "D",
+          "text": "A temporary disturbance in Earth\u2019s geomagnetic field"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G3B07",
+      "group": "G3B",
+      "question": "What does LUF stand for?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The Lowest Usable Frequency for communications between two specific points"
+        },
+        {
+          "option": "B",
+          "text": "The Lowest Usable Frequency for communications to any point outside a 100-mile radius"
+        },
+        {
+          "option": "C",
+          "text": "The Lowest Usable Frequency during a 24-hour period"
+        },
+        {
+          "option": "D",
+          "text": "The Lowest Usable Frequency during the past 60 minutes"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G3C03",
+      "group": "G3C",
+      "question": "Why is skip propagation via the F2 region longer than that via the other ionospheric regions?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Because it is the densest"
+        },
+        {
+          "option": "B",
+          "text": "Because of the Doppler effect"
+        },
+        {
+          "option": "C",
+          "text": "Because it is the highest"
+        },
+        {
+          "option": "D",
+          "text": "Because of temperature inversions"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G4A11",
+      "group": "G4A",
+      "question": "Why should the ALC system be inactive when transmitting AFSK data signals?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "ALC will invert the modulation of the AFSK mode"
+        },
+        {
+          "option": "B",
+          "text": "The ALC action distorts the signal"
+        },
+        {
+          "option": "C",
+          "text": "When using digital modes, too much ALC activity can cause the transmitter to overheat"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "G4B01",
+      "group": "G4B",
+      "question": "What item of test equipment contains horizontal and vertical channel amplifiers?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An ohmmeter"
+        },
+        {
+          "option": "B",
+          "text": "A signal generator"
+        },
+        {
+          "option": "C",
+          "text": "An ammeter"
+        },
+        {
+          "option": "D",
+          "text": "An oscilloscope"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G4C12",
+      "group": "G4C",
+      "question": "Why must all metal enclosures of station equipment be grounded?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "It prevents a blown fuse in the event of an internal short circuit"
+        },
+        {
+          "option": "B",
+          "text": "It prevents signal overload"
+        },
+        {
+          "option": "C",
+          "text": "It ensures that the neutral wire is grounded"
+        },
+        {
+          "option": "D",
+          "text": "It ensures that hazardous voltages cannot appear on the chassis"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G4D01",
+      "group": "G4D",
+      "question": "What is the purpose of a speech processor in a transceiver?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Increase the apparent loudness of transmitted voice signals"
+        },
+        {
+          "option": "B",
+          "text": "Increase transmitter bass response for more natural-sounding SSB signals"
+        },
+        {
+          "option": "C",
+          "text": "Prevent distortion of voice signals"
+        },
+        {
+          "option": "D",
+          "text": "Decrease high-frequency voice output to prevent out-of-band operation"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G4E11",
+      "group": "G4E",
+      "question": "What precaution should be taken when connecting a solar panel to a lithium iron phosphate battery?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Ground the solar panel outer metal framework"
+        },
+        {
+          "option": "B",
+          "text": "Ensure the battery is placed terminals-up"
+        },
+        {
+          "option": "C",
+          "text": "A series resistor must be in place"
+        },
+        {
+          "option": "D",
+          "text": "The solar panel must have a charge controller"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G5A04",
+      "group": "G5A",
+      "question": "Which of the following is opposition to the flow of alternating current in a capacitor?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Conductance"
+        },
+        {
+          "option": "B",
+          "text": "Reluctance"
+        },
+        {
+          "option": "C",
+          "text": "Reactance"
+        },
+        {
+          "option": "D",
+          "text": "Admittance"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G5B12",
+      "group": "G5B",
+      "question": "What is the RMS voltage across a 50-ohm dummy load dissipating 1200 watts?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "173 volts"
+        },
+        {
+          "option": "B",
+          "text": "245 volts"
+        },
+        {
+          "option": "C",
+          "text": "346 volts"
+        },
+        {
+          "option": "D",
+          "text": "692 volts"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "G5C13",
+      "group": "G5C",
+      "question": "Which of the following components should be added to a capacitor to increase the capacitance?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An inductor in series"
+        },
+        {
+          "option": "B",
+          "text": "An inductor in parallel"
+        },
+        {
+          "option": "C",
+          "text": "A capacitor in parallel"
+        },
+        {
+          "option": "D",
+          "text": "A capacitor in series"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G6A03",
+      "group": "G6A",
+      "question": "What is the approximate forward threshold voltage of a germanium diode?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "0.1 volt"
+        },
+        {
+          "option": "B",
+          "text": "0.3 volts"
+        },
+        {
+          "option": "C",
+          "text": "0.7 volts"
+        },
+        {
+          "option": "D",
+          "text": "1.0 volts"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "G6B06",
+      "group": "G6B",
+      "question": "What kind of device is an integrated circuit operational amplifier?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Digital"
+        },
+        {
+          "option": "B",
+          "text": "MMIC"
+        },
+        {
+          "option": "C",
+          "text": "Programmable Logic"
+        },
+        {
+          "option": "D",
+          "text": "Analog"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G7A09",
+      "group": "G7A",
+      "question": "Which symbol in figure G7-1 represents a field effect transistor?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Symbol 2"
+        },
+        {
+          "option": "B",
+          "text": "Symbol 5"
+        },
+        {
+          "option": "C",
+          "text": "Symbol 1"
+        },
+        {
+          "option": "D",
+          "text": "Symbol 4"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G7B04",
+      "group": "G7B",
+      "question": "In a Class A amplifier, what percentage of the time does the amplifying device conduct?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "100%"
+        },
+        {
+          "option": "B",
+          "text": "More than 50% but less than 100%"
+        },
+        {
+          "option": "C",
+          "text": "50%"
+        },
+        {
+          "option": "D",
+          "text": "Less than 50%"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G7C14",
+      "group": "G7C",
+      "question": "The bandwidth of a band-pass filter is measured between what two frequencies?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Upper and lower half-power"
+        },
+        {
+          "option": "B",
+          "text": "Cutoff and rolloff"
+        },
+        {
+          "option": "C",
+          "text": "Pole and zero"
+        },
+        {
+          "option": "D",
+          "text": "Image and harmonic"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "G8A02",
+      "group": "G8A",
+      "question": "What is the name of the process that changes the phase angle of an RF signal to convey information?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Phase convolution"
+        },
+        {
+          "option": "B",
+          "text": "Phase modulation"
+        },
+        {
+          "option": "C",
+          "text": "Phase transformation"
+        },
+        {
+          "option": "D",
+          "text": "Phase inversion"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "G8B05",
+      "group": "G8B",
+      "question": "Which intermodulation products are closest to the original signal frequencies?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Second harmonics"
+        },
+        {
+          "option": "B",
+          "text": "Even-order"
+        },
+        {
+          "option": "C",
+          "text": "Odd-order"
+        },
+        {
+          "option": "D",
+          "text": "Intercept point"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G8C13",
+      "group": "G8C",
+      "question": "What is indicated on a waterfall display by one or more vertical lines on either side of a data mode or RTTY signal?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Long path propagation"
+        },
+        {
+          "option": "B",
+          "text": "Backscatter propagation"
+        },
+        {
+          "option": "C",
+          "text": "Insufficient modulation"
+        },
+        {
+          "option": "D",
+          "text": "Overmodulation"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G9A07",
+      "group": "G9A",
+      "question": "What must be done to prevent standing waves on a feed line connected to an antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The antenna feed point must be at DC ground potential"
+        },
+        {
+          "option": "B",
+          "text": "The feed line must be an odd number of electrical quarter wavelengths long"
+        },
+        {
+          "option": "C",
+          "text": "The feed line must be an even number of physical half wavelengths long"
+        },
+        {
+          "option": "D",
+          "text": "The antenna feed point impedance must be matched to the characteristic impedance of the feed line"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G9B11",
+      "group": "G9B",
+      "question": "What is the approximate length for a 1/2 wave dipole antenna cut for 3.550 MHz?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "42 feet"
+        },
+        {
+          "option": "B",
+          "text": "84 feet"
+        },
+        {
+          "option": "C",
+          "text": "132 feet"
+        },
+        {
+          "option": "D",
+          "text": "263 feet"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "G9C10",
+      "group": "G9C",
+      "question": "Which of the following can be adjusted to optimize forward gain, front-to-back ratio, or SWR bandwidth of a Yagi antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The physical length of the boom"
+        },
+        {
+          "option": "B",
+          "text": "The number of elements on the boom"
+        },
+        {
+          "option": "C",
+          "text": "The spacing of each element along the boom"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "G9D01",
+      "group": "G9D",
+      "question": "Which of the following antenna types will be most effective as a near vertical incidence skywave (NVIS) antenna for short-skip communications on 40 meters during the day?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A horizontal dipole placed between 1/10 and 1/4 wavelength above the ground"
+        },
+        {
+          "option": "B",
+          "text": "A vertical antenna placed between 1/4 and 1/2 wavelength above the ground"
+        },
+        {
+          "option": "C",
+          "text": "A horizontal dipole placed at approximately 1/2 wavelength above the ground"
+        },
+        {
+          "option": "D",
+          "text": "A vertical dipole placed at approximately 1/2 wavelength above the ground"
+        }
+      ],
+      "correct_answer": "A"
+    }
+  ]
+}

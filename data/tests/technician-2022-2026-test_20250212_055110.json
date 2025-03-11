@@ -1,0 +1,851 @@
+{
+  "test_id": "test_20250212_055110",
+  "timestamp": "2025-02-12T05:51:10.775569",
+  "source_pool": {
+    "license_class": "technician",
+    "version": "2022-2026",
+    "file": "technician-2022-2026.json"
+  },
+  "questions": [
+    {
+      "id": "T0A03",
+      "group": "T0A",
+      "question": "In the United States, what circuit does black wire insulation indicate in a three-wire 120 V cable?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Neutral"
+        },
+        {
+          "option": "B",
+          "text": "Hot"
+        },
+        {
+          "option": "C",
+          "text": "Equipment ground"
+        },
+        {
+          "option": "D",
+          "text": "Black insulation is never used"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T0B02",
+      "group": "T0B",
+      "question": "What is required when climbing an antenna tower?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Have sufficient training on safe tower climbing techniques"
+        },
+        {
+          "option": "B",
+          "text": "Use appropriate tie-off to the tower at all times"
+        },
+        {
+          "option": "C",
+          "text": "Always wear an approved climbing harness"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "T0C11",
+      "group": "T0C",
+      "question": "What is the definition of duty cycle during the averaging time for RF exposure?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The difference between the lowest power output and the highest power output of a transmitter"
+        },
+        {
+          "option": "B",
+          "text": "The difference between the PEP and average power output of a transmitter"
+        },
+        {
+          "option": "C",
+          "text": "The percentage of time that a transmitter is transmitting"
+        },
+        {
+          "option": "D",
+          "text": "The percentage of time that a transmitter is not transmitting"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T1A11",
+      "group": "T1A",
+      "question": "When is willful interference to other amateur radio stations permitted?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "To stop another amateur station that is breaking the FCC rules"
+        },
+        {
+          "option": "B",
+          "text": "At no time"
+        },
+        {
+          "option": "C",
+          "text": "When making short test transmissions"
+        },
+        {
+          "option": "D",
+          "text": "At any time, stations in the Amateur Radio Service are not protected from willful interference"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T1B08",
+      "group": "T1B",
+      "question": "How are US amateurs restricted in segments of bands where the Amateur Radio Service is secondary?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "U.S. amateurs may find non-amateur stations in those segments, and must avoid interfering with them"
+        },
+        {
+          "option": "B",
+          "text": "U.S. amateurs must give foreign amateur stations priority in those segments"
+        },
+        {
+          "option": "C",
+          "text": "International communications are not permitted in those segments"
+        },
+        {
+          "option": "D",
+          "text": "Digital transmissions are not permitted in those segments"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T1C07",
+      "group": "T1C",
+      "question": "Which of the following can result in revocation of the station license or suspension of the operator license?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Failure to inform the FCC of any changes in the amateur station following performance of an RF safety environmental evaluation"
+        },
+        {
+          "option": "B",
+          "text": "Failure to provide and maintain a correct email address with the FCC"
+        },
+        {
+          "option": "C",
+          "text": "Failure to obtain FCC type acceptance prior to using a home-built transmitter"
+        },
+        {
+          "option": "D",
+          "text": "Failure to have a copy of your license available at your station"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T1D07",
+      "group": "T1D",
+      "question": "What types of amateur stations can automatically retransmit the signals of other amateur stations?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Auxiliary, beacon, or Earth stations"
+        },
+        {
+          "option": "B",
+          "text": "Earth, repeater, or space stations"
+        },
+        {
+          "option": "C",
+          "text": "Beacon, repeater, or space stations"
+        },
+        {
+          "option": "D",
+          "text": "Repeater, auxiliary, or space stations"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "T1E05",
+      "group": "T1E",
+      "question": "What is an amateur station\u2019s control point?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The location of the station\u2019s transmitting antenna"
+        },
+        {
+          "option": "B",
+          "text": "The location of the station\u2019s transmitting apparatus"
+        },
+        {
+          "option": "C",
+          "text": "The location at which the control operator function is performed"
+        },
+        {
+          "option": "D",
+          "text": "The mailing address of the station licensee"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T1F10",
+      "group": "T1F",
+      "question": "Who is accountable if a repeater inadvertently retransmits communications that violate the FCC rules?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The control operator of the originating station"
+        },
+        {
+          "option": "B",
+          "text": "The control operator of the repeater"
+        },
+        {
+          "option": "C",
+          "text": "The owner of the repeater"
+        },
+        {
+          "option": "D",
+          "text": "Both the originating station and the repeater owner"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T2A06",
+      "group": "T2A",
+      "question": "Which of the following is required when making on-the-air test transmissions?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Identify the transmitting station"
+        },
+        {
+          "option": "B",
+          "text": "Conduct tests only between 10 p.m. and 6 a.m. local time"
+        },
+        {
+          "option": "C",
+          "text": "Notify the FCC of the transmissions"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T2B11",
+      "group": "T2B",
+      "question": "Which Q signal indicates that you are changing frequency?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "QRU"
+        },
+        {
+          "option": "B",
+          "text": "QSY"
+        },
+        {
+          "option": "C",
+          "text": "QSL"
+        },
+        {
+          "option": "D",
+          "text": "QRZ"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T2C02",
+      "group": "T2C",
+      "question": "Which of the following are typical duties of a Net Control Station?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Choose the regular net meeting time and frequency"
+        },
+        {
+          "option": "B",
+          "text": "Ensure that all stations checking into the net are properly licensed for operation on the net frequency"
+        },
+        {
+          "option": "C",
+          "text": "Call the net to order and direct communications between stations checking in"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T3A03",
+      "group": "T3A",
+      "question": "What antenna polarization is normally used for long-distance CW and SSB contacts on the VHF and UHF bands?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Right-hand circular"
+        },
+        {
+          "option": "B",
+          "text": "Left-hand circular"
+        },
+        {
+          "option": "C",
+          "text": "Horizontal"
+        },
+        {
+          "option": "D",
+          "text": "Vertical"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T3B02",
+      "group": "T3B",
+      "question": "What property of a radio wave defines its polarization?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The orientation of the electric field"
+        },
+        {
+          "option": "B",
+          "text": "The orientation of the magnetic field"
+        },
+        {
+          "option": "C",
+          "text": "The ratio of the energy in the magnetic field to the energy in the electric field"
+        },
+        {
+          "option": "D",
+          "text": "The ratio of the velocity to the wavelength"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T3C10",
+      "group": "T3C",
+      "question": "Which of the following bands may provide long-distance communications via the ionosphere\u2019s F region during the peak of the sunspot cycle?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "6 and 10 meters"
+        },
+        {
+          "option": "B",
+          "text": "23 centimeters"
+        },
+        {
+          "option": "C",
+          "text": "70 centimeters and 1.25 meters"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T4A10",
+      "group": "T4A",
+      "question": "What function is performed with a transceiver and a digital mode hot spot?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Communication using digital voice or data systems via the internet"
+        },
+        {
+          "option": "B",
+          "text": "FT8 digital communications via AFSK"
+        },
+        {
+          "option": "C",
+          "text": "RTTY encoding and decoding without a computer"
+        },
+        {
+          "option": "D",
+          "text": "High-speed digital communications for meteor scatter"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T4B06",
+      "group": "T4B",
+      "question": "Which of the following controls could be used if the voice pitch of a single-sideband signal returning to your CQ call seems too high or low?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The AGC or limiter"
+        },
+        {
+          "option": "B",
+          "text": "The bandwidth selection"
+        },
+        {
+          "option": "C",
+          "text": "The tone squelch"
+        },
+        {
+          "option": "D",
+          "text": "The RIT or Clarifier"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "T5A08",
+      "group": "T5A",
+      "question": "Which of the following is a good electrical insulator?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Copper"
+        },
+        {
+          "option": "B",
+          "text": "Glass"
+        },
+        {
+          "option": "C",
+          "text": "Aluminum"
+        },
+        {
+          "option": "D",
+          "text": "Mercury"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T5B07",
+      "group": "T5B",
+      "question": "Which is equal to 3.525 MHz?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "0.003525 kHz"
+        },
+        {
+          "option": "B",
+          "text": "35.25 kHz"
+        },
+        {
+          "option": "C",
+          "text": "3525 kHz"
+        },
+        {
+          "option": "D",
+          "text": "3,525,000 kHz"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T5C12",
+      "group": "T5C",
+      "question": "What is impedance?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The opposition to AC current flow"
+        },
+        {
+          "option": "B",
+          "text": "The inverse of resistance"
+        },
+        {
+          "option": "C",
+          "text": "The Q or Quality Factor of a component"
+        },
+        {
+          "option": "D",
+          "text": "The power handling capability of a component"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T5D03",
+      "group": "T5D",
+      "question": "What formula is used to calculate resistance in a circuit?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "R = E x I"
+        },
+        {
+          "option": "B",
+          "text": "R = E / I"
+        },
+        {
+          "option": "C",
+          "text": "R = E + I"
+        },
+        {
+          "option": "D",
+          "text": "R = E - I"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T6A07",
+      "group": "T6A",
+      "question": "What electrical component is typically constructed as a coil of wire?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Switch"
+        },
+        {
+          "option": "B",
+          "text": "Capacitor"
+        },
+        {
+          "option": "C",
+          "text": "Diode"
+        },
+        {
+          "option": "D",
+          "text": "Inductor"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "T6B06",
+      "group": "T6B",
+      "question": "How is the cathode lead of a semiconductor diode often marked on the package?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "With the word \"cathode\""
+        },
+        {
+          "option": "B",
+          "text": "With a stripe"
+        },
+        {
+          "option": "C",
+          "text": "With the letter C"
+        },
+        {
+          "option": "D",
+          "text": "With the letter K"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T6C12",
+      "group": "T6C",
+      "question": "Which of the following is accurately represented in electrical schematics?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Wire lengths"
+        },
+        {
+          "option": "B",
+          "text": "Physical appearance of components"
+        },
+        {
+          "option": "C",
+          "text": "Component connections"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T6D02",
+      "group": "T6D",
+      "question": "What is a relay?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An electrically-controlled switch"
+        },
+        {
+          "option": "B",
+          "text": "A current controlled amplifier"
+        },
+        {
+          "option": "C",
+          "text": "An inverting amplifier"
+        },
+        {
+          "option": "D",
+          "text": "A pass transistor"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T7A06",
+      "group": "T7A",
+      "question": "What device converts the RF input and output of a transceiver to another band?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "High-pass filter"
+        },
+        {
+          "option": "B",
+          "text": "Low-pass filter"
+        },
+        {
+          "option": "C",
+          "text": "Transverter"
+        },
+        {
+          "option": "D",
+          "text": "Phase converter"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T7B10",
+      "group": "T7B",
+      "question": "What might be a problem if you receive a report that your audio signal through an FM repeater is distorted or unintelligible?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Your transmitter is slightly off frequency"
+        },
+        {
+          "option": "B",
+          "text": "Your batteries are running low"
+        },
+        {
+          "option": "C",
+          "text": "You are in a bad location"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "T7C09",
+      "group": "T7C",
+      "question": "Which of the following causes failure of coaxial cables?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Moisture contamination"
+        },
+        {
+          "option": "B",
+          "text": "Solder flux contamination"
+        },
+        {
+          "option": "C",
+          "text": "Rapid fluctuation in transmitter output power"
+        },
+        {
+          "option": "D",
+          "text": "Operation at 100% duty cycle for an extended period"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T7D02",
+      "group": "T7D",
+      "question": "How is a voltmeter connected to a component to measure applied voltage?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "In series"
+        },
+        {
+          "option": "B",
+          "text": "In parallel"
+        },
+        {
+          "option": "C",
+          "text": "In quadrature"
+        },
+        {
+          "option": "D",
+          "text": "In phase"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "T8A03",
+      "group": "T8A",
+      "question": "Which type of voice mode is often used for long-distance (weak signal) contacts on the VHF and UHF bands?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "FM"
+        },
+        {
+          "option": "B",
+          "text": "DRM"
+        },
+        {
+          "option": "C",
+          "text": "SSB"
+        },
+        {
+          "option": "D",
+          "text": "PM"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T8B11",
+      "group": "T8B",
+      "question": "Who may receive telemetry from a space station?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Anyone"
+        },
+        {
+          "option": "B",
+          "text": "A licensed radio amateur with a transmitter equipped for interrogating the satellite"
+        },
+        {
+          "option": "C",
+          "text": "A licensed radio amateur who has been certified by the protocol developer"
+        },
+        {
+          "option": "D",
+          "text": "A licensed radio amateur who has registered for an access code from AMSAT"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T8C10",
+      "group": "T8C",
+      "question": "What is required before using the EchoLink system?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Complete the required EchoLink training"
+        },
+        {
+          "option": "B",
+          "text": "Purchase a license to use the EchoLink software"
+        },
+        {
+          "option": "C",
+          "text": "Register your call sign and provide proof of license"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T8D04",
+      "group": "T8D",
+      "question": "What type of transmission is indicated by the term \"NTSC?\"",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A Normal Transmission mode in Static Circuit"
+        },
+        {
+          "option": "B",
+          "text": "A special mode for satellite uplink"
+        },
+        {
+          "option": "C",
+          "text": "An analog fast-scan color TV signal"
+        },
+        {
+          "option": "D",
+          "text": "A frame compression scheme for TV signals"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "T9A04",
+      "group": "T9A",
+      "question": "What is a disadvantage of the short, flexible antenna supplied with most handheld radio transceivers, compared to a full-sized quarter-wave antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "It has low efficiency"
+        },
+        {
+          "option": "B",
+          "text": "It transmits only circularly polarized signals"
+        },
+        {
+          "option": "C",
+          "text": "It is mechanically fragile"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "T9B12",
+      "group": "T9B",
+      "question": "What is standing wave ratio (SWR)?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A measure of how well a load is matched to a transmission line"
+        },
+        {
+          "option": "B",
+          "text": "The ratio of amplifier power output to input"
+        },
+        {
+          "option": "C",
+          "text": "The transmitter efficiency ratio"
+        },
+        {
+          "option": "D",
+          "text": "An indication of the quality of your station\u2019s ground connection"
+        }
+      ],
+      "correct_answer": "A"
+    }
+  ]
+}

@@ -1,0 +1,1211 @@
+{
+  "test_id": "test_20250113_133849",
+  "timestamp": "2025-01-13T13:38:49.437692",
+  "source_pool": {
+    "license_class": "extra",
+    "version": "2024-2028",
+    "file": "extra-2024-2028.json"
+  },
+  "questions": [
+    {
+      "id": "E0A09",
+      "group": "E0A",
+      "question": "Which of the following types of equipment are exempt from RF exposure evaluations?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Transceivers with less than 7 watts of RF output"
+        },
+        {
+          "option": "B",
+          "text": "Antennas that radiate only in the near field"
+        },
+        {
+          "option": "C",
+          "text": "Hand-held transceivers sold before May 3, 2021"
+        },
+        {
+          "option": "D",
+          "text": "Dish antennas less than one meter in diameter"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E1A06",
+      "group": "E1A",
+      "question": "What is the required transmit frequency of a CW signal for channelized 60 meter operation?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "At the lowest frequency of the channel"
+        },
+        {
+          "option": "B",
+          "text": "At the center frequency of the channel"
+        },
+        {
+          "option": "C",
+          "text": "At the highest frequency of the channel"
+        },
+        {
+          "option": "D",
+          "text": "On any frequency where the signal\u2019s sidebands are within the channel"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E1B01",
+      "group": "E1B",
+      "question": "Which of the following constitutes a spurious emission?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An amateur station transmission made without the proper call sign identification"
+        },
+        {
+          "option": "B",
+          "text": "A signal transmitted to prevent its detection by any station other than the intended recipient"
+        },
+        {
+          "option": "C",
+          "text": "Any transmitted signal that unintentionally interferes with another licensed radio station and whose levels exceed 40 dB below the fundamental power level"
+        },
+        {
+          "option": "D",
+          "text": "An emission outside the signal\u2019s necessary bandwidth that can be reduced or eliminated without affecting the information transmitted"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E1C06",
+      "group": "E1C",
+      "question": "Which of the following is required in order to operate in accordance with CEPT rules in foreign countries where permitted?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "You must identify in the official language of the country in which you are operating"
+        },
+        {
+          "option": "B",
+          "text": "The US embassy must approve of your operation"
+        },
+        {
+          "option": "C",
+          "text": "You must have a copy of FCC Public Notice DA 16-1048"
+        },
+        {
+          "option": "D",
+          "text": "You must append \"/CEPT\" to your call sign"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E1D11",
+      "group": "E1D",
+      "question": "Which amateur stations are eligible to operate as Earth stations?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Any amateur licensee who has successfully completed the AMSAT space communications course"
+        },
+        {
+          "option": "B",
+          "text": "Only those of General, Advanced or Amateur Extra class operators"
+        },
+        {
+          "option": "C",
+          "text": "Only those of Amateur Extra class operators"
+        },
+        {
+          "option": "D",
+          "text": "Any amateur station, subject to the privileges of the class of operator license held by the control operator"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E1E08",
+      "group": "E1E",
+      "question": "To which of the following examinees may a VE not administer an examination?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Employees of the VE"
+        },
+        {
+          "option": "B",
+          "text": "Friends of the VE"
+        },
+        {
+          "option": "C",
+          "text": "Relatives of the VE as listed in the FCC rules"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E1F02",
+      "group": "E1F",
+      "question": "What privileges are authorized in the US to persons holding an amateur service license granted by the government of Canada?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "None, they must obtain a US license"
+        },
+        {
+          "option": "B",
+          "text": "Full privileges of the General class license on the 80-, 40-, 20-, 15-, and 10-meter bands"
+        },
+        {
+          "option": "C",
+          "text": "The operating terms and conditions of the Canadian amateur service license, not to exceed US Amateur Extra class license privileges"
+        },
+        {
+          "option": "D",
+          "text": "Full privileges, up to and including those of the Amateur Extra class license, on the 80-, 40-, 20-, 15-, and 10-meter bands"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E2A09",
+      "group": "E2A",
+      "question": "What do the terms \u201cL band\u201d and \u201cS band\u201d specify?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The 23- and 13-centimeter bands"
+        },
+        {
+          "option": "B",
+          "text": "The 2-meter and 70-centimeter bands"
+        },
+        {
+          "option": "C",
+          "text": "FM and digital store-and-forward systems"
+        },
+        {
+          "option": "D",
+          "text": "Which sideband to use"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E2B12",
+      "group": "E2B",
+      "question": "What signals SSTV receiving software to begin a new picture line?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Specific tone frequencies"
+        },
+        {
+          "option": "B",
+          "text": "Elapsed time"
+        },
+        {
+          "option": "C",
+          "text": "Specific tone amplitudes"
+        },
+        {
+          "option": "D",
+          "text": "A two-tone signal"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E2C06",
+      "group": "E2C",
+      "question": "During a VHF/UHF contest, in which band segment would you expect to find the highest level of SSB or CW activity?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "At the top of each band, usually in a segment reserved for contests"
+        },
+        {
+          "option": "B",
+          "text": "In the middle of each band, usually on the national calling frequency"
+        },
+        {
+          "option": "C",
+          "text": "In the weak signal segment of the band, with most of the activity near the calling frequency"
+        },
+        {
+          "option": "D",
+          "text": "In the middle of the band, usually 25 kHz above the national calling frequency"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E2D08",
+      "group": "E2D",
+      "question": "What type of packet frame is used to transmit APRS beacon data?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Acknowledgement"
+        },
+        {
+          "option": "B",
+          "text": "Burst"
+        },
+        {
+          "option": "C",
+          "text": "Unnumbered Information"
+        },
+        {
+          "option": "D",
+          "text": "Connect"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E2E09",
+      "group": "E2E",
+      "question": "Which of the following HF digital modes uses variable-length character coding?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "RTTY"
+        },
+        {
+          "option": "B",
+          "text": "PACTOR"
+        },
+        {
+          "option": "C",
+          "text": "MT63"
+        },
+        {
+          "option": "D",
+          "text": "PSK31"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E3A07",
+      "group": "E3A",
+      "question": "Atmospheric ducts capable of propagating microwave signals often form over what geographic feature?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Mountain ranges"
+        },
+        {
+          "option": "B",
+          "text": "Stratocumulus clouds"
+        },
+        {
+          "option": "C",
+          "text": "Large bodies of water"
+        },
+        {
+          "option": "D",
+          "text": "Nimbus clouds"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E3B07",
+      "group": "E3B",
+      "question": "What effect does lowering a signal\u2019s transmitted elevation angle have on ionospheric HF skip propagation?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Faraday rotation becomes stronger"
+        },
+        {
+          "option": "B",
+          "text": "The MUF decreases"
+        },
+        {
+          "option": "C",
+          "text": "The distance covered by each hop increases"
+        },
+        {
+          "option": "D",
+          "text": "The critical frequency increases"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E3C12",
+      "group": "E3C",
+      "question": "Which of the following is indicated by a sudden rise in radio background noise across a large portion of the HF spectrum?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A temperature inversion has occurred"
+        },
+        {
+          "option": "B",
+          "text": "A coronal mass ejection impact or a solar flare has occurred"
+        },
+        {
+          "option": "C",
+          "text": "Transequatorial propagation on 6 meters is likely"
+        },
+        {
+          "option": "D",
+          "text": "Long-path propagation on the higher HF bands is likely"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E4A02",
+      "group": "E4A",
+      "question": "Which of the following parameters does a spectrum analyzer display on the vertical and horizontal axes?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Signal amplitude and time"
+        },
+        {
+          "option": "B",
+          "text": "Signal amplitude and frequency"
+        },
+        {
+          "option": "C",
+          "text": "SWR and frequency"
+        },
+        {
+          "option": "D",
+          "text": "SWR and time"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E4B08",
+      "group": "E4B",
+      "question": "Which of the following can be used to determine the Q of a series-tuned circuit?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "The ratio of inductive reactance to capacitive reactance"
+        },
+        {
+          "option": "B",
+          "text": "The frequency shift"
+        },
+        {
+          "option": "C",
+          "text": "The bandwidth of the circuit's frequency response"
+        },
+        {
+          "option": "D",
+          "text": "The resonant frequency of the circuit"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E4C09",
+      "group": "E4C",
+      "question": "Which of the following choices is a good reason for selecting a high IF for a superheterodyne HF or VHF communications receiver?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Fewer components in the receiver"
+        },
+        {
+          "option": "B",
+          "text": "Reduced drift"
+        },
+        {
+          "option": "C",
+          "text": "Easier for front-end circuitry to eliminate image responses"
+        },
+        {
+          "option": "D",
+          "text": "Improved receiver noise figure"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E4D08",
+      "group": "E4D",
+      "question": "What causes intermodulation in an electronic circuit?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Negative feedback"
+        },
+        {
+          "option": "B",
+          "text": "Lack of neutralization"
+        },
+        {
+          "option": "C",
+          "text": "Nonlinear circuits or devices"
+        },
+        {
+          "option": "D",
+          "text": "Positive feedback"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E4E01",
+      "group": "E4E",
+      "question": "What problem can occur when using an automatic notch filter (ANF) to remove interfering carriers while receiving CW signals?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Removal of the CW signal as well as the interfering carrier"
+        },
+        {
+          "option": "B",
+          "text": "Any nearby signal passing through the DSP system will overwhelm the desired signal"
+        },
+        {
+          "option": "C",
+          "text": "Excessive ringing"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E5A02",
+      "group": "E5A",
+      "question": "What is the resonant frequency of an RLC circuit if R is 22 ohms, L is 50 microhenries, and C is 40 picofarads?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "44.72 MHz"
+        },
+        {
+          "option": "B",
+          "text": "22.36 MHz"
+        },
+        {
+          "option": "C",
+          "text": "3.56 MHz"
+        },
+        {
+          "option": "D",
+          "text": "1.78 MHz"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E5B08",
+      "group": "E5B",
+      "question": "What is the phase angle between the voltage across and the current through a series RLC circuit if XC is 300 ohms, R is 100 ohms, and XL is 100 ohms?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "63 degrees with the voltage lagging the current"
+        },
+        {
+          "option": "B",
+          "text": "63 degrees with the voltage leading the current"
+        },
+        {
+          "option": "C",
+          "text": "27 degrees with the voltage leading the current"
+        },
+        {
+          "option": "D",
+          "text": "27 degrees with the voltage lagging the current"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E5C10",
+      "group": "E5C",
+      "question": "Which point on Figure E5-1 best represents the impedance of a series circuit consisting of a 400-ohm resistor and a 38-picofarad capacitor at 14 MHz?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Point 2"
+        },
+        {
+          "option": "B",
+          "text": "Point 4"
+        },
+        {
+          "option": "C",
+          "text": "Point 5"
+        },
+        {
+          "option": "D",
+          "text": "Point 6"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E5D05",
+      "group": "E5D",
+      "question": "What parasitic characteristic causes electrolytic capacitors to be unsuitable for use at RF?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Skin effect"
+        },
+        {
+          "option": "B",
+          "text": "Shunt capacitance"
+        },
+        {
+          "option": "C",
+          "text": "Inductance"
+        },
+        {
+          "option": "D",
+          "text": "Dielectric leakage"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E6A07",
+      "group": "E6A",
+      "question": "Which of the following indicates that a silicon NPN junction transistor is biased on?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Base-to-emitter resistance of approximately 6 ohms to 7 ohms"
+        },
+        {
+          "option": "B",
+          "text": "Base-to-emitter resistance of approximately 0.6 ohms to 0.7 ohms"
+        },
+        {
+          "option": "C",
+          "text": "Base-to-emitter voltage of approximately 6 volts to 7 volts"
+        },
+        {
+          "option": "D",
+          "text": "Base-to-emitter voltage of approximately 0.6 volts to 0.7 volts"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E6B06",
+      "group": "E6B",
+      "question": "Which of the following is a common use of a Schottky diode?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "In oscillator circuits as the negative resistance element"
+        },
+        {
+          "option": "B",
+          "text": "As a variable capacitance in an automatic frequency control circuit"
+        },
+        {
+          "option": "C",
+          "text": "In power supplies as a constant voltage reference"
+        },
+        {
+          "option": "D",
+          "text": "As a VHF/UHF mixer or detector"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E6C10",
+      "group": "E6C",
+      "question": "In Figure E6-3, which is the schematic symbol for a NOR gate?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "1"
+        },
+        {
+          "option": "B",
+          "text": "2"
+        },
+        {
+          "option": "C",
+          "text": "3"
+        },
+        {
+          "option": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E6D03",
+      "group": "E6D",
+      "question": "Which of the following is an aspect of the piezoelectric effect?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Mechanical deformation of material due to the application of a voltage"
+        },
+        {
+          "option": "B",
+          "text": "Mechanical deformation of material due to the application of a magnetic field"
+        },
+        {
+          "option": "C",
+          "text": "Generation of electrical energy in the presence of light"
+        },
+        {
+          "option": "D",
+          "text": "Increased conductivity in the presence of light"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E6E08",
+      "group": "E6E",
+      "question": "How is power supplied to the most common type of MMIC?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Through a capacitor and RF choke connected to the amplifier input lead"
+        },
+        {
+          "option": "B",
+          "text": "MMICs require no operating bias"
+        },
+        {
+          "option": "C",
+          "text": "Through a resistor and/or RF choke connected to the amplifier output lead"
+        },
+        {
+          "option": "D",
+          "text": "Directly to the bias voltage (Vcc) lead"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E6F01",
+      "group": "E6F",
+      "question": "What absorbs the energy from light falling on a photovoltaic cell?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Protons"
+        },
+        {
+          "option": "B",
+          "text": "Photons"
+        },
+        {
+          "option": "C",
+          "text": "Electrons"
+        },
+        {
+          "option": "D",
+          "text": "Holes"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E7A01",
+      "group": "E7A",
+      "question": "Which circuit is bistable?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An AND gate"
+        },
+        {
+          "option": "B",
+          "text": "An OR gate"
+        },
+        {
+          "option": "C",
+          "text": "A flip-flop"
+        },
+        {
+          "option": "D",
+          "text": "A bipolar amplifier"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E7B10",
+      "group": "E7B",
+      "question": "In Figure E7-1, what is the purpose of R1 and R2?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Load resistors"
+        },
+        {
+          "option": "B",
+          "text": "Voltage divider bias"
+        },
+        {
+          "option": "C",
+          "text": "Self bias"
+        },
+        {
+          "option": "D",
+          "text": "Feedback"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E7C10",
+      "group": "E7C",
+      "question": "Which of the following filters is used in a 2-meter band repeater duplexer?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A crystal filter"
+        },
+        {
+          "option": "B",
+          "text": "A cavity filter"
+        },
+        {
+          "option": "C",
+          "text": "A DSP filter"
+        },
+        {
+          "option": "D",
+          "text": "An L-C filter"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E7D14",
+      "group": "E7D",
+      "question": "What is the purpose of connecting equal-value resistors across power supply filter capacitors connected in series?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Equalize the voltage across each capacitor"
+        },
+        {
+          "option": "B",
+          "text": "Discharge the capacitors when voltage is removed"
+        },
+        {
+          "option": "C",
+          "text": "Provide a minimum load on the supply"
+        },
+        {
+          "option": "D",
+          "text": "All these choices are correct"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E7E08",
+      "group": "E7E",
+      "question": "What are the principal frequencies that appear at the output of a mixer?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Two and four times the input frequency"
+        },
+        {
+          "option": "B",
+          "text": "The square root of the product of input frequencies"
+        },
+        {
+          "option": "C",
+          "text": "The two input frequencies along with their sum and difference frequencies"
+        },
+        {
+          "option": "D",
+          "text": "1.414 and 0.707 times the input frequency"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E7F06",
+      "group": "E7F",
+      "question": "What is the minimum number of bits required to sample a signal with a range of 1 volt at a resolution of 1 millivolt?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "4 bits"
+        },
+        {
+          "option": "B",
+          "text": "6 bits"
+        },
+        {
+          "option": "C",
+          "text": "8 bits"
+        },
+        {
+          "option": "D",
+          "text": "10 bits"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E7G07",
+      "group": "E7G",
+      "question": "What voltage gain can be expected from the circuit in Figure E73 when R1 is 10 ohms and RF is 470 ohms?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "0.21"
+        },
+        {
+          "option": "B",
+          "text": "4700"
+        },
+        {
+          "option": "C",
+          "text": "47"
+        },
+        {
+          "option": "D",
+          "text": "24"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E7H02",
+      "group": "E7H",
+      "question": "What is a microphonic?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An IC used for amplifying microphone signals"
+        },
+        {
+          "option": "B",
+          "text": "Distortion caused by RF pickup on the microphone cable"
+        },
+        {
+          "option": "C",
+          "text": "Changes in oscillator frequency caused by mechanical vibration"
+        },
+        {
+          "option": "D",
+          "text": "Excess loading of the microphone by an oscillator"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E8A09",
+      "group": "E8A",
+      "question": "How many different input levels can be encoded by an analog-to-digital converter with 8-bit resolution?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "8"
+        },
+        {
+          "option": "B",
+          "text": "8 multiplied by the gain of the input amplifier"
+        },
+        {
+          "option": "C",
+          "text": "256 divided by the gain of the input amplifier"
+        },
+        {
+          "option": "D",
+          "text": "256"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E8B11",
+      "group": "E8B",
+      "question": "What is digital time division multiplexing?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Two or more data streams are assigned to discrete sub-carriers on an FM transmitter"
+        },
+        {
+          "option": "B",
+          "text": "Two or more signals are arranged to share discrete time slots of a data transmission"
+        },
+        {
+          "option": "C",
+          "text": "Two or more data streams share the same channel by transmitting time of transmission as the sub-carrier"
+        },
+        {
+          "option": "D",
+          "text": "Two or more signals are quadrature modulated to increase bandwidth efficiency"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E8C04",
+      "group": "E8C",
+      "question": "What technique minimizes the bandwidth of a PSK31 signal?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Zero-sum character encoding"
+        },
+        {
+          "option": "B",
+          "text": "Reed-Solomon character encoding"
+        },
+        {
+          "option": "C",
+          "text": "Use of sinusoidal data pulses"
+        },
+        {
+          "option": "D",
+          "text": "Use of linear data pulses"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E8D08",
+      "group": "E8D",
+      "question": "What parameter evaluates distortion of an AFSK signal caused by excessive input audio levels?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Signal-to-noise ratio"
+        },
+        {
+          "option": "B",
+          "text": "Baud error rate"
+        },
+        {
+          "option": "C",
+          "text": "Repeat Request Rate (RRR)"
+        },
+        {
+          "option": "D",
+          "text": "Intermodulation Distortion (IMD)"
+        }
+      ],
+      "correct_answer": "D"
+    },
+    {
+      "id": "E9A04",
+      "group": "E9A",
+      "question": "Which of the following factors affect the feed point impedance of an antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Transmission line length"
+        },
+        {
+          "option": "B",
+          "text": "Antenna height"
+        },
+        {
+          "option": "C",
+          "text": "The settings of an antenna tuner at the transmitter"
+        },
+        {
+          "option": "D",
+          "text": "The input power level"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E9B04",
+      "group": "E9B",
+      "question": "What is the front-to-back ratio of the radiation pattern shown in Figure E92?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "15 dB"
+        },
+        {
+          "option": "B",
+          "text": "28 dB"
+        },
+        {
+          "option": "C",
+          "text": "3 dB"
+        },
+        {
+          "option": "D",
+          "text": "38 dB"
+        }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": "E9C12",
+      "group": "E9C",
+      "question": "Which of the following describes an extended double Zepp antenna?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "An end-fed full-wave dipole antenna"
+        },
+        {
+          "option": "B",
+          "text": "A center-fed 1.5-wavelength dipole antenna"
+        },
+        {
+          "option": "C",
+          "text": "A center-fed 1.25-wavelength dipole antenna"
+        },
+        {
+          "option": "D",
+          "text": "An end-fed 2-wavelength dipole antenna"
+        }
+      ],
+      "correct_answer": "C"
+    },
+    {
+      "id": "E9D03",
+      "group": "E9D",
+      "question": "What is the most efficient location for a loading coil on an electrically short whip?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Near the center of the vertical radiator"
+        },
+        {
+          "option": "B",
+          "text": "As low as possible on the vertical radiator"
+        },
+        {
+          "option": "C",
+          "text": "At a voltage maximum"
+        },
+        {
+          "option": "D",
+          "text": "At a voltage null"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E9E02",
+      "group": "E9E",
+      "question": "What antenna matching system matches coaxial cable to an antenna by connecting the shield to the center of the antenna and the conductor a fraction of a wavelength to one side?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Gamma match"
+        },
+        {
+          "option": "B",
+          "text": "Delta match"
+        },
+        {
+          "option": "C",
+          "text": "T-match"
+        },
+        {
+          "option": "D",
+          "text": "Stub match"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E9F07",
+      "group": "E9F",
+      "question": "How does parallel conductor transmission line compare to coaxial cable with a plastic dielectric?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Lower loss"
+        },
+        {
+          "option": "B",
+          "text": "Higher SWR"
+        },
+        {
+          "option": "C",
+          "text": "Smaller reflection coefficient"
+        },
+        {
+          "option": "D",
+          "text": "Lower velocity factor"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E9G05",
+      "group": "E9G",
+      "question": "Which of the following is a common use for a Smith chart?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "Determine the length and position of an impedance matching stub"
+        },
+        {
+          "option": "B",
+          "text": "Determine the impedance of a transmission line, given the physical dimensions"
+        },
+        {
+          "option": "C",
+          "text": "Determine the gain of an antenna given the physical and electrical parameters"
+        },
+        {
+          "option": "D",
+          "text": "Determine the loss/100 feet of a transmission line, given the velocity factor and conductor materials"
+        }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": "E9H11",
+      "group": "E9H",
+      "question": "What feature of a cardioid pattern antenna makes it useful for direction-finding antennas?",
+      "answers": [
+        {
+          "option": "A",
+          "text": "A very sharp peak"
+        },
+        {
+          "option": "B",
+          "text": "A single null"
+        },
+        {
+          "option": "C",
+          "text": "Broadband response"
+        },
+        {
+          "option": "D",
+          "text": "High radiation angle"
+        }
+      ],
+      "correct_answer": "B"
+    }
+  ]
+}
