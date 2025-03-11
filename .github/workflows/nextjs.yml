@@ -24,10 +24,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: web
-
 jobs:
   # Build job
   build:
@@ -47,16 +43,11 @@ jobs:
           python-version: '3.10'
       - name: Install Python dependencies
         run: |
-          cd ..
           pip install -r requirements.txt
       - name: Generate data files
         run: |
-          cd ..
-          mkdir -p web/public/data
           python scripts/extract_llmstats.py -y
           python scripts/generate_board.py
-          cp data/llmstats.json web/public/data/
-          cp data/board.json web/public/data/
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
