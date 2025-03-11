@@ -9,6 +9,7 @@ from typing import Dict, Any, List
 import requests
 from datetime import datetime
 from dotenv import load_dotenv
+from jsonschema import validate, ValidationError
 from normalize_ids import normalize_ids
 
 def update_submodule(force_yes: bool = False) -> bool:
