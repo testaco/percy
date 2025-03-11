@@ -62,8 +62,8 @@ def main():
     parser = argparse.ArgumentParser(description='Generate a randomized amateur radio test')
     parser.add_argument('--pool-file', required=True,
                       help='Path to the JSON question pool file')
-    parser.add_argument('--output-dir', default='tests',
-                      help='Directory to save the generated test (default: tests)')
+    parser.add_argument('--output-dir', default='data/tests',
+                      help='Directory to save the generated test (default: data/tests)')
     args = parser.parse_args()
     
     pool_file = Path(args.pool_file)

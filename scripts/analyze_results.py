@@ -44,7 +44,7 @@ def analyze_results(result_file: str) -> tuple[bool, float, str]:
     score_percentage = (correct_count / total_questions) * 100
     
     # Get test details from test_id to determine license class
-    test_file = Path("tests") / f"{results['test_id']}.json"
+    test_file = Path("data/tests") / f"{results['test_id']}.json"
     with open(test_file) as f:
         test_data = json.load(f)
     license_class = test_data["source_pool"]["license_class"]
