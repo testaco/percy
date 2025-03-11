@@ -41,6 +41,22 @@ jobs:
           node-version: "20"
           cache: npm
           cache-dependency-path: web/package-lock.json
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Python dependencies
+        run: |
+          cd ..
+          pip install -r requirements.txt
+      - name: Generate data files
+        run: |
+          cd ..
+          mkdir -p web/public/data
+          python scripts/extract_llmstats.py -y
+          python scripts/generate_board.py
+          cp data/llmstats.json web/public/data/
+          cp data/board.json web/public/data/
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
