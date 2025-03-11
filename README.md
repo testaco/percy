@@ -31,7 +31,7 @@ The project follows these steps:
 ```
 /percy
 │
-├── /data               # Contains the processed question pools (JSON format)
+├── /question_pools     # Contains the processed question pools (JSON format)
 │   ├── technician.json
 │   ├── general.json
 │   └── extra.json
@@ -237,7 +237,7 @@ python scripts/extract_pool.py --input <docx_file> --output <json_file>
     
 Example:
 ```bash
-python scripts/extract_pool.py --input data/technician-2022-2026.docx --output question_pools/technician-2022-2026.json
+python scripts/extract_pool.py --input question_pools/technician-2022-2026.docx --output question_pools/technician-2022-2026.json
 ```
 
 Additional options:
@@ -254,7 +254,7 @@ python scripts/generate_test.py --pool-file <json_file>
 
 Example:
 ```bash
-python scripts/generate_test.py --pool-file data/technician-2022-2026.json
+python scripts/generate_test.py --pool-file question_pools/technician-2022-2026.json
 ```
 
 Additional options:

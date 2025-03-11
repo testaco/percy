@@ -171,7 +171,7 @@ def create_question_prompt(question: Question, use_cot: bool = False, rag_contex
     
     if question.has_image and question.image_path:
         # Load and process the image
-        image_path = os.path.join("data", question.image_path)
+        image_path = os.path.join("question_pools", question.image_path)
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image not found: {image_path}")
         
