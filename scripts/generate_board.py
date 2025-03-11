@@ -10,7 +10,7 @@ from jsonschema import validate, ValidationError
 
 class BoardGenerator:
     def __init__(self):
-        self.outputs_dir = Path("outputs")
+        self.outputs_dir = Path("data/evaluations")
         self.llmstats_file = Path("data/llmstats.json")
         self.board_file = Path("data/board.json")
         self.llm_stats = self._load_llm_stats()
