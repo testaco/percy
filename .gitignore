@@ -1,8 +1,6 @@
 venv/
 __pycache__/
 *.pyc
-/tests/
-/outputs/
 /evaluation_batches/
 /cache/
 /handbook/batch/
@@ -12,3 +10,4 @@ __pycache__/
 .aider*
 /data/llmstats.json
 /data/board.json
+/data/evaluations/batch_runs
