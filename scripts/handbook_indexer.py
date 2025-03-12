@@ -125,7 +125,7 @@ class HandbookIndex:
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--handbook-dir", default="handbook",
+    parser.add_argument("--handbook-dir", default="data/handbook",
                        help="Directory containing handbook markdown files")
     parser.add_argument("--force", action="store_true",
                        help="Force rebuild index ignoring cache")

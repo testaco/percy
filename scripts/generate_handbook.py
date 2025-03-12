@@ -13,20 +13,20 @@ from dotenv import load_dotenv
 
 def check_batch_lock() -> tuple[bool, str]:
     """Check if there's a batch job running and return its ID."""
-    lock_file = Path('handbook/batch.lock')
+    lock_file = Path('data/handbook/batch.lock')
     if lock_file.exists():
         return True, lock_file.read_text().strip()
     return False, ""
 
 def save_batch_id(batch_id: str):
     """Save batch job ID to lock file."""
-    lock_file = Path('handbook/batch.lock')
-    lock_file.parent.mkdir(exist_ok=True)
+    lock_file = Path('data/handbook/batch.lock')
+    lock_file.parent.mkdir(parents=True, exist_ok=True)
     lock_file.write_text(batch_id)
 
 def clear_batch_lock():
     """Remove the batch lock file."""
-    lock_file = Path('handbook/batch.lock')
+    lock_file = Path('data/handbook/batch.lock')
     if lock_file.exists():
         lock_file.unlink()
 
@@ -50,8 +50,8 @@ def create_batch_tasks(filtered_groups: Dict[str, List[Dict]], messages: Dict[st
         tasks.append(task)
 
     # Create batch file
-    os.makedirs('handbook/batch', exist_ok=True)
-    file_name = f"handbook/batch/tasks_{int(time.time())}.jsonl"
+    os.makedirs('data/handbook/batch', exist_ok=True)
+    file_name = f"data/handbook/batch/tasks_{int(time.time())}.jsonl"
     with open(file_name, 'w') as file:
         for task in tasks:
             file.write(json.dumps(task) + '\n')
@@ -70,7 +70,8 @@ def process_batch_results(result_file_id: str):
         content = result_obj['response']['body']['choices'][0]['message']['content']
         
         # Save to markdown file
-        filename = f'handbook/{group_id}.md'
+        os.makedirs('data/handbook/md', exist_ok=True)
+        filename = f'data/handbook/md/{group_id}.md'
         with open(filename, 'w') as f:
             f.write(f"{content}")
         logger.info(f"Saved content to {filename}")
@@ -85,7 +86,7 @@ logger = logging.getLogger(__name__)
 
 def load_system_prompt() -> str:
     """Load the system prompt from the prompts directory."""
-    prompt_path = Path('handbook/prompts/group.md')
+    prompt_path = Path('data/handbook/prompts/group.md')
     if not prompt_path.exists():
         raise FileNotFoundError(f"System prompt file not found at {prompt_path}")
     return prompt_path.read_text()
@@ -190,10 +191,10 @@ def generate_handbook_content(llm, messages: Dict[str, str]) -> Dict[str, str]:
 
 def save_handbook_content(responses: Dict[str, str]):
     """Save the generated content to markdown files."""
-    os.makedirs('handbook/md', exist_ok=True)
+    os.makedirs('data/handbook/md', exist_ok=True)
     for group_id, content in responses.items():
         try:
-            filename = f'handbook/md/{group_id}.md'
+            filename = f'data/handbook/md/{group_id}.md'
             with open(filename, 'w') as f:
                 f.write(f"{content}")
             logger.info(f"Saved content to {filename}")

@@ -7,18 +7,18 @@ from pathlib import Path
 
 def ensure_output_dirs():
     """Ensure handbook directories exist"""
-    Path("handbook/md").mkdir(parents=True, exist_ok=True)
-    Path("handbook/pdf/chapters").mkdir(parents=True, exist_ok=True)
-    Path("handbook/temp").mkdir(parents=True, exist_ok=True)
+    Path("data/handbook/md").mkdir(parents=True, exist_ok=True)
+    Path("data/handbook/pdf/chapters").mkdir(parents=True, exist_ok=True)
+    Path("data/handbook/temp").mkdir(parents=True, exist_ok=True)
 
 def generate_chapter_pdf(chapter_num: int, patterns: list[str]) -> str:
     """Generate PDF for a specific chapter from markdown files"""
-    output_file = f"handbook/pdf/chapters/chapter{chapter_num}.pdf"
+    output_file = f"data/handbook/pdf/chapters/chapter{chapter_num}.pdf"
     
     # Collect all markdown files matching the patterns for this chapter
     md_files = []
     for pattern in patterns:
-        md_files.extend(sorted(glob.glob(f"handbook/md/{pattern}*.md")))
+        md_files.extend(sorted(glob.glob(f"data/handbook/md/{pattern}*.md")))
     
     if not md_files:
         print(f"No markdown files found for chapter {chapter_num}")
@@ -57,7 +57,7 @@ def combine_pdfs(chapter_pdfs: list[str], output_file: str):
 def main():
     ensure_output_dirs()
     
-    with open("handbook/toc.json", "r") as f:
+    with open("data/handbook/toc.json", "r") as f:
       chapters = json.load(f)
 
     # Generate chapter PDFs
@@ -69,7 +69,7 @@ def main():
     
     # Combine all chapters into final handbook
     if chapter_pdfs:
-        combine_pdfs(chapter_pdfs, "handbook/pdf/handbook.pdf")
+        combine_pdfs(chapter_pdfs, "data/handbook/pdf/handbook.pdf")
 
 if __name__ == "__main__":
     main()
