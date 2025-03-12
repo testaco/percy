@@ -11,3 +11,5 @@ __pycache__/
 /data/llmstats.json
 /data/board.json
 /data/evaluations/batch_runs
+/data/handbook/batch/
+/data/handbook/pdf/
