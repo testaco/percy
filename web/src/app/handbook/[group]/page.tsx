@@ -16,14 +16,16 @@ export default async function GroupPage({ params }: { params: Promise<{ group: s
   const mdPath = path.join(process.cwd(), 'src/handbook/md', `${group}.md`);
   const content = fs.readFileSync(mdPath, 'utf8');
   const toc: TOC = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'));
+  // Extract title from first line and remove it from content to avoid duplication
   const title = content.split('\n')[0].replace('# ', '');
+  const contentWithoutTitle = content.split('\n').slice(1).join('\n');
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <HandbookNav toc={toc} />
       
       <article className="prose lg:prose-xl mt-8">
-        <h1>{title}</h1>
+        <h1 className="text-3xl font-bold mb-6">{title}</h1>
         <ReactMarkdown
           components={{
             h1: ({ className, ...props }) => (
@@ -46,7 +48,7 @@ export default async function GroupPage({ params }: { params: Promise<{ group: s
             ),
           }}
         >
-          {content.split('\n').slice(1).join('\n')}
+          {contentWithoutTitle}
         </ReactMarkdown>
       </article>
     </div>
