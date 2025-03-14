@@ -16,13 +16,26 @@ export default async function GroupPage({ params }: { params: Promise<{ group: s
   const mdPath = path.join(process.cwd(), 'src/handbook/md', `${group}.md`);
   const content = fs.readFileSync(mdPath, 'utf8');
   const toc: TOC = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/handbook/toc.json'), 'utf8'));
+  
   // Extract title from first line and remove it from content to avoid duplication
   const title = content.split('\n')[0].replace('# ', '');
   const contentWithoutTitle = content.split('\n').slice(1).join('\n');
+  
+  // Create a map of group IDs to their titles
+  const groupTitles: Record<string, string> = {};
+  for (const groupId of toc.flatMap(chapter => chapter[2])) {
+    try {
+      const groupPath = path.join(process.cwd(), 'src/handbook/md', `${groupId}.md`);
+      const groupContent = fs.readFileSync(groupPath, 'utf8');
+      groupTitles[groupId] = groupContent.split('\n')[0].replace('# ', '');
+    } catch (error) {
+      console.warn(`Could not read title for group ${groupId}`);
+    }
+  }
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
-      <HandbookNav toc={toc} />
+      <HandbookNav toc={toc} groupTitles={groupTitles} />
       
       <article className="prose lg:prose-xl mt-8">
         <h1 className="text-3xl font-bold mb-6">{title}</h1>
