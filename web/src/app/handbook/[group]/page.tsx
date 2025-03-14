@@ -29,7 +29,7 @@ export default async function GroupPage({ params }: { params: Promise<{ group: s
       const groupContent = fs.readFileSync(groupPath, 'utf8');
       groupTitles[groupId] = groupContent.split('\n')[0].replace('# ', '');
     } catch (error) {
-      console.warn(`Could not read title for group ${groupId}`);
+      console.warn(`Could not read title for group ${groupId} ${error}`);
     }
   }
 
