@@ -1,7 +1,7 @@
 [
   [
     1,
-    "Chapter 1",
+    "Commision's Rules",
     [
       "T1A",
       "T1B",
@@ -24,7 +24,7 @@
   ],
   [
     2,
-    "Chapter 2",
+    "Operating Procedures",
     [
       "T2A",
       "T2B",
@@ -43,7 +43,7 @@
   ],
   [
     3,
-    "Chapter 3",
+    "Radio Wave Propagation",
     [
       "T3A",
       "T3B",
@@ -58,7 +58,7 @@
   ],
   [
     4,
-    "Chapter 4",
+    "Amateur Radio Practices",
     [
       "T4A",
       "T4B",
@@ -76,7 +76,7 @@
   ],
   [
     5,
-    "Chapter 5",
+    "Electrical Principles",
     [
       "T5A",
       "T5B",
@@ -93,7 +93,7 @@
   ],
   [
     6,
-    "Chapter 6",
+    "Electronic and Electical Components",
     [
       "T6A",
       "T6B",
@@ -111,7 +111,7 @@
   ],
   [
     7,
-    "Chapter 7",
+    "Practical Circuits",
     [
       "T7A",
       "T7B",
@@ -132,7 +132,7 @@
   ],
   [
     8,
-    "Chapter 8",
+    "Signals and Emissions",
     [
       "T8A",
       "T8B",
@@ -149,7 +149,7 @@
   ],
   [
     9,
-    "Chapter 9",
+    "Antennas and Feed Lines",
     [
       "T9A",
       "T9B",
@@ -169,7 +169,7 @@
   ],
   [
     10,
-    "Chapter 10",
+    "Safety",
     [
       "T0A",
       "T0B",
