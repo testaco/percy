@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { TOC } from '@/types/handbook'
 
-export function HandbookNav({ toc }: { toc: TOC }) {
+export function HandbookNav({ toc, groupTitles = {} }: { toc: TOC, groupTitles?: Record<string, string> }) {
   const router = useRouter()
 
   return (
@@ -18,7 +18,7 @@ export function HandbookNav({ toc }: { toc: TOC }) {
             <SelectLabel>Chapter {chapterNum}: {chapterTitle}</SelectLabel>
             {groups.map((groupId) => (
               <SelectItem key={groupId} value={groupId}>
-                {groupId}
+                {groupId}{groupTitles[groupId] ? ` - ${groupTitles[groupId]}` : ''}
               </SelectItem>
             ))}
           </SelectGroup>
