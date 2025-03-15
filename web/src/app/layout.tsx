@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} ${pixelFont.variable} antialiased`}>
         <nav className="fixed top-0 w-full border-b bg-background">
           <div className="flex h-16 items-center px-4 container mx-auto">
-            <div className={`font-pixel text-2xl mr-8`}>PERCY</div>
+            <div className={`font-pixel text-2xl mr-8`}><Link href="/">PERCY</Link></div>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
