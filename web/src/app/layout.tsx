@@ -69,6 +69,11 @@ export default function RootLayout({
           </div>
         </nav>
         <div className="pt-20 container mx-auto">{children}</div>
+        <footer className="mt-16 py-6 border-t">
+          <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+            <p>This project is released in the public domain.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );
