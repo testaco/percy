@@ -4,12 +4,18 @@ import { Card } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="container mx-auto pt-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Percy</h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Platform for Evaluating Radio Compliance in Language Models
-        </p>
+    <>
+      <div className="w-full bg-accent py-16">
+        <div className="container mx-auto text-center">
+          <h1 className="text-5xl font-bold mb-4">Welcome to Percy</h1>
+          <p className="text-xl text-accent-foreground max-w-2xl mx-auto">
+            Platform for Evaluating Radio Compliance in Language Models
+          </p>
+        </div>
+      </div>
+      
+      <div className="container mx-auto py-12">
+        <div className="max-w-4xl mx-auto">
 
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="p-6">
@@ -32,7 +38,8 @@ export default function Home() {
             </Button>
           </Card>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
