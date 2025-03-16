@@ -310,6 +310,32 @@ python scripts/evaluate_test.py --test-file tests/technician_test.json --model o
 
 ### Batch Evaluation
 
+#### Generate Batch Configurations
+
+The `generate_batches.py` script automatically creates batch evaluation configurations based on model metadata from the LLMStats dataset:
+
+```bash
+python scripts/generate_batches.py --output-dir configs
+```
+
+This script:
+1. Loads model metadata from `data/llmstats.json`
+2. Categorizes models into groups:
+   - **Proprietary**: Models from major commercial providers (OpenAI, Anthropic, etc.)
+   - **Small**: Open models with <8B parameters
+   - **Medium**: Open models with 8-80B parameters
+   - **Large**: Open models with >80B parameters
+3. Creates optimized configurations for each category:
+   - **Proprietary**: Base configuration (no CoT/RAG)
+   - **Small**: Full features (CoT+RAG with varied temperatures)
+   - **Medium**: RAG-only with varied temperatures
+   - **Large**: Base configuration only
+4. Generates YAML configuration files for each category
+
+The generated files can be used directly with the batch evaluation script.
+
+#### Run Batch Evaluation
+
 The batch evaluation system allows running multiple tests with different configurations using a YAML configuration file:
 
 ```bash
