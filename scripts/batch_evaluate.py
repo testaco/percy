@@ -47,7 +47,11 @@ class BatchEvaluation:
             base_dict = dict(zip(base_keys, base_combo))
             for model_provider in model_providers:
                 combo = base_dict.copy()
-                combo['model'] = model_provider['model']
+                # Handle both string model names and dictionary format
+                if isinstance(model_provider, dict):
+                    combo['model'] = model_provider['model']
+                else:
+                    combo['model'] = model_provider
                 combinations.append(combo)
                 
         return combinations
