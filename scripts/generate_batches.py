@@ -4,6 +4,8 @@ import yaml
 from pathlib import Path
 import argparse
 
+from normalize_ids import normalize_ids
+
 def load_llmstats():
     """Load the LLM stats data from the JSON file."""
     try:
@@ -13,19 +15,21 @@ def load_llmstats():
         print("Error: data/llmstats.json not found. Run extract_llmstats.py first.")
         return {}
 
-def get_model_provider(model_data):
+def get_model_provider(model_id, model_data):
     """Determine the best provider for a model."""
     org_provider = model_data['organization_id'].lower()
     providers = [p['provider_id'] for p in model_data['providers']]
     
     # Try organization's own provider first
     if org_provider in providers:
-        return f"{org_provider}/{model_data['name'].lower()}"
+        return f"{org_provider}/{model_id}"
     
     # Fallback to OpenRouter
     if 'openrouter' in providers:
-        return f"openrouter/{model_data['name'].lower()}"
-    
+        org_provider, model_id = normalize_ids('openrouter', org_provider, model_id)
+        return f"openrouter/{org_provider}/{model_id}"
+  
+    print(f"No supported provider for {model_id}")
     return None
 
 def generate_batches(output_dir='.'):
@@ -38,16 +42,16 @@ def generate_batches(output_dir='.'):
     output_path.mkdir(exist_ok=True)
     
     batches = {
-        'proprietary': {'models': [], 'params': {'temperature': [0.0], 'use_cot': [False], 'use_rag': [False]}},
+        'proprietary': {'models': [], 'params': {}},
         'small': {'models': [], 'params': {'temperature': [0.3, 0.7], 'use_cot': [True], 'use_rag': [True]}},
-        'medium': {'models': [], 'params': {'temperature': [0.3, 0.7], 'use_cot': [False], 'use_rag': [True]}},
-        'large': {'models': [], 'params': {'temperature': [0.0], 'use_cot': [False], 'use_rag': [False]}}
+        'medium': {'models': [], 'params': {'temperature': [0.3, 0.7], 'use_rag': [True]}},
+        'large': {'models': [], 'params': {}}
     }
 
-    proprietary_orgs = {'openai', 'anthropic', 'xai', 'google', 'amazon', 'microsoft', 'meta'}
+    proprietary_orgs = {'openai', 'anthropic', 'xai', 'google', 'amazon', 'microsoft', 'meta', 'grok'}
 
     for model_id, model_data in llmstats.items():
-        provider = get_model_provider(model_data)
+        provider = get_model_provider(model_id, model_data)
         if not provider:
             continue
 
@@ -56,14 +60,14 @@ def generate_batches(output_dir='.'):
         params = model_data.get('param_count')
         
         # Categorize models
-        if model_data['organization_id'].lower() in proprietary_orgs:
+        if not is_open:
             batches['proprietary']['models'].append(provider)
         elif is_open and params:
-            if params < 8:
+            if params < 8e9:
                 batches['small']['models'].append(provider)
-            elif 8 <= params <= 80:
+            elif 8e9 <= params <= 80e9:
                 batches['medium']['models'].append(provider)
-            elif params > 80:
+            elif params > 80e9:
                 batches['large']['models'].append(provider)
 
     # Generate YAML files for each batch
@@ -78,9 +82,9 @@ def generate_batches(output_dir='.'):
                 **{k: v for k, v in config['params'].items() if v}  # Only include non-empty params
             },
             'test_patterns': [
-                'tests/technician_*.json',
-                'tests/general_*.json',
-                'tests/extra_*.json'
+                'tests/technician*.json',
+                'tests/general*.json',
+                'tests/extra*.json'
             ]
         }
 

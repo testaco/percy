@@ -320,7 +320,7 @@ def evaluate_test(
     handbook_index = None
     if use_rag:
         handbook_index = HandbookIndex()
-        handbook_index.build("handbook")
+        handbook_index.build("data/handbook")
     
     # Initialize the LLM
     llm = initialize_llm(model, temperature)

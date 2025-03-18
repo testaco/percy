@@ -8,7 +8,10 @@ def normalize_ids(provider_id: str, organization_id: str, model_id: str) -> tupl
     # OpenRouter proxy normalization - only current spec example
     if provider_id == 'openrouter' and organization_id == 'google' and model_id == 'gemini-flash-1.5-8b':
         return 'google', 'gemini-1.5-flash-8b'
-    
+
+    if provider_id == 'openrouter' and organization_id == 'meta':
+        return 'meta-llama', model_id
+
     # Add other normalization rules here as needed
     
     # Default case for unrecognized service paths
