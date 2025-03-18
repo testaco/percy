@@ -82,9 +82,9 @@ def generate_batches(output_dir='.'):
                 **{k: v for k, v in config['params'].items() if v}  # Only include non-empty params
             },
             'test_patterns': [
-                'tests/technician*.json',
-                'tests/general*.json',
-                'tests/extra*.json'
+                'data/tests/technician*.json',
+                'data/tests/general*.json',
+                'data/tests/extra*.json'
             ]
         }
 
